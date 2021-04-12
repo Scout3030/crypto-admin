@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Users\UsersListController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,4 +26,7 @@ Route::group([
     Route::get('/dashboard', function () {
         return view('pages.dashboard');
     })->name('home');
+
+    //Demo
+    Route::get('users/list', UsersListController::class)->name('users.list');
 });
