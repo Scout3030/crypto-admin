@@ -1,0 +1,127 @@
+// IMPORTS
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700;900&display=swap');
+
+// VARIABLES
+$color: #1EAAE7;
+
+// GENERAL 
+body {
+	font-family: 'Poppins', sans-serif;
+	background-color: #F9F9F9;
+}
+
+a {
+	transition: all ease .3s;
+}
+
+// LOGIN
+.contLogin {
+	background: $color;
+	border-radius: 5px;
+	padding: 50px;
+	color: #fff;
+
+	h2 {
+		font-size: 40px;
+	}
+}
+.formLogin {
+
+	label {
+		margin-bottom: 5px;
+	}
+	.form-control {
+		border-radius: 0;
+		padding: 15px;
+		font-weight: 300;
+	}
+	.form-check-label {
+		font-weight: 300;
+	}
+	a.forgotPass {
+	    float: right;
+	    color: #fff;
+	    text-decoration: none;
+
+	    &:hover {
+			text-decoration: underline;
+	    }
+	}
+	button.btn {
+	    width: 100%;
+	    padding: 15px;
+	    background-color: #fff;
+	    color: $color;
+	    border: none;
+	    border-radius: 1.25rem;
+	}
+	.form-text {
+	    margin-top: 20px;
+	    color: #fff;
+	    font-weight: 300;
+
+	    a {
+	    	color: #fff;
+	    	font-weight: 500;
+	    }
+	}
+}
+
+@media (max-width: 767px){
+	.logoLogin {
+		margin-top: 20px;
+		margin-bottom: 20px;
+	}
+}
+@media (max-width: 500px){
+	.contLogin {
+	    padding: 30px;
+		margin-bottom: 20px;
+	}
+}
+
+// ALERTS 
+.alert {
+    border-radius: 20px;
+}
+.alert-success {
+    background: #e3f9e9;
+    border-color: #e3f9e9;
+    color: #2BC155;
+}
+.alert-warning {
+    background: #fff0e5;
+    border-color: #fff0e5;
+    color: #FE8024;
+}
+.alert-danger {
+    background: #ffc7c7;
+    border-color: #ffc7c7;
+    color: #FF2E2E;
+}
+.alert-info {
+    background: #461EE7;
+    color: #fff;
+    border-color: #461EE7;
+}
+
+// LOGIN MESSAGE 
+.logoMessage {
+	margin: 20px 0 40px;
+}
+
+.card {
+    border: 0px solid transparent;
+    border-radius: 1.25rem;
+    box-shadow: 0px 12px 23px 0px #ac39d40a;
+
+	.card-header {
+	    background-color: #fff;
+	    border-bottom: 1px solid #00000020;
+	}
+	.card-title {
+	    margin: 0;
+	    padding: 5px 0;
+	    font-size: 25px;
+	}
+}
