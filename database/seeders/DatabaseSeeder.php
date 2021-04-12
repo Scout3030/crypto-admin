@@ -15,9 +15,10 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         User::updateOrCreate([
-            'name' => 'Default Admin',
-            'email' => 'admin@mail.com',
-            'password' => bcrypt('password')
+            'first_name' => 'Adrian',
+            'last_name' => 'William',
+            'email' => 'support@cryptomatix.io',
+            'password' => bcrypt('RByA3eHkAPmgLXQc')
         ]);
 
         // \App\Models\User::factory(10)->create();
