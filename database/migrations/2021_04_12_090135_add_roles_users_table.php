@@ -18,7 +18,7 @@ class AddRolesUsersTable extends Migration
         });
 
         try {
-            \App\Models\User::whereEmail('admin@mail.com')->update(
+            \App\Models\User::whereEmail('support@cryptomatix.io')->update(
                 [
                     'roles' => \App\Helpers\Roles::SU
                 ]
