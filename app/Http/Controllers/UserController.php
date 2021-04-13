@@ -4,12 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Providers\RouteServiceProvider;
+use App\Rules\StrengthPassword;
 
 class UserController extends Controller
 {
     public function updatePassword(){
         $this->validate(request(), [
-			'password' => ['confirmed']
+			'password' => ['required', 'confirmed', new StrengthPassword]
 		]);
 
 		$user = auth()->user();
