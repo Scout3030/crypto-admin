@@ -1,7 +1,8 @@
 <?php
 
-use App\Http\Controllers\Users\UsersListController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\Users\UsersListController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,6 +27,11 @@ Route::group([
     Route::get('/dashboard', function () {
         return view('pages.dashboard');
     })->name('home');
+
+    Route::view('/change/password', 'user.change-password')
+        ->name('user.change.password');
+    Route::put('/change/password', [UserController::class, 'updatePassword'])
+        ->name('user.update.password');
 
     //Demo
     Route::get('users/list', UsersListController::class)->name('users.list');

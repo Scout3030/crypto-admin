@@ -17,8 +17,8 @@ class DatabaseSeeder extends Seeder
         User::updateOrCreate([
             'first_name' => 'Adrian',
             'last_name' => 'William',
-            'email' => 'support@cryptomatix.io',
-            'password' => bcrypt('RByA3eHkAPmgLXQc')
+            'email' => 'admin@mail.com',
+            'password' => bcrypt('secret')
         ]);
 
         // \App\Models\User::factory(10)->create();
