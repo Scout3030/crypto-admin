@@ -64,7 +64,6 @@
       <p><b>{{ $otp_token }}</b></p>
       <br>
       <br>
-      <a href="{{ url('/login/verify') }}" class="btn btn-info">SIGN IN</a>
       <p>Thanks,<br>
       The Cryptomatix Team</p>
     </td>
