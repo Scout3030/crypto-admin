@@ -29,7 +29,6 @@
                     <th>First Name</th>
                     <th>Last Name</th>
                     <th>Email</th>
-                    <th>Role</th>
                     <th>Actions</th>
                 </tr>
                 </thead>
@@ -46,10 +45,7 @@
                             {{$user->email}}
                         </td>
                         <td>
-                            {{$user->roles}}
-                        </td>
-                        <td>
-                            <button class="btn btn-outline-primary">EDIT</button>
+                            <a href="{{route('user.edit', $user->id)}}" class="btn btn-outline-primary">EDIT</a>
                             <button class="btn btn-outline-danger"
                                     onclick="deleteUser({{$user->id}}, '{{route('user.delete', $user->id)}}')">DELETE
                             </button>
@@ -76,7 +72,6 @@
                 method: 'delete',
                 success: function (res) {
                     window.location.reload(true);
-                    //window.location.href = window.location.href
                 }
             })
         }
