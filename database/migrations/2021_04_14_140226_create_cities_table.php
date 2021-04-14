@@ -33,6 +33,8 @@ class CreateCitiesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('cities');
+        if (Schema::hasTable('cities')) {
+            Schema::dropIfExists('cities');
+        }
     }
 }

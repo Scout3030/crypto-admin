@@ -1,6 +1,10 @@
 
 -- Volcando datos para la tabla world.countries: ~250 rows (aproximadamente)
 /*!40000 ALTER TABLE `countries` DISABLE KEYS */;
+TRUNCATE TABLE `countries`;
+TRUNCATE TABLE `states`;
+TRUNCATE TABLE `cities`;
+
 INSERT INTO `countries` (`id`, `name`, `iso3`, `iso2`, `phonecode`, `currency`, `currency_symbol`, `timezones`, `created_at`, `updated_at`) VALUES
 	(1, 'Afghanistan', 'AFG', 'AF', '93', 'AFN', '؋', '[{"zoneName":"Asia\\/Kabul","gmtOffset":16200,"gmtOffsetName":"UTC+04:30","abbreviation":"AFT","tzName":"Afghanistan Time"}]', '2018-07-20 20:11:03', '2021-02-20 14:24:49'),
 	(2, 'Aland Islands', 'ALA', 'AX', '+358-18', 'EUR', '€', '[{"zoneName":"Europe\\/Mariehamn","gmtOffset":7200,"gmtOffsetName":"UTC+02:00","abbreviation":"EET","tzName":"Eastern European Time"}]', '2018-07-20 20:11:03', '2021-02-20 14:24:49'),

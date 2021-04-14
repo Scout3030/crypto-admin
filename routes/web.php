@@ -18,14 +18,11 @@ use App\Http\Controllers\Users\UsersListController;
 require __DIR__.'/auth.php';
 require __DIR__.'/ajax.php';
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Route::group([
     'middleware' => 'auth',
 ], function() {
-    Route::get('/dashboard', function () {
+
+    Route::get('/', function () {
         return view('pages.dashboard');
     })->name('home');
 

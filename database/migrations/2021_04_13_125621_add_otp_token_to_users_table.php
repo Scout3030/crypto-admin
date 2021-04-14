@@ -31,9 +31,11 @@ class AddOtpTokenToUsersTable extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('otp_token');
-            $table->dropColumn('token_status');
-        });
+        if (Schema::hasColumns('users', ['otp_token', 'token_status'])) {
+            Schema::table('users', function (Blueprint $table) {
+                $table->dropColumn('otp_token');
+                $table->dropColumn('token_status');
+            });
+        }
     }
 }

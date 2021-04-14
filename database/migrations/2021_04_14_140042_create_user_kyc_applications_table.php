@@ -43,6 +43,8 @@ class CreateUserKycApplicationsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user_kyc_applications');
+        if (Schema::hasTable('user_kyc_applications')) {
+            Schema::dropIfExists('user_kyc_applications');
+        }
     }
 }
