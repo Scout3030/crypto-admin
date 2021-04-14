@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Models\User;
 use App\Mail\SendOTPToken;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -22,11 +23,8 @@ class LoginController extends Controller
 
     public function doLogin(LoginRequest $request)
     {
-        $this->validateLogin($request);
         session()->put('otp-email', $request->email);
         $user = User::whereEmail($request->email)->first();
-
-        if (!$user) return back()->withErrors('Incorrect credentials.');
 
         if (Hash::check($request->password, $user->password)) {
             $token = rand(100000,999999);
@@ -35,9 +33,9 @@ class LoginController extends Controller
                 'otp_token' => $token,
                 'token_status' => (string) User::ACTIVED_TOKEN
             ])->save();
-            
+
             try {
-                \Mail::to($user->email)->send(new SendOTPToken($token));
+                Mail::to($user->email)->send(new SendOTPToken($token));
             } catch (\Throwable $th) {
                 return back()->withErrors('An error occurred while sending the verification email.');
             }
@@ -96,15 +94,15 @@ class LoginController extends Controller
             'otp_token' => $token,
             'token_status' => (string) User::ACTIVED_TOKEN
         ])->save();
-        
+
         try {
-            \Mail::to($user->email)->send(new SendOTPToken($token));
+            Mail::to($user->email)->send(new SendOTPToken($token));
         } catch (\Throwable $th) {
             return back()->withErrors('An error occurred while sending the verification email.');
         }
 
         return back()->with(['message' => [
-                'class' => 'success', 
+                'class' => 'success',
                 'message' => ["Success", "We've send a new OTP code to your email inbox"]
             ]
         ]);
