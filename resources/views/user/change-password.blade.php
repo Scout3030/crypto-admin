@@ -34,7 +34,7 @@
 
                     <div class="mb-3">
                         <label class="form-label">New Password</label>
-                        <input type="password" name="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" placeholder="Enter Your Password">
+                        <input type="password" name="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" placeholder="Enter Your Password" required>
                         @if ($errors->has('password'))
                             <span class="invalid-feedback">
                                 <strong>{{ $errors->first('password') }}</strong>
@@ -43,7 +43,7 @@
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Confirm Password</label>
-                        <input type="password" name="password_confirmation" class="form-control{{ $errors->has('password_confirmation') ? ' is-invalid' : '' }}" placeholder="Enter Your Password">
+                        <input type="password" name="password_confirmation" class="form-control{{ $errors->has('password_confirmation') ? ' is-invalid' : '' }}" placeholder="Enter Your Password" required>
                         @if ($errors->has('password_confirmation'))
                             <span class="invalid-feedback">
                                 <strong>{{ $errors->first('password_confirmation') }}</strong>
