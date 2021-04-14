@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class ImportCountryStateCityData extends Command
 {
@@ -38,8 +39,8 @@ class ImportCountryStateCityData extends Command
      */
     public function handle()
     {
-        DB::unprepared(storage_path('sql/data_country.sql'));
-        DB::unprepared(storage_path('sql/data_state.sql'));
-        DB::unprepared(storage_path('sql/data_city.sql'));
+        DB::unprepared(Storage::get('sql/data_country.sql'));
+        DB::unprepared(Storage::get('sql/data_state.sql'));
+        DB::unprepared(Storage::get('sql/data_city.sql'));
     }
 }
