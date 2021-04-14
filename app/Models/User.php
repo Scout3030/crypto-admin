@@ -17,6 +17,12 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable;
 
+    const ACTIVED_TOKEN = 1;
+    const INACTIVED_TOKEN = 2;
+
+    const NO = 0;
+    const YES = 1;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -26,7 +32,10 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'roles'
+        'roles',
+        'otp_token',
+        'token_status',
+        'first_login'
     ];
 
     /**
@@ -37,6 +46,8 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
         'remember_token',
+        'otp_token',
+        'token_status'
     ];
 
     /**
