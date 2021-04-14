@@ -32,6 +32,8 @@ class CreateStatesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('states');
+        if (Schema::hasTable('states')) {
+            Schema::dropIfExists('states');
+        }
     }
 }

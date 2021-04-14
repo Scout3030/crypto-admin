@@ -15,15 +15,18 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        $user = User::whereEmail('support@cryptomatix.io')->first();
+        $adminEmail = 'support@cryptomatix.io';
+        $adminPassword = 'RByA3eHkAPmgLXQc';
+
+        $user = User::whereEmail($adminEmail)->first();
         if (!$user) {
             User::updateOrCreate([
                 'first_name' => 'Adrian',
                 'last_name'  => 'William',
-                'email'      => 'support@cryptomatix.io',
+                'email'      => $adminEmail,
             ], [
-                'password' => bcrypt('RByA3eHkAPmgLXQc'),
-                'roles' => Roles::SU,
+                'password' => bcrypt($adminPassword),
+                'roles' => Roles::SU
             ]);
         }
 

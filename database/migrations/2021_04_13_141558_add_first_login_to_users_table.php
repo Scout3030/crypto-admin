@@ -14,7 +14,7 @@ class AddFirstLoginToUsersTable extends Migration
      */
     public function up()
     {
-        if (Schema::hasColumn('users', 'first_login')) {
+        if (!Schema::hasColumn('users', 'first_login')) {
             Schema::table('users', function (Blueprint $table) {
                 $table->enum('first_login',
                     [User::NO, User::YES]
@@ -30,8 +30,10 @@ class AddFirstLoginToUsersTable extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('first_login');
-        });
+        if (Schema::hasColumn('users', 'first_login')) {
+            Schema::table('users', function (Blueprint $table) {
+                $table->dropColumn('first_login');
+            });
+        }
     }
 }

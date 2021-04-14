@@ -14,17 +14,10 @@ class AddRolesUsersTable extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->tinyInteger('roles')->after('email')->default(Roles::GUEST);
-        });
-
-        try {
-            \App\Models\User::whereEmail('support@cryptomatix.io')->update(
-                [
-                    'roles' => Roles::SU
-                ]
-            );
-        } catch (Exception $exception) {
+        if (!Schema::hasColumn('users', 'roles')) {
+            Schema::table('users', function (Blueprint $table) {
+                $table->tinyInteger('roles')->after('email')->default(Roles::GUEST);
+            });
         }
     }
 
@@ -35,8 +28,10 @@ class AddRolesUsersTable extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('roles');
-        });
+        if (Schema::hasColumn('users', 'roles')) {
+            Schema::table('users', function (Blueprint $table) {
+                $table->dropColumn('roles');
+            });
+        }
     }
 }
