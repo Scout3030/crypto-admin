@@ -29,7 +29,7 @@ class LoginController extends Controller
         if (!$user) return back()->withErrors('Incorrect credentials.');
 
         if (Hash::check($request->password, $user->password)) {
-            $token = Str::random(5);
+            $token = rand(100000,999999);
 
             $user->fill([
                 'otp_token' => $token,
@@ -86,5 +86,27 @@ class LoginController extends Controller
     public function username()
     {
         return 'email';
+    }
+
+    public function sendOTPCode(){
+        $email = session()->get('otp-email');
+        $token = rand(100000,999999);
+        $user = User::whereEmail($email)->first();
+        $user->fill([
+            'otp_token' => $token,
+            'token_status' => (string) User::ACTIVED_TOKEN
+        ])->save();
+        
+        try {
+            \Mail::to($user->email)->send(new SendOTPToken($token));
+        } catch (\Throwable $th) {
+            return back()->withErrors('An error occurred while sending the verification email.');
+        }
+
+        return back()->with(['message' => [
+                'class' => 'success', 
+                'message' => ["Success", "We've send a new OTP code to your email inbox"]
+            ]
+        ]);
     }
 }
