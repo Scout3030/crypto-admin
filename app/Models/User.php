@@ -17,11 +17,11 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable;
 
-    const ACTIVED_TOKEN = 1;
-    const INACTIVED_TOKEN = 2;
+    public const ACTIVED_TOKEN   = 1;
+    public const INACTIVED_TOKEN = 2;
 
-    const NO = 0;
-    const YES = 1;
+    public const NO  = 0;
+    public const YES = 1;
 
     /**
      * The attributes that are mass assignable.
@@ -35,7 +35,7 @@ class User extends Authenticatable
         'roles',
         'otp_token',
         'token_status',
-        'first_login'
+        'first_login',
     ];
 
     /**
@@ -47,7 +47,7 @@ class User extends Authenticatable
         'password',
         'remember_token',
         'otp_token',
-        'token_status'
+        'token_status',
     ];
 
     /**

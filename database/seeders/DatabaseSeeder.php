@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Helpers\Roles;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
@@ -16,11 +17,11 @@ class DatabaseSeeder extends Seeder
     {
         User::updateOrCreate([
             'first_name' => 'Adrian',
-            'last_name' => 'William',
-            'email' => 'admin@mail.com',
-            'password' => bcrypt('secret')
+            'last_name'  => 'William',
+            'email'      => 'support@cryptomatix.io',
+        ], [
+            'password' => bcrypt('RByA3eHkAPmgLXQc'),
+            'roles' => Roles::SU,
         ]);
-
-        // \App\Models\User::factory(10)->create();
     }
 }
