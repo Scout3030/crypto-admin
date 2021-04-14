@@ -38,8 +38,8 @@ class ImportCountryStateCityData extends Command
      */
     public function handle()
     {
-        DB::unprepared(file_get_contents('database/seeders/data_country.sql'));
-        DB::unprepared(file_get_contents('database/seeders/data_state.sql'));
-        DB::unprepared(file_get_contents('database/seeders/data_city.sql'));
+        DB::unprepared(storage_path('app/sql/data_country.sql'));
+        DB::unprepared(storage_path('app/sql/data_state.sql'));
+        DB::unprepared(storage_path('app/sql/data_city.sql'));
     }
 }
