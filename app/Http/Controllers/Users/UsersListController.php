@@ -6,6 +6,7 @@ use App\Helpers\Roles;
 use App\Http\Requests\Users\CreateMerchant;
 use App\Models\User;
 use Exception;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
@@ -17,13 +18,27 @@ class UsersListController
             abort(403);
         }
 
-        $users = User::whereRoles(Roles::MERCHANT)->paginate($request->perPage ?? 10);
+        $users = User::query()->whereRoles(Roles::SU);
+
+        if ($request->search) {
+            $search = $request->search;
+            $users = $users->where(function ($query) use ($search) {
+                $query->where('first_name', 'LIKE', "%{$search}%")
+                      ->orWhere('last_name', 'LIKE', "%{$search}%")
+                      ->orWhere('email', 'LIKE', "%{$search}%");
+            });
+
+        }
+
+        $users = $users->paginate($request->perPage ?? 10);
 
         return view('user.list', compact('users'));
     }
 
-    public function editMerchant(?User $user)
+    public function editMerchant(User $user)
     {
+        $user = $user->exists ? $user : null;
+
         return view('user.edit', compact('user'));
     }
 
@@ -39,7 +54,46 @@ class UsersListController
 
     public function storeMerchant(CreateMerchant $request): RedirectResponse
     {
-        User::create($request->all());
+        if ($request->id) {
+            return $this->updateUser($request->all());
+        }
+
+        $user = User::create([
+            'first_name' => $request->first_name,
+            'last_name'  => $request->last_name,
+            'email'      => $request->email,
+            'roles'      => Roles::SU,
+        ]);
+
+        $user->password = bcrypt($request->password);
+        $user->save();
+
+        return redirect()->route('users.list')->withInput();
+    }
+
+    private function updateUser(array $input)
+    {
+
+        try {
+            $user = User::find($input['id']);
+        } catch (ModelNotFoundException $exception) {
+            return back(404);
+        }
+
+
+        $user->forceFill([
+            'first_name' => $input['first_name'],
+            'last_name'  => $input['last_name'],
+            'email'      => $input['email'],
+        ]);
+
+        if ($input['password']) {
+            $user->password = bcrypt($input['password']);
+        }
+
+        if ($user->isDirty()) {
+            $user->save();
+        }
 
         return redirect()->route('users.list');
     }

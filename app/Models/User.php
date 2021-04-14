@@ -23,20 +23,7 @@ class User extends Authenticatable
     public const NO  = 0;
     public const YES = 1;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
-        'roles',
-        'otp_token',
-        'token_status',
-        'first_login',
-    ];
+    protected $guarded = ['password', 'id'];
 
     /**
      * The attributes that should be hidden for arrays.
