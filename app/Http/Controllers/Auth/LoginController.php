@@ -19,6 +19,7 @@ class LoginController extends Controller
 {
     public function login()
     {
+        session()->forget('otp-email');
         return view('auth.login');
     }
 
