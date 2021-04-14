@@ -16,6 +16,7 @@ use App\Http\Controllers\Users\UsersListController;
 */
 
 require __DIR__.'/auth.php';
+require __DIR__.'/ajax.php';
 
 Route::get('/', function () {
     return view('welcome');
@@ -33,6 +34,10 @@ Route::group([
     Route::put('/change/password', [UserController::class, 'updatePassword'])
         ->name('user.update.password');
 
-    //Demo
+
     Route::get('users/list', UsersListController::class)->name('users.list');
+    Route::get('users/edit/{user?}', [UsersListController::class, 'editMerchant'])->name('user.edit');
+    Route::get('users/edit', [UsersListController::class, 'editMerchant'])->name('user.create');
+    Route::post('users/store/{user?}', [UsersListController::class, 'storeMerchant'])->name('user.store');
+    Route::delete('users/delete/{user}', [UsersListController::class, 'deleteMerchant'])->name('user.delete');
 });
