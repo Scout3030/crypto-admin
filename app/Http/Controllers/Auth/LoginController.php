@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Http\Requests\VerifyLoginTokenRequest;
 use App\Models\User;
 use App\Mail\SendOTPToken;
 use Illuminate\Support\Facades\Mail;
@@ -45,32 +46,28 @@ class LoginController extends Controller
         return back()->withErrors('Incorrect credentials.');
     }
 
-    public function verifyLoginToken(Request $request)
+    public function verifyLoginToken(VerifyLoginTokenRequest $request)
     {
-        $otp_token = $request->otp_token;
         $email = session()->get('otp-email');
         $user = User::whereEmail($email)->first();
-        if($user->otp_token == $otp_token && $user->token_status == (string) User::ACTIVED_TOKEN){
+
+        $user->fill([
+            'otp_token' => null,
+            'token_status' => (string) User::INACTIVED_TOKEN
+        ])->save();
+
+        Auth::loginUsingId($user->id);
+        session()->forget('otp-email');
+
+        if($user->first_login == User::YES){
 
             $user->fill([
-                'otp_token' => null,
-                'token_status' => (string) User::INACTIVED_TOKEN
+                'first_login' => (string) User::NO
             ])->save();
-
-            Auth::loginUsingId($user->id);
-            session()->forget('otp-email');
-
-            if($user->first_login == User::YES){
-
-                $user->fill([
-                    'first_login' => (string) User::NO
-                ])->save();
-                return redirect()->route('user.change.password');
-            }
-
-            return redirect(RouteServiceProvider::HOME);
+            return redirect()->route('user.change.password');
         }
-        return back()->withErrors('Invalid OTP code');
+
+        return redirect(RouteServiceProvider::HOME);
     }
 
     protected function validateLogin(Request $request)

@@ -33,11 +33,10 @@ class StrengthPassword implements Rule
 	    $lowercase          = preg_match('@[a-z]@', $value);
 	    $number             = preg_match('@[0-9]@', $value);
         $symbol             = preg_match('@[*/?¿#$%&()]@', $value);
-	    $length             = strlen($value) >= 8;
 
         $success = true;
 
-        if ( ! $uppercase || ! $lowercase || ! $number || ! $length || !$symbol) {
+        if ( ! $uppercase || ! $lowercase || ! $number || !$symbol) {
         	$success = false;
         }
 
@@ -51,6 +50,6 @@ class StrengthPassword implements Rule
      */
     public function message()
     {
-        return 'Password must contains at leads one capital letter, one alphanumeric and one symbol. Lenght of the password must be grater than 8.';
+        return 'Password must contains at leads one capital letter, one alphanumeric and one symbol.';
     }
 }
