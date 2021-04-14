@@ -15,13 +15,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        User::updateOrCreate([
-            'first_name' => 'Adrian',
-            'last_name'  => 'William',
-            'email'      => 'support@cryptomatix.io',
-        ], [
-            'password' => bcrypt('RByA3eHkAPmgLXQc'),
-            'roles' => Roles::SU,
+        $this->call([
+            UserSeeder::class,
         ]);
     }
 }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Helpers\Roles;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -14,13 +15,13 @@ class AddRolesUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->tinyInteger('roles')->after('email')->default(\App\Helpers\Roles::GUEST);
+            $table->tinyInteger('roles')->after('email')->default(Roles::GUEST);
         });
 
         try {
             \App\Models\User::whereEmail('support@cryptomatix.io')->update(
                 [
-                    'roles' => \App\Helpers\Roles::SU
+                    'roles' => Roles::SU
                 ]
             );
         } catch (Exception $exception) {
