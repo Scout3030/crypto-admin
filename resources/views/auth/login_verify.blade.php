@@ -20,7 +20,7 @@
                 <div class="mb-3">
                     <label for="otp_token" class="form-label">One Time Password</label>
                     <input id="otp_token"
-                           type="text"
+                           type="password"
                            name="otp_token"
                            class="form-control @error('otp_token') validation @enderror"
                            placeholder="Enter the OTP"
