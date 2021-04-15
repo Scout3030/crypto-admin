@@ -89,7 +89,6 @@
                                    type="radio"
                                    name="is_active"
                                    id="status_active"
-                                   @if($user->is_active) checked @endif
                                    value="active">
                             <label class="form-check-label" for="status_active">Active</label>
                         </div>
@@ -98,7 +97,6 @@
                                    type="radio"
                                    name="is_active"
                                    id="status_disable"
-                                   @if(!$user->is_active) checked @endif
                                    value="disable">
                             <label class="form-check-label" for="status_disable">Disable</label>
                         </div>
