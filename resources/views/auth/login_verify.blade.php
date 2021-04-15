@@ -10,40 +10,31 @@
             <h2>One Time Password</h2>
             <p>Enter the OTP, you have recieved at your registered email address</p>
 
-            <form class="formLogin" action="{{ route('auth.login.verify') }}" method="POST">
+            <form class="formLogin" action="{{ route('auth.login.verify') }}" method="POST" novalidate>
                 @csrf
 
-                @if ( Session::has('success') )
-                    <div class="alert alert-success" role="alert">
-                        <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="mr-2">
-                            <polyline points="9 11 12 14 22 4"></polyline>
-                            <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
-                        </svg> <strong>Sucess!</strong> Your account is registered. You will shortly receive and email to activate your account.
-                    </div>
-                @endif
-
-                @if ($errors->any())
-                    <div class="alert alert-danger" role="alert">
-                        <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="mr-2"><polyline points="9 11 12 14 22 4"></polyline><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg>
-                        @foreach ($errors->all() as $error)
-                            <span>{{ $error }}</span>
-                        @endforeach
-                    </div>
-                @endif
-                
                 @if ( Session::has('message') )
                     @include('partials.notification')
                 @endif
 
                 <div class="mb-3">
-                    <label class="form-label">One Time Password</label>
-                    <input type="text" name="otp_token" class="form-control" placeholder="Enter the OTP" required>
+                    <label for="otp_token" class="form-label">One Time Password</label>
+                    <input id="otp_token"
+                           type="password"
+                           name="otp_token"
+                           class="form-control @error('otp_token') validation @enderror"
+                           placeholder="Enter the OTP"
+                           value="{{ old('otp_token') }}"
+                           required
+                    >
                 </div>
+                @error('otp_token')
+                <div class="form-text validation pb-3">{{ $message }}</div>
+                @enderror
                 <button type="submit" class="btn btn-primary">Verify</button>
-                <div class="form-text">Did not recieve the OTP code? 
+                <div class="form-text">Did not recieve the OTP code?
                     <a class="send-otp-button" href="#"
                         onclick="event.preventDefault();
-                        console.log('here')
                         document.getElementById('send').submit();"
                     >
                         Send it again

@@ -14,7 +14,7 @@
 
 	<title>Cryptomatix</title>
 </head>
-<body class="h-100">
+<body class="h-100 bglogin">
 	<div class="container h-100">
         @yield('content')
 	</div>

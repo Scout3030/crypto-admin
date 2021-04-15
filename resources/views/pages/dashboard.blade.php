@@ -1,5 +1,7 @@
-@extends('layouts.guest')
+@extends('layouts.main')
 
 @section('content')
-    DASHBOARD
+    <div class="row">
+        DASHBOARD
+    </div>
 @endsection

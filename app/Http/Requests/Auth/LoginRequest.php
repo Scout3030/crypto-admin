@@ -2,11 +2,13 @@
 
 namespace App\Http\Requests\Auth;
 
+use App\Models\User;
 use Illuminate\Auth\Events\Lockout;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Str;
+use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
 
 class LoginRequest extends FormRequest
@@ -29,7 +31,12 @@ class LoginRequest extends FormRequest
     public function rules()
     {
         return [
-            'email' => 'required|string|email',
+            'email' => [
+                'required',
+                'string',
+                'email',
+                Rule::exists('users', 'email'),
+            ],
             'password' => 'required|string',
         ];
     }
@@ -45,11 +52,12 @@ class LoginRequest extends FormRequest
     {
         $this->ensureIsNotRateLimited();
 
-        if (! Auth::attempt($this->only('email', 'password'), $this->filled('remember'))) {
+        if (! Auth::validate($this->only('email', 'password'))) {
             RateLimiter::hit($this->throttleKey());
 
             throw ValidationException::withMessages([
                 'email' => __('auth.failed'),
+                'password' => __('auth.failed'),
             ]);
         }
 
@@ -88,6 +96,19 @@ class LoginRequest extends FormRequest
      */
     public function throttleKey()
     {
-        return Str::lower($this->input('email')).'|'.$this->ip();
+        return Str::lower($this->input('email')) . '|' . $this->ip();
     }
+
+    /**
+     * Handle a passed validation attempt.
+     *
+     * @return void
+     */
+    protected function passedValidation()
+    {
+        $email = $this->email;
+        $user = User::whereEmail($email)->first();
+        $this->offsetSet('user', $user);
+    }
+
 }

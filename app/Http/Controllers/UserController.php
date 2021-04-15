@@ -2,20 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Http\Requests\NewPasswordRequest;
 use App\Providers\RouteServiceProvider;
-use App\Rules\StrengthPassword;
 
 class UserController extends Controller
 {
-    public function updatePassword(){
-        $this->validate(request(), [
-			'password' => ['required', 'confirmed', new StrengthPassword]
-		]);
-
+    public function updatePassword(NewPasswordRequest $request){
 		$user = auth()->user();
-		$user->password = bcrypt(request('password'));
+		$user->password = bcrypt($request->password);
 		$user->save();
-        return redirect(RouteServiceProvider::HOME); 
+        return redirect(RouteServiceProvider::HOME);
     }
 }

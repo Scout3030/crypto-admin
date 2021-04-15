@@ -2,8 +2,17 @@
 
 namespace App\Http\Controllers\Users;
 
+use App\Dto\NewAdminCreatedEmail;
+use App\Helpers\Roles;
+use App\Http\Requests\Users\CreateAdmin;
+use App\Mail\AccountActivatedMail;
 use App\Models\User;
+use Exception;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+use stdClass;
 
 class UsersListController
 {
@@ -13,7 +22,93 @@ class UsersListController
             abort(403);
         }
 
-        //Demo
-        return User::all();
+        $users = User::query()->whereRoles(Roles::SU);
+
+        if ($request->search) {
+            $search = $request->search;
+            $users = $users->where(function ($query) use ($search) {
+                $query->where('first_name', 'LIKE', "%{$search}%")
+                      ->orWhere('last_name', 'LIKE', "%{$search}%")
+                      ->orWhere('email', 'LIKE', "%{$search}%");
+            });
+
+        }
+
+        $users = $users->paginate($request->perPage ?? 10);
+
+        return view('user.list', compact('users'));
+    }
+
+    public function editMerchant(User $user)
+    {
+        $user = $user->exists ? $user : null;
+
+        return view('user.edit', compact('user'));
+    }
+
+    public function deleteMerchant(User $user): array
+    {
+        try {
+            $user->delete();
+        } catch (Exception $e) {
+        }
+
+        return [];
+    }
+
+    public function storeAdmin(CreateAdmin $request): RedirectResponse
+    {
+        if ($request->id) {
+            return $this->updateUser($request->all());
+        }
+
+        $user = User::create([
+            'first_name' => $request->first_name,
+            'last_name'  => $request->last_name,
+            'email'      => $request->email,
+            'roles'      => Roles::SU,
+        ]);
+
+        $user->password = bcrypt($request->password);
+        $user->save();
+
+        $obj = new NewAdminCreatedEmail($user->email, $request->password);
+        $this->sendMailToNewUser($obj);
+
+        return redirect()->route('users.list')->withInput();
+    }
+
+    private function updateUser(array $input)
+    {
+        try {
+            $user = User::findOrFail($input['id']);
+        } catch (ModelNotFoundException $exception) {
+            return back(404);
+        }
+
+
+        $user->forceFill([
+            'first_name' => $input['first_name'],
+            'last_name'  => $input['last_name'],
+            'email'      => $input['email'],
+        ]);
+
+        if ($input['password']) {
+            $user->password = bcrypt($input['password']);
+        }
+
+        if ($user->isDirty()) {
+            $user->save();
+        }
+
+        return redirect()->route('users.list');
+    }
+
+    private function sendMailToNewUser(NewAdminCreatedEmail $obj): void
+    {
+        $message = (new AccountActivatedMail($obj))
+            ->onQueue('emails');
+
+        Mail::to($obj->email)->queue($message);
     }
 }
