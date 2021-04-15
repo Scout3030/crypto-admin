@@ -3,16 +3,18 @@
 namespace App\Http\Controllers\Users;
 
 use App\Dto\NewAdminCreatedEmail;
+use App\Helpers\Enums\YesNo;
 use App\Helpers\Roles;
 use App\Http\Requests\Users\CreateAdmin;
 use App\Mail\AccountActivatedMail;
+use App\Models\Role;
 use App\Models\User;
 use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
-use stdClass;
+use Throwable;
 
 class UsersListController
 {
@@ -22,7 +24,9 @@ class UsersListController
             abort(403);
         }
 
-        $users = User::query()->whereRoles(Roles::SU);
+        $users = User::query()->whereHas('roles', function ($query) {
+            $query->whereIsAdmin(YesNo::YES);
+        });
 
         if ($request->search) {
             $search = $request->search;
@@ -39,14 +43,15 @@ class UsersListController
         return view('user.list', compact('users'));
     }
 
-    public function editMerchant(User $user)
+    public function editAdmin(User $user)
     {
         $user = $user->exists ? $user : null;
+        $roles = Role::whereIsAdmin(YesNo::YES)->get(['id', 'name']);
 
-        return view('user.edit', compact('user'));
+        return view('user.edit', compact('user', 'roles'));
     }
 
-    public function deleteMerchant(User $user): array
+    public function deleteAdmin(User $user): array
     {
         try {
             $user->delete();
@@ -58,15 +63,19 @@ class UsersListController
 
     public function storeAdmin(CreateAdmin $request): RedirectResponse
     {
+        $isActiveStatus = $this->getActiveStatus($request->is_active);
+        $inputData = $request->all();
+        $inputData['is_active'] = $isActiveStatus;
+
         if ($request->id) {
-            return $this->updateUser($request->all());
+            return $this->updateUser($inputData);
         }
 
         $user = User::create([
             'first_name' => $request->first_name,
             'last_name'  => $request->last_name,
             'email'      => $request->email,
-            'roles'      => Roles::SU,
+            'is_active'  => $inputData['is_active'],
         ]);
 
         $user->password = bcrypt($request->password);
@@ -91,6 +100,7 @@ class UsersListController
             'first_name' => $input['first_name'],
             'last_name'  => $input['last_name'],
             'email'      => $input['email'],
+            'is_active'  => $input['is_active'],
         ]);
 
         if ($input['password']) {
@@ -110,5 +120,25 @@ class UsersListController
             ->onQueue('emails');
 
         Mail::to($obj->email)->queue($message);
+    }
+
+    public function changeOtpStatus(Request $request)
+    {
+        $status = $request->status === 'true' ? YesNo::YES : YesNo::NO;
+
+        try {
+            User::whereId($request->id)->update([
+                'otp_required' => $status,
+            ]);
+        } catch (Throwable $exception) {
+            abort(400);
+        }
+
+        return [];
+    }
+
+    private function getActiveStatus($is_active): int
+    {
+        return $is_active === 'active' ? YesNo::YES : YesNo::NO;
     }
 }

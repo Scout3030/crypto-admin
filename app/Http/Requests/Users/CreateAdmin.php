@@ -4,6 +4,7 @@ namespace App\Http\Requests\Users;
 
 use App\Rules\StrengthPassword;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class CreateAdmin extends FormRequest
 {
@@ -14,7 +15,7 @@ class CreateAdmin extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return $this->user()->can('users.edit');
     }
 
     /**
@@ -27,8 +28,8 @@ class CreateAdmin extends FormRequest
         return [
             'first_name' => 'required',
             'last_name'  => 'required',
-            'email' => 'required|unique:users,email',
-            'password' => ['required_without:id', new StrengthPassword()]
+            'email' => ['required', Rule::unique('users')->ignore($this->id)],
+            'password' => ['required_without:id', new StrengthPassword(), 'confirmed'],
         ];
     }
 
