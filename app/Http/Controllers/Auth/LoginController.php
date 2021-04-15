@@ -32,9 +32,19 @@ class LoginController extends Controller
     public function doLogin(LoginRequest $request)
     {
         $request->authenticate();
+        $user = $request->user;
+
+        if (!$user->is_active) {
+            abort(403);
+        }
+
+        if (!$user->otp_required) {
+            Auth::login($user);
+            return redirect()->route('home');
+        }
 
         session()->put('otp-email', $request->email);
-        $user = $request->user;
+
         $token = rand(100000, 999999);
 
         $user->fill([
