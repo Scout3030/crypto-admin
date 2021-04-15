@@ -5,7 +5,7 @@ namespace App\Http\Requests\Users;
 use App\Rules\StrengthPassword;
 use Illuminate\Foundation\Http\FormRequest;
 
-class CreateMerchant extends FormRequest
+class CreateAdmin extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Users;
 
 use App\Helpers\Roles;
-use App\Http\Requests\Users\CreateMerchant;
+use App\Http\Requests\Users\CreateAdmin;
 use App\Models\User;
 use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -52,7 +52,7 @@ class UsersListController
         return [];
     }
 
-    public function storeMerchant(CreateMerchant $request): RedirectResponse
+    public function storeAdmin(CreateAdmin $request): RedirectResponse
     {
         if ($request->id) {
             return $this->updateUser($request->all());
@@ -73,9 +73,8 @@ class UsersListController
 
     private function updateUser(array $input)
     {
-
         try {
-            $user = User::find($input['id']);
+            $user = User::findOrFail($input['id']);
         } catch (ModelNotFoundException $exception) {
             return back(404);
         }

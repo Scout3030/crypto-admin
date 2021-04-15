@@ -27,16 +27,26 @@ class VerifyLoginTokenRequest extends FormRequest
      */
     public function rules()
     {
-        $email = session()->get('otp-email');
-        $user = User::whereEmail($email)->first();
         return [
             'otp_token' => [
                 'required',
                 'min:6',
                 'max:6',
                 new NotExpiredOTP(),
-                new ValidOTP()
-            ]
+                new ValidOTP(),
+            ],
         ];
+    }
+
+    /**
+     * Handle a passed validation attempt.
+     *
+     * @return void
+     */
+    protected function passedValidation()
+    {
+        $email = session('otp-email');
+        $user = User::whereEmail($email)->first();
+        $this->offsetSet('user', $user);
     }
 }
