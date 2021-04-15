@@ -45,6 +45,6 @@ class StrengthPassword implements Rule
      */
     public function message()
     {
-        return 'Password must contains at least one capital letter, one alphanumeric and one symbol.';
+        return 'Password must contains at least one capital letter, one lowercase letter, one alphanumeric and one symbol.';
     }
 }
