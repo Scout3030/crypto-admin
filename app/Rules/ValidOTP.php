@@ -16,7 +16,7 @@ class ValidOTP implements Rule
      */
     public function __construct()
     {
-        $email = session()->get('otp-email');
+        $email = session('otp-email');
         $this->user = User::whereEmail($email)->first();
     }
 
@@ -29,10 +29,7 @@ class ValidOTP implements Rule
      */
     public function passes($attribute, $value)
     {
-        if ($value != $this->user->otp_token) {
-            return false;
-        }
-        return true;
+        return $value == $this->user->otp_token;
     }
 
     /**

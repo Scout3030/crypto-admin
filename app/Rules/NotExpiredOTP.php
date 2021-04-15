@@ -7,7 +7,7 @@ use Illuminate\Contracts\Validation\Rule;
 
 class NotExpiredOTP implements Rule
 {
-    private $user;
+    private User $user;
     /**
      * Create a new rule instance.
      *
@@ -15,23 +15,21 @@ class NotExpiredOTP implements Rule
      */
     public function __construct()
     {
-        $email = session()->get('otp-email');
+        $email = session('otp-email');
         $this->user = User::whereEmail($email)->first();
     }
 
     /**
      * Determine if the validation rule passes.
      *
-     * @param  string  $attribute
-     * @param  mixed  $value
+     * @param string $attribute
+     * @param mixed  $value
+     *
      * @return bool
      */
-    public function passes($attribute, $value)
+    public function passes($attribute, $value): bool
     {
-        if ($this->user->token_status != (string) User::ACTIVED_TOKEN) {
-            return false;
-        }
-        return true;
+        return $this->user->token_status == (string) User::ACTIVED_TOKEN;
     }
 
     /**
@@ -39,7 +37,7 @@ class NotExpiredOTP implements Rule
      *
      * @return string
      */
-    public function message()
+    public function message(): string
     {
         return 'The OTP code has expired.';
     }

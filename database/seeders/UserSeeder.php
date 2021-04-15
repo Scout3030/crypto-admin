@@ -29,6 +29,5 @@ class UserSeeder extends Seeder
                 'roles' => Roles::SU
             ]);
         }
-
     }
 }

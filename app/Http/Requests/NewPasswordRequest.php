@@ -29,7 +29,7 @@ class NewPasswordRequest extends FormRequest
                 'required',
                 'min:8',
                 'confirmed',
-                new StrengthPassword
+                new StrengthPassword()
             ]
         ];
     }

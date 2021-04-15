@@ -36,7 +36,7 @@ Route::group([
     Route::get('users/list', UsersListController::class)->name('users.list');
     Route::get('users/edit/{user?}', [UsersListController::class, 'editMerchant'])->name('user.edit');
     Route::get('users/edit', [UsersListController::class, 'editMerchant'])->name('user.create');
-    Route::post('users/store/{user?}', [UsersListController::class, 'storeMerchant'])->name('user.store');
+    Route::post('users/store/{user?}', [UsersListController::class, 'storeAdmin'])->name('user.store');
     Route::delete('users/delete/{user}', [UsersListController::class, 'deleteMerchant'])->name('user.delete');
 
     Route::post('logout', [LoginController::class, 'logout'])->name('logout');
