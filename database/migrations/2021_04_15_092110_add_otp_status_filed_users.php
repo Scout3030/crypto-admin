@@ -5,7 +5,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddOtpSttusFiledUsers extends Migration
+class AddOtpStatusFiledUsers extends Migration
 {
     /**
      * Run the migrations.
