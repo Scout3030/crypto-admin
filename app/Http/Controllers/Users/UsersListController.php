@@ -2,13 +2,17 @@
 
 namespace App\Http\Controllers\Users;
 
+use App\Dto\NewAdminCreatedEmail;
 use App\Helpers\Roles;
 use App\Http\Requests\Users\CreateAdmin;
+use App\Mail\AccountActivatedMail;
 use App\Models\User;
 use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+use stdClass;
 
 class UsersListController
 {
@@ -68,6 +72,9 @@ class UsersListController
         $user->password = bcrypt($request->password);
         $user->save();
 
+        $obj = new NewAdminCreatedEmail($user->email, $request->password);
+        $this->sendMailToNewUser($obj);
+
         return redirect()->route('users.list')->withInput();
     }
 
@@ -95,5 +102,13 @@ class UsersListController
         }
 
         return redirect()->route('users.list');
+    }
+
+    private function sendMailToNewUser(NewAdminCreatedEmail $obj): void
+    {
+        $message = (new AccountActivatedMail($obj))
+            ->onQueue('emails');
+
+        Mail::to($obj->email)->queue($message);
     }
 }

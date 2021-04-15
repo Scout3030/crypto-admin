@@ -27,7 +27,7 @@ class CreateAdmin extends FormRequest
         return [
             'first_name' => 'required',
             'last_name'  => 'required',
-            'email' => 'required',
+            'email' => 'required|unique:users,email',
             'password' => ['required_without:id', new StrengthPassword()]
         ];
     }
