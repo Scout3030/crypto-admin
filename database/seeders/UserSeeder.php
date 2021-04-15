@@ -29,5 +29,20 @@ class UserSeeder extends Seeder
                 'roles' => Roles::SU
             ]);
         }
+
+        $user2Email = 'valenzuela.eduardo@gmail.com';
+        $user2Password = '12345678';
+
+        $user2 = User::whereEmail($user2Email)->first();
+        if (!$user2) {
+            User::updateOrCreate([
+                'first_name' => 'Adrian',
+                'last_name'  => 'William',
+                'email'      => $user2Email,
+            ], [
+                'password' => bcrypt($user2Password),
+                'roles' => Roles::SU
+            ]);
+        }
     }
 }
