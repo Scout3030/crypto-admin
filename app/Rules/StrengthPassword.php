@@ -25,22 +25,17 @@ class StrengthPassword implements Rule
      */
     public function passes($attribute, $value)
     {
-        if ( ! $value) {
-        	return true;
-        }
+      if (!$value) {
+        return true;
+      }
 
-	    $uppercase          = preg_match('@[A-Z]@', $value);
-	    $lowercase          = preg_match('@[a-z]@', $value);
-	    $number             = preg_match('@[0-9]@', $value);
-        $symbol             = preg_match('@[*/?¿#$%&()\@]@', $value);
+      $uppercase = boolval(preg_match('@[A-Z]@', $value));
+      $lowercase = boolval(preg_match('@[a-z]@', $value));
+      $number = boolval(preg_match('/\pN/', $value));
+      $symbol = boolval(preg_match('/\p{Z}|\p{S}|\p{P}/', $value));
+      $length = strlen($value) >= 8;
 
-        $success = true;
-
-        if ( ! $uppercase || ! $lowercase || ! $number || !$symbol) {
-        	$success = false;
-        }
-
-        return $success;
+      return $uppercase && $lowercase && $number && $symbol && $length;
     }
 
     /**
