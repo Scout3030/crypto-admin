@@ -16,12 +16,12 @@ use App\Http\Controllers\Users\UsersListController;
 |
 */
 
-require __DIR__.'/auth.php';
-require __DIR__.'/ajax.php';
+require __DIR__ . '/auth.php';
+require __DIR__ . '/ajax.php';
 
 Route::group([
-    'middleware' => 'auth',
-], function() {
+    'middleware' => ['auth', 'active'],
+], function () {
 
     Route::get('/', function () {
         return view('pages.dashboard');
@@ -34,10 +34,10 @@ Route::group([
 
 
     Route::get('users/list', UsersListController::class)->name('users.list');
-    Route::get('users/edit/{user?}', [UsersListController::class, 'editMerchant'])->name('user.edit');
-    Route::get('users/edit', [UsersListController::class, 'editMerchant'])->name('user.create');
+    Route::get('users/edit/{user?}', [UsersListController::class, 'editAdmin'])->name('user.edit');
+    Route::get('users/edit', [UsersListController::class, 'editAdmin'])->name('user.create');
     Route::post('users/store/{user?}', [UsersListController::class, 'storeAdmin'])->name('user.store');
-    Route::delete('users/delete/{user}', [UsersListController::class, 'deleteMerchant'])->name('user.delete');
+
 
     Route::post('logout', [LoginController::class, 'logout'])->name('logout');
 });

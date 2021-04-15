@@ -29,6 +29,7 @@
                     <th>First Name</th>
                     <th>Last Name</th>
                     <th>Email</th>
+                    <th>OTP Required</th>
                     <th>Actions</th>
                 </tr>
                 </thead>
@@ -45,10 +46,23 @@
                             {{$user->email}}
                         </td>
                         <td>
-                            <a href="{{route('user.edit', $user->id)}}" class="btn btn-outline-primary">EDIT</a>
-                            <button class="btn btn-outline-danger"
-                                    onclick="deleteUser({{$user->id}}, '{{route('user.delete', $user->id)}}')">DELETE
-                            </button>
+                            <input type="checkbox"
+                                   class="otp-required"
+                                   @if($user->otp_required) checked @endif
+                                   data-id="{{$user->id}}">
+                        </td>
+                        <td>
+                            @can('users.edit')
+                                <a href="{{route('user.edit', $user->id)}}" class="btn btn-outline-primary">EDIT</a>
+                            @endcan
+                            @can('users.delete')
+                                <button type="button" class="btn btn-outline-danger delete"
+                                        data-name="{{$user->first_name}}"
+                                        data-url="{{route('ajax.user.delete', $user->id)}}"
+                                >
+                                    DELETE
+                                </button>
+                            @endcan
                         </td>
                     </tr>
                 @endforeach
@@ -61,14 +75,33 @@
         {{$users->links()}}
     </div>
 
+    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModal" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Delete User</h5>
+                  </div>
+                <div class="modal-body">
+                    Aru you sure want to delete <span class="user-name"></span>?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-primary" onclick="closeModal()">Close</button>
+                    <button type="button" class="btn btn-outline-danger confirm-delete">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
 @endsection
 
 @push('scripts')
     <script>
-        function deleteUser(id, url) {
+        let userName;
+        let deleteUrl;
+
+        function deleteUser() {
             $.ajax({
-                url: url,
+                url: deleteUrl,
                 method: 'delete',
                 success: function (res) {
                     window.location.reload(true);
@@ -76,8 +109,42 @@
             })
         }
 
-        $(document).ready(function () {
+        function changeOTPStatus(id, status) {
+            $.ajax({
+                url: '{{route('ajax.users.otp.status')}}',
+                data: {
+                    id,
+                    status,
+                },
+                method: 'post',
+                error: function (err) {
+                    console.log(err);
+                }
+            })
+        }
 
+        function closeModal() {
+            $('#deleteModal').modal('hide');
+        }
+
+        $(document).ready(function () {
+            $('.otp-required').on('click', (function () {
+                let id = $(this).attr('data-id');
+                let status = $(this).prop('checked');
+                changeOTPStatus(id, status);
+            }));
+
+            $('.delete').on('click', function () {
+                userName = $(this).attr('data-name');
+                deleteUrl = $(this).attr('data-url');
+                $('.user-name').html(userName)
+
+                $('#deleteModal').modal('show');
+            })
+
+            $('.confirm-delete').on('click', function () {
+                deleteUser();
+            })
         })
     </script>
 @endpush
