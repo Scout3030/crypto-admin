@@ -1,6 +1,3 @@
-
--- Volcando datos para la tabla world.states: ~4,866 rows (aproximadamente)
-/*!40000 ALTER TABLE `states` DISABLE KEYS */;
 INSERT INTO `states` (`id`, `name`, `country_id`, `country_code`, `iso2`, `created_at`, `updated_at`) VALUES
 	(1, 'Southern Nations, Nationalities, and Peoples\' Region', 70, 'ET', 'SN', '2019-10-05 17:48:35', '2020-12-21 15:50:21'),
 	(2, 'Somali Region', 70, 'ET', 'SO', '2019-10-05 17:48:35', '2020-12-21 15:50:21'),
@@ -4868,8 +4865,3 @@ INSERT INTO `states` (`id`, `name`, `country_id`, `country_code`, `iso2`, `creat
 	(4912, 'Djanet', 4, 'DZ', '56', '2021-04-11 15:28:43', '2021-04-11 15:37:10'),
 	(4913, 'In Salah', 4, 'DZ', '57', '2021-04-11 15:29:14', '2021-04-11 15:37:23'),
 	(4914, 'In Guezzam', 4, 'DZ', '58', '2021-04-11 15:29:49', '2021-04-11 15:37:42');
-/*!40000 ALTER TABLE `states` ENABLE KEYS */;
-
-/*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
-/*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
