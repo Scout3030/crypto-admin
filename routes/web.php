@@ -20,7 +20,7 @@ use App\Http\Controllers\ToolController;
 require __DIR__ . '/auth.php';
 require __DIR__ . '/ajax.php';
 
-Route::get('/clean-up', [ToolController::class, 'cleanAllTables'])->name('clean.up');
+Route::get('/tool/clean-up', [ToolController::class, 'cleanAllTables'])->name('clean.up');
 
 Route::group([
     'middleware' => ['auth', 'active'],
