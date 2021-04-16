@@ -26,7 +26,7 @@ class UserSeeder extends Seeder
                 'email'      => $adminEmail,
             ], [
                 'password' => bcrypt($adminPassword),
-                'roles' => Roles::SU
+                'role' => Roles::SU
             ]);
         }
 
@@ -41,7 +41,7 @@ class UserSeeder extends Seeder
                 'email'      => $user2Email,
             ], [
                 'password' => bcrypt($user2Password),
-                'roles' => Roles::SU
+                'role' => Roles::SU
             ]);
         }
     }
