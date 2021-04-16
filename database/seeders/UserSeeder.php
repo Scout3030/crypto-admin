@@ -3,7 +3,9 @@
 namespace Database\Seeders;
 
 use App\Helpers\Roles;
+use App\Models\Role;
 use App\Models\User;
+use App\Models\UserRole;
 use Illuminate\Database\Seeder;
 
 class UserSeeder extends Seeder
@@ -15,34 +17,50 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        $adminEmail = 'support@cryptomatix.io';
-        $adminPassword = 'RByA3eHkAPmgLXQc';
+        $rootEmail = 'support@cryptomatix.io';
+        $rootPassword = 'RByA3eHkAPmgLXQc';
+        $root = User::whereEmail($rootEmail)->first();
 
-        $user = User::whereEmail($adminEmail)->first();
-        if (!$user) {
-            User::updateOrCreate([
-                'first_name' => 'Adrian',
-                'last_name'  => 'William',
-                'email'      => $adminEmail,
-            ], [
-                'password' => bcrypt($adminPassword),
-                'role' => Roles::SU
-            ]);
+        if (!$root) {
+            User::updateOrCreate(
+                [
+                    'first_name' => 'Adrian',
+                    'last_name'  => 'William',
+                    'email'      => $rootEmail,
+                ],
+                [
+                    'password' => bcrypt($rootPassword),
+                    'role' => Roles::SU,
+                ]
+            );
+
+            /** @var User */
+            $root = User::whereEmail($rootEmail)->first();
+
+            $root->roles()->attach(Role::whereName(Role::ROLE_NAME_ROOT)->first());
         }
 
-        $user2Email = 'valenzuela.eduardo@gmail.com';
-        $user2Password = '12345678';
+        $managerEmail = 'valenzuela.eduardo@gmail.com';
+        $managerPassword = '12345678';
+        $manager = User::whereEmail($managerEmail)->first();
 
-        $user2 = User::whereEmail($user2Email)->first();
-        if (!$user2) {
-            User::updateOrCreate([
-                'first_name' => 'Adrian',
-                'last_name'  => 'William',
-                'email'      => $user2Email,
-            ], [
-                'password' => bcrypt($user2Password),
-                'role' => Roles::SU
-            ]);
+        if (!$manager) {
+            User::updateOrCreate(
+                [
+                    'first_name' => 'Adrian',
+                    'last_name'  => 'Williams',
+                    'email'      => $managerEmail,
+                ],
+                [
+                    'password' => bcrypt($managerPassword),
+                    'role' => Roles::MANAGER,
+                ]
+            );
+
+            /** @var User */
+            $manager = User::whereEmail($managerEmail)->first();
+
+            $manager->roles()->attach(Role::whereName(Role::ROLE_NAME_MANAGER)->first());
         }
     }
 }
