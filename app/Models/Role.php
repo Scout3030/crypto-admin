@@ -7,8 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Role extends Model
 {
-    const ROLE_NAME_ROOT = 'Root';
-    const ROLE_NAME_MANAGER = 'Manager';
+    const ROLE_NAME_ROOT     = 'Root';
+    const ROLE_NAME_MANAGER  = 'Manager';
     const ROLE_NAME_MERCHANT = 'Merchant';
 
     use HasFactory;
@@ -20,8 +20,15 @@ class Role extends Model
      */
     protected $fillable = ['name', 'is_admin'];
 
+    protected $with = ['permissions'];
+
     public function users()
     {
-        return $this->belongsToMany(User::class)->using(UserRole::class);
+        return $this->hasMany(User::class);
+    }
+
+    public function permissions()
+    {
+        return $this->belongsToMany(Permission::class);
     }
 }

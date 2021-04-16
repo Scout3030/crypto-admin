@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Helpers\Services\PermissionsHelper;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\URL;
@@ -16,7 +17,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->bind(PermissionsHelper::class, function () {
+            return new PermissionsHelper();
+        });
     }
 
     /**

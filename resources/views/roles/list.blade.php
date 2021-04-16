@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="row">
-        <h2>Users list</h2>
+        <h2>Roles list</h2>
     </div>
     <div class="row">
         <div class="">
@@ -18,49 +18,46 @@
                     </div>
                 </form>
             </div>
-            <div>
-                <a href="{{route('user.create')}}" class="btn btn-info">Create</a>
-            </div>
+            @can('role-create')
+                <div>
+                    <a href="{{route('roles.create')}}" class="btn btn-info">Add Role</a>
+                </div>
+            @endcan
         </div>
         <div class="table-responsive">
             <table id="user" class="table table-striped table-bordered">
                 <thead>
                 <tr>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>Email</th>
-                    <th>OTP Required</th>
+                    <th>ID</th>
+                    <th>Role Name</th>
                     <th>Actions</th>
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($users as $user)
+                @foreach($roles as $role)
                     <tr>
                         <td>
-                            {{$user->first_name}}
+                            {{$role->id}}
                         </td>
                         <td>
-                            {{$user->last_name}}
+                            {{$role->name}}
                         </td>
                         <td>
-                            {{$user->email}}
-                        </td>
-                        <td>
-                            <input type="checkbox"
-                                   class="otp-required"
-                                   @if($user->otp_required) checked @endif
-                                   data-id="{{$user->id}}">
-                        </td>
-                        <td>
-
-                            <a href="{{route('user.edit', $user->id)}}" class="btn btn-outline-primary">EDIT</a>
-                            <button type="button" class="btn btn-outline-danger delete"
-                                    data-name="{{$user->first_name}}"
-                                    data-url="{{route('ajax.user.delete', $user->id)}}"
-                            >
-                                DELETE
-                            </button>
-
+                            @if($role->name !== 'Root')
+                                <a href="{{route('roles.view', $role->id)}}" class="btn btn-outline-primary">VIEW</a>
+                                @can('role-edit')
+                                    <a href="{{route('roles.edit', $role->id)}}"
+                                       class="btn btn-outline-primary">EDIT</a>
+                                @endcan
+                                @can('role-delete')
+                                    <button type="button" class="btn btn-outline-danger delete"
+                                            data-name="{{$role->name}}"
+                                            data-url="{{route('ajax.roles.delete', $role->id)}}"
+                                    >
+                                        DELETE
+                                    </button>
+                                @endcan
+                            @endif
                         </td>
                     </tr>
                 @endforeach
@@ -68,9 +65,6 @@
             </table>
 
         </div>
-    </div>
-    <div class="row">
-        {{$users->links()}}
     </div>
 
     <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModal" aria-hidden="true">

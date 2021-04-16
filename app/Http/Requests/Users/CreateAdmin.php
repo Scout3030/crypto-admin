@@ -15,7 +15,7 @@ class CreateAdmin extends FormRequest
      */
     public function authorize()
     {
-        return $this->user()->can('users.edit');
+        return true;
     }
 
     /**
