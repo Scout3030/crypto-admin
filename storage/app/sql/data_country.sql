@@ -1,6 +1,3 @@
-
--- Volcando datos para la tabla world.countries: ~250 rows (aproximadamente)
-/*!40000 ALTER TABLE `countries` DISABLE KEYS */;
 TRUNCATE TABLE `countries`;
 TRUNCATE TABLE `states`;
 TRUNCATE TABLE `cities`;
@@ -256,4 +253,3 @@ INSERT INTO `countries` (`id`, `name`, `iso3`, `iso2`, `phonecode`, `currency`, 
 	(248, 'Kosovo', 'XKX', 'XK', '383', 'EUR', '€', '[{"zoneName":"Europe\\/Belgrade","gmtOffset":3600,"gmtOffsetName":"UTC+01:00","abbreviation":"CET","tzName":"Central European Time"}]', '2020-08-15 15:33:50', '2021-02-20 14:25:32'),
 	(249, 'Curaçao', 'CUW', 'CW', '599', 'ANG', 'ƒ', '[{"zoneName":"America\\/Curacao","gmtOffset":-14400,"gmtOffsetName":"UTC-04:00","abbreviation":"AST","tzName":"Atlantic Standard Time"}]', '2020-10-25 14:54:20', '2021-02-20 14:24:49'),
 	(250, 'Sint Maarten (Dutch part)', 'SXM', 'SX', '1721', 'ANG', 'ƒ', '[{"zoneName":"America\\/Anguilla","gmtOffset":-14400,"gmtOffsetName":"UTC-04:00","abbreviation":"AST","tzName":"Atlantic Standard Time"}]', '2020-12-05 13:03:39', '2021-02-20 14:24:49');
-/*!40000 ALTER TABLE `countries` ENABLE KEYS */;
