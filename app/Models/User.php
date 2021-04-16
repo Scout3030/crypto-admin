@@ -55,6 +55,6 @@ class User extends Authenticatable
 
     public function getIsSuperAdminAttribute(): bool
     {
-        return $this->role === Roles::SU;
+        return $this->role === Roles::ROOT;
     }
 }
