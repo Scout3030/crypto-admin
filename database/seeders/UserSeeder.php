@@ -30,7 +30,7 @@ class UserSeeder extends Seeder
                 ],
                 [
                     'password' => bcrypt($rootPassword),
-                    'role' => Roles::SU,
+                    'role' => Roles::ROOT,
                 ]
             );
 
