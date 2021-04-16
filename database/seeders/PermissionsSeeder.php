@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Permission;
 use App\Models\Role;
+use App\Models\User;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\Seeder;
 
@@ -69,6 +70,7 @@ class PermissionsSeeder extends Seeder
             $root = Role::whereName(Role::ROLE_NAME_ROOT)->firstOrFail();
             $permissions = Permission::all();
             $root->permissions()->attach($permissions);
+            User::where('role', Role::ROLE_NAME_ROOT)->update(['role_id' => $root->id]);
         } catch (ModelNotFoundException $exception) {
         }
     }
