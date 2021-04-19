@@ -114,4 +114,6 @@ return [
 
     'password_timeout' => 10800,
 
+    'max_attempt' => env('MAX_ATTEMPT', 2),
+    'block_time' => env('BLOCK_TIME', 10),
 ];

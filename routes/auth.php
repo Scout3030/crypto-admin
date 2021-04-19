@@ -8,7 +8,7 @@ Route::get('/login', [LoginController::class, 'login'])
     ->name('login');
 
 Route::post('/login', [LoginController::class, 'doLogin'])
-     ->middleware('guest')
+     ->middleware(['guest'])
      ->name('do.login');
 
 Route::group(['middleware' => 'otp.token'], function () {

@@ -47,6 +47,7 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'blocked_at'        => 'datetime',
     ];
 
     protected $with = ['roles'];
@@ -57,8 +58,8 @@ class User extends Authenticatable
     }
 
     /**
-     * @deprecated
      * @return bool
+     * @deprecated
      */
     public function getIsSuperAdminAttribute(): bool
     {
@@ -68,5 +69,18 @@ class User extends Authenticatable
     public function getIsRootAttribute()
     {
         return Permissions::isRoot($this);
+    }
+
+    public function unlock(): void
+    {
+        $left = $this->blocked_at
+            ->addMinutes(config('auth.block_time'))
+            ->diffInMinutes(now(), false);
+
+        if ($left >= 0) {
+            $this->blocked_at = null;
+            $this->login_attempts = 0;
+            $this->save();
+        }
     }
 }

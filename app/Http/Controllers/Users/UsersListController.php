@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Users;
 
 use App\Dto\NewAdminCreatedEmail;
 use App\Helpers\Enums\YesNo;
+use App\Helpers\Services\SegmentService;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Users\CreateAdmin;
 use App\Mail\AccountActivatedMail;
@@ -18,7 +19,7 @@ use Throwable;
 
 class UsersListController extends Controller
 {
-    public function __invoke(Request $request)
+    public function __invoke(Request $request, SegmentService $segment)
     {
         $users = User::query()->whereHas('roles', function ($query) {
             $query->whereIsAdmin(YesNo::YES);
@@ -35,6 +36,8 @@ class UsersListController extends Controller
         }
 
         $users = $users->paginate($request->perPage ?? 10);
+
+        $segment->event('Get Users list');
 
         return view('user.list', compact('users'));
     }

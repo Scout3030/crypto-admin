@@ -21,7 +21,7 @@ require __DIR__ . '/auth.php';
 require __DIR__ . '/ajax.php';
 
 Route::group([
-    'middleware' => ['auth', 'active'],
+    'middleware' => ['auth', 'active', 'segment'],
 ], function () {
 
     Route::get('/', function () {

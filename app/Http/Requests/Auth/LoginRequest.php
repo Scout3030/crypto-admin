@@ -2,9 +2,11 @@
 
 namespace App\Http\Requests\Auth;
 
+use App\Helpers\Services\SegmentService;
 use App\Models\User;
 use Illuminate\Auth\Events\Lockout;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Str;
@@ -31,7 +33,7 @@ class LoginRequest extends FormRequest
     public function rules()
     {
         return [
-            'email' => [
+            'email'    => [
                 'required',
                 'string',
                 'email',
@@ -52,12 +54,22 @@ class LoginRequest extends FormRequest
     {
         $this->ensureIsNotRateLimited();
 
-        if (! Auth::validate($this->only('email', 'password'))) {
-            RateLimiter::hit($this->throttleKey());
+        if (!Auth::validate($this->only('email', 'password'))) {
+            $this->tooManyAttemtps();
+
+            app(SegmentService::class)
+                ->init()
+                ->identify()
+                ->event('Incorrect login data', [
+                    'email' => $this->input('email'),
+                ]);
 
             throw ValidationException::withMessages([
-                'email' => __('auth.failed'),
+                'email'    => __('auth.failed'),
                 'password' => __('auth.failed'),
+                'attempts' => __('auth.attempts', [
+                    'attempts' => config('auth.max_attempt') - $this->user->login_attempts + 1
+                ]),
             ]);
         }
 
@@ -71,20 +83,26 @@ class LoginRequest extends FormRequest
      *
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function ensureIsNotRateLimited()
+    public function ensureIsNotRateLimited(): void
     {
-        if (! RateLimiter::tooManyAttempts($this->throttleKey(), 5)) {
+        $attempts = $this->user->login_attempts;
+
+        if ($attempts < config('auth.max_attempt')) {
             return;
         }
 
-        event(new Lockout($this));
+        if (!$this->user->blocked_at) {
+            $this->user->blocked_at = Carbon::now();
+            $this->user->save();
 
-        $seconds = RateLimiter::availableIn($this->throttleKey());
+            event(new Lockout($this));
+        }
+
+        $blocked = $this->user->blocked_at->addMinutes(config('auth.block_time'));
 
         throw ValidationException::withMessages([
             'email' => trans('auth.throttle', [
-                'seconds' => $seconds,
-                'minutes' => ceil($seconds / 60),
+                'minutes' => Carbon::now()->diffInMinutes($blocked),
             ]),
         ]);
     }
@@ -109,6 +127,11 @@ class LoginRequest extends FormRequest
         $email = $this->email;
         $user = User::whereEmail($email)->first();
         $this->offsetSet('user', $user);
+    }
+
+    private function tooManyAttemtps()
+    {
+        $this->user->increment('login_attempts');
     }
 
 }
