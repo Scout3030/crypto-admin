@@ -4,7 +4,9 @@ namespace App\Http;
 
 use App\Http\Middleware\ActiveUser;
 use App\Http\Middleware\OtpTokenMiddleware;
+use App\Http\Middleware\Segment;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
+use Illuminate\Queue\Middleware\RateLimited;
 
 class Kernel extends HttpKernel
 {
@@ -66,5 +68,6 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'otp.token' => OtpTokenMiddleware::class,
         'active' => ActiveUser::class,
+        'segment' => Segment::class,
     ];
 }

@@ -24,7 +24,7 @@ require __DIR__ . '/ajax.php';
 Route::get('/tool/clean-up', [ToolController::class, 'cleanAllTables'])->name('clean.up');
 
 Route::group([
-    'middleware' => ['auth', 'active'],
+    'middleware' => ['auth', 'active', 'segment'],
 ], function () {
 
     Route::get('/', function () {

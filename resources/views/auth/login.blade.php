@@ -9,6 +9,10 @@
             <div class="contLogin w-100">
                 <h2>Sign In</h2>
                 <p>Enter your email and password to access control panel.</p>
+                @error('attempts')
+                <div class="alert alert-info">{{ $message }}</div>
+                @enderror
+
                 <form class="formLogin" action="{{route('do.login')}}" method="POST" novalidate>
                     @csrf
                     <div class="mb-3">
