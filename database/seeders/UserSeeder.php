@@ -31,7 +31,7 @@ class UserSeeder extends Seeder
                 [
                     'password' => bcrypt($rootPassword),
                     'role' => Roles::ROOT,
-                    'role_id' => Role::whereName(Role::ROLE_NAME_ROOT)->first()
+                    'role_id' => Role::whereName(Role::ROLE_NAME_ROOT)->first()->id
                 ]
             );
         }
@@ -50,7 +50,7 @@ class UserSeeder extends Seeder
                 [
                     'password' => bcrypt($managerPassword),
                     'role' => Roles::MANAGER,
-                    'role_id' => Role::whereName(Role::ROLE_NAME_MANAGER)->first()
+                    'role_id' => Role::whereName(Role::ROLE_NAME_MANAGER)->first()->id
                 ]
             );
         }

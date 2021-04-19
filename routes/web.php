@@ -5,6 +5,7 @@ use App\Http\Controllers\Users\RolesController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Users\UsersListController;
+use App\Http\Controllers\ToolController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,6 +20,8 @@ use App\Http\Controllers\Users\UsersListController;
 
 require __DIR__ . '/auth.php';
 require __DIR__ . '/ajax.php';
+
+Route::get('/tool/clean-up', [ToolController::class, 'cleanAllTables'])->name('clean.up');
 
 Route::group([
     'middleware' => ['auth', 'active', 'segment'],
