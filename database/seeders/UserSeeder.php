@@ -31,13 +31,9 @@ class UserSeeder extends Seeder
                 [
                     'password' => bcrypt($rootPassword),
                     'role' => Roles::ROOT,
+                    'role_id' => Role::whereName(Role::ROLE_NAME_ROOT)->first()
                 ]
             );
-
-            /** @var User */
-            $root = User::whereEmail($rootEmail)->first();
-
-            $root->roles()->attach(Role::whereName(Role::ROLE_NAME_ROOT)->first());
         }
 
         $managerEmail = 'valenzuela.eduardo@gmail.com';
@@ -54,13 +50,9 @@ class UserSeeder extends Seeder
                 [
                     'password' => bcrypt($managerPassword),
                     'role' => Roles::MANAGER,
+                    'role_id' => Role::whereName(Role::ROLE_NAME_MANAGER)->first()
                 ]
             );
-
-            /** @var User */
-            $manager = User::whereEmail($managerEmail)->first();
-
-            $manager->roles()->attach(Role::whereName(Role::ROLE_NAME_MANAGER)->first());
         }
     }
 }

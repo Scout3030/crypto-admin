@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Helpers\Facades\Permissions;
 use App\Helpers\Roles;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -37,6 +38,8 @@ class User extends Authenticatable
         'token_status',
     ];
 
+    protected $appends = ['isRoot'];
+
     /**
      * The attributes that should be cast to native types.
      *
@@ -50,11 +53,20 @@ class User extends Authenticatable
 
     public function roles()
     {
-        return $this->belongsToMany(Role::class);
+        return $this->belongsTo(Role::class, 'role_id', 'id');
     }
 
+    /**
+     * @deprecated
+     * @return bool
+     */
     public function getIsSuperAdminAttribute(): bool
     {
         return $this->role === Roles::ROOT;
+    }
+
+    public function getIsRootAttribute()
+    {
+        return Permissions::isRoot($this);
     }
 }
