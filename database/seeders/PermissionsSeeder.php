@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Helpers\Roles;
 use App\Models\Permission;
 use App\Models\Role;
 use App\Models\User;
@@ -70,7 +71,7 @@ class PermissionsSeeder extends Seeder
             $root = Role::whereName(Role::ROLE_NAME_ROOT)->firstOrFail();
             $permissions = Permission::all();
             $root->permissions()->attach($permissions);
-            //User::where('role', Role::ROLE_NAME_ROOT)->update(['role_id' => $root->id]);
+            User::where('role', Roles::ROOT)->update(['role_id' => $root->id]);
         } catch (ModelNotFoundException $exception) {
         }
     }
