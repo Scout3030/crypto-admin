@@ -30,7 +30,7 @@ class SegmentService
      */
     public function event(string $eventName, array $properties = []): void
     {
-        if ($this->userId) {
+        /*if ($this->userId) {
             Segment::track([
                 'userId'     => $this->userId,
                 'event'      => $eventName,
@@ -38,7 +38,7 @@ class SegmentService
             ]);
         } else {
             throw new Exception('Set user Id for segment track');
-        }
+        }*/
     }
 
     private function initUser(User $user): void
