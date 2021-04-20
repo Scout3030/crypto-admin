@@ -17,11 +17,9 @@ class StateSeeder extends Seeder
     public function run()
     {
         $stateSql = 'sql/data_state.sql';
-        $states = State::all();
-        if(count($states) == 0) {
-            if (Storage::disk('local')->exists($stateSql)) {
-                DB::unprepared(Storage::disk('local')->get($stateSql));
-            }
+        $states = State::count();
+        if (($states === 0) && Storage::disk('local')->exists($stateSql)) {
+            DB::unprepared(Storage::disk('local')->get($stateSql));
         }
     }
 }

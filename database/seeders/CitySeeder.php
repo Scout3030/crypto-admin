@@ -17,11 +17,9 @@ class CitySeeder extends Seeder
     public function run()
     {
         $citySql = 'sql/data_city.sql';
-        $cities = City::all();
-        if(count($cities) == 0){
-            if(Storage::disk('local')->exists($citySql)) {
-                DB::unprepared(Storage::disk('local')->get($citySql));
-            }
+        $cities = City::count();
+        if (($cities === 0) && Storage::disk('local')->exists($citySql)) {
+            DB::unprepared(Storage::disk('local')->get($citySql));
         }
     }
 }
