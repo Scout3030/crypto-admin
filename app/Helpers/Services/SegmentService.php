@@ -72,7 +72,7 @@ class SegmentService
             return $this;
         }
 
-        throw new Exception('Set user Id for segment track');
+        //throw new Exception('Set user Id for segment track');
     }
 
     private function getIdentificationData(): array
