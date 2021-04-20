@@ -2,16 +2,14 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Helpers\Services\SegmentService;
 use App\Http\Requests\VerifyLoginTokenRequest;
 use App\Models\User;
 use App\Mail\SendOTPToken;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Str;
 use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
 use App\Providers\RouteServiceProvider;
 use App\Http\Requests\Auth\LoginRequest;
 
@@ -29,7 +27,7 @@ class LoginController extends Controller
         return view('auth.login');
     }
 
-    public function doLogin(LoginRequest $request)
+    public function doLogin(LoginRequest $request, SegmentService $segment)
     {
         $request->authenticate();
         $user = $request->user;
@@ -38,8 +36,14 @@ class LoginController extends Controller
             abort(403);
         }
 
+        $segment->init($user)
+                ->identify();
+
         if (!$user->otp_required) {
             Auth::login($user);
+
+            //$segment->event('Login');
+
             return redirect()->route('home');
         }
 
@@ -52,6 +56,8 @@ class LoginController extends Controller
             'token_status' => (string) User::ACTIVED_TOKEN,
         ])->save();
 
+        //$segment->event('Sent OTP');
+
         try {
             Mail::to($user->email)->send(new SendOTPToken($token));
         } catch (\Throwable $th) {
@@ -61,7 +67,7 @@ class LoginController extends Controller
         return redirect('/login/verify');
     }
 
-    public function verifyLoginToken(VerifyLoginTokenRequest $request)
+    public function verifyLoginToken(VerifyLoginTokenRequest $request, SegmentService $segment)
     {
         $request->user->fill([
             'otp_token'    => null,
@@ -69,12 +75,17 @@ class LoginController extends Controller
         ])->save();
 
         Auth::loginUsingId($request->user->id);
+
+        //$segment->event('OTP confirmed');
+
         session()->forget('otp-email');
 
         if ($request->user->first_login == User::YES) {
             $request->user->fill([
                 'first_login' => (string) User::NO,
             ])->save();
+
+            $segment->event('First login');
 
             return redirect()->route('user.change.password');
         }
@@ -106,8 +117,10 @@ class LoginController extends Controller
         ]);
     }
 
-    public function logout(Request $request)
+    public function logout(Request $request, SegmentService $segment)
     {
+        //$segment->event('User Logout');
+
         Auth::logout();
 
         $request->session()->invalidate();

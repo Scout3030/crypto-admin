@@ -228,6 +228,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
 
+        'Permissions' => App\Helpers\Facades\Permissions::class,
     ],
 
 ];

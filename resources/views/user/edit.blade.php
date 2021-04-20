@@ -76,9 +76,9 @@
 
                     <div class="mb-3">
                         <label for="roles">Role</label>
-                        <select id="roles" class="form-control" name="roles">
+                        <select id="roles" class="form-control" name="role_id" @if(($user->id ?? 0) === auth()->id()) disabled @endif>
                             @foreach($roles as $role)
-                            <option value="{{$role->id}}">{{$role->name}}</option>
+                            <option value="{{$role->id}}" @if(($user->role_id ?? 0) === $role->id) selected @endif>{{$role->name}}</option>
                             @endforeach
                         </select>
                     </div>
@@ -89,6 +89,7 @@
                                    type="radio"
                                    name="is_active"
                                    id="status_active"
+                                   @if(($user->id ?? 0) === auth()->id()) disabled @endif
                                    @if($user->is_active ?? true) checked @endif
                                    value="active">
                             <label class="form-check-label" for="status_active">Active</label>
@@ -98,6 +99,7 @@
                                    type="radio"
                                    name="is_active"
                                    id="status_disable"
+                                   @if(($user->id ?? 0) === auth()->id()) disabled @endif
                                    @if(!($user->is_active ?? true)) checked @endif
                                    value="disable">
                             <label class="form-check-label" for="status_disable">Disable</label>

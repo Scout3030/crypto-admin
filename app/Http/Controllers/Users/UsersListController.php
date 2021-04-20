@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Users;
 use App\Dto\NewAdminCreatedEmail;
 use App\Helpers\Enums\YesNo;
 use App\Helpers\Roles;
+use App\Helpers\Services\SegmentService;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\Users\CreateAdmin;
 use App\Mail\AccountActivatedMail;
 use App\Models\Role;
@@ -16,14 +18,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Throwable;
 
-class UsersListController
+class UsersListController extends Controller
 {
-    public function __invoke(Request $request)
+    public function __invoke(Request $request, SegmentService $segment)
     {
-        if ($request->user()->cannot('users.view')) {
-            abort(403);
-        }
-
         $users = User::query()->whereHas('roles', function ($query) {
             $query->whereIsAdmin(YesNo::YES);
         });
@@ -39,6 +37,8 @@ class UsersListController
         }
 
         $users = $users->paginate($request->perPage ?? 10);
+
+        $segment->event('Get Users list');
 
         return view('user.list', compact('users'));
     }
@@ -76,6 +76,7 @@ class UsersListController
             'last_name'  => $request->last_name,
             'email'      => $request->email,
             'is_active'  => $inputData['is_active'],
+            'role_id'    => $request->role_id,
         ]);
 
         $user->password = bcrypt($request->password);
@@ -84,7 +85,7 @@ class UsersListController
         $obj = new NewAdminCreatedEmail($user->email, $request->password);
         $this->sendMailToNewUser($obj);
 
-        return redirect()->route('users.list')->withInput();
+        return redirect()->route('users.list');
     }
 
     private function updateUser(array $input)
@@ -101,6 +102,7 @@ class UsersListController
             'last_name'  => $input['last_name'],
             'email'      => $input['email'],
             'is_active'  => $input['is_active'],
+            'role_id'    => $input['role_id'],
         ]);
 
         if ($input['password']) {

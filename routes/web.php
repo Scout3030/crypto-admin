@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Users\PermissionsController;
+use App\Http\Controllers\Users\RolesController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Users\UsersListController;
@@ -23,7 +25,7 @@ require __DIR__ . '/ajax.php';
 Route::get('/tool/clean-up', [ToolController::class, 'cleanAllTables'])->name('clean.up');
 
 Route::group([
-    'middleware' => ['auth', 'active'],
+    'middleware' => ['auth', 'active', 'segment'],
 ], function () {
 
     Route::get('/', function () {
@@ -31,16 +33,42 @@ Route::group([
     })->name('home');
 
     Route::view('/change/password', 'user.change-password')
-        ->name('user.change.password');
+         ->name('user.change.password');
     Route::put('/change/password', [UserController::class, 'updatePassword'])
-        ->name('user.update.password');
+         ->name('user.update.password');
 
+    //Users
+    Route::group([
+        'middleware' => 'can:user-management-side-menu',
+        'prefix' => 'users',
+    ], function () {
+        Route::get('list', UsersListController::class)->name('users.list');
+        Route::get('edit/{user?}', [UsersListController::class, 'editAdmin'])->name('user.edit');
+        Route::get('edit', [UsersListController::class, 'editAdmin'])->name('user.create');
+        Route::post('store/{user?}', [UsersListController::class, 'storeAdmin'])->name('user.store');
+    });
 
-    Route::get('users/list', UsersListController::class)->name('users.list');
-    Route::get('users/edit/{user?}', [UsersListController::class, 'editAdmin'])->name('user.edit');
-    Route::get('users/edit', [UsersListController::class, 'editAdmin'])->name('user.create');
-    Route::post('users/store/{user?}', [UsersListController::class, 'storeAdmin'])->name('user.store');
+    //Roles
+    Route::group([
+        'prefix' => 'roles',
+        'as'     => 'roles.',
+    ], function () {
+        Route::get('list', [RolesController::class, 'index'])->name('list');
+        Route::get('view/{role}', [RolesController::class, 'show'])->name('view');
+        Route::get('edit/{role?}', [RolesController::class, 'edit'])->name('edit');
+        Route::get('edit/', [RolesController::class, 'edit'])->name('create');
+        Route::post('store/{role?}', [RolesController::class, 'store'])->name('store');
+    });
 
+    //Permissions
+    Route::group([
+        'prefix' => 'permissions',
+        'as' => 'permissions.',
+    ], function () {
+        Route::get('list', [PermissionsController::class, 'index'])->name('index');
+        Route::get('list/{permission?}', [PermissionsController::class, 'edit'])->name('edit');
+        Route::get('list/create', [PermissionsController::class, 'edit'])->name('create');
+    });
 
     Route::post('logout', [LoginController::class, 'logout'])->name('logout');
 });

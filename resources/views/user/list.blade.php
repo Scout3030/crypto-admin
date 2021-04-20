@@ -52,17 +52,15 @@
                                    data-id="{{$user->id}}">
                         </td>
                         <td>
-                            @can('users.edit')
-                                <a href="{{route('user.edit', $user->id)}}" class="btn btn-outline-primary">EDIT</a>
-                            @endcan
-                            @can('users.delete')
-                                <button type="button" class="btn btn-outline-danger delete"
-                                        data-name="{{$user->first_name}}"
-                                        data-url="{{route('ajax.user.delete', $user->id)}}"
-                                >
-                                    DELETE
-                                </button>
-                            @endcan
+
+                            <a href="{{route('user.edit', $user->id)}}" class="btn btn-outline-primary">EDIT</a>
+                            <button type="button" class="btn btn-outline-danger delete"
+                                    data-name="{{$user->first_name}}"
+                                    data-url="{{route('ajax.user.delete', $user->id)}}"
+                            >
+                                DELETE
+                            </button>
+
                         </td>
                     </tr>
                 @endforeach
@@ -80,7 +78,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Delete User</h5>
-                  </div>
+                </div>
                 <div class="modal-body">
                     Aru you sure want to delete <span class="user-name"></span>?
                 </div>

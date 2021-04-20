@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Helpers\Facades\Permissions;
 use App\Helpers\Roles;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -37,6 +38,8 @@ class User extends Authenticatable
         'token_status',
     ];
 
+    protected $appends = ['isRoot'];
+
     /**
      * The attributes that should be cast to native types.
      *
@@ -44,17 +47,40 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'blocked_at'        => 'datetime',
     ];
 
     protected $with = ['roles'];
 
     public function roles()
     {
-        return $this->belongsToMany(Role::class);
+        return $this->belongsTo(Role::class, 'role_id', 'id');
     }
 
+    /**
+     * @return bool
+     * @deprecated
+     */
     public function getIsSuperAdminAttribute(): bool
     {
         return $this->role === Roles::ROOT;
+    }
+
+    public function getIsRootAttribute()
+    {
+        return Permissions::isRoot($this);
+    }
+
+    public function unlock(): void
+    {
+        $left = $this->blocked_at
+            ->addMinutes(config('auth.block_time'))
+            ->diffInMinutes(now(), false);
+
+        if ($left >= 0) {
+            $this->blocked_at = null;
+            $this->login_attempts = 0;
+            $this->save();
+        }
     }
 }
