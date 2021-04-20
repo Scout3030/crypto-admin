@@ -17,12 +17,10 @@ class CountrySeeder extends Seeder
     public function run()
     {
         $countrySql = 'sql/data_country.sql';
-        $countries = Country::all();
+        $countries = Country::count();
 
-        if(count($countries) == 0){
-            if(Storage::disk('local')->exists($countrySql)) {
-                DB::unprepared(Storage::disk('local')->get($countrySql));
-            }
+        if (($countries === 0) && Storage::disk('local')->exists($countrySql)) {
+            DB::unprepared(Storage::disk('local')->get($countrySql));
         }
     }
 }

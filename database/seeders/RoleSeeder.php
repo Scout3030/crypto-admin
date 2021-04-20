@@ -7,7 +7,7 @@ use Illuminate\Database\Seeder;
 
 class RoleSeeder extends Seeder
 {
-  
+
     /**
      * Run the database seeds.
      *
@@ -15,22 +15,10 @@ class RoleSeeder extends Seeder
      */
     public function run()
     {
-        $root = new Role();
-        $root->name = Role::ROLE_NAME_ROOT;
-        $root->is_admin = true;
-
-        $root->save();
-
-        $manager = new Role();
-        $manager->name = Role::ROLE_NAME_MANAGER;
-        $manager->is_admin = true;
-
-        $manager->save();
-
-        $manager = new Role();
-        $manager->name = Role::ROLE_NAME_MERCHANT;
-        $manager->is_admin = false;
-
-        $manager->save();
+        Role::upsert([
+            ['name' => Role::ROLE_NAME_ROOT, 'is_admin' => true],
+            ['name' => Role::ROLE_NAME_MANAGER, 'is_admin' => true],
+            ['name' => Role::ROLE_NAME_MERCHANT, 'is_admin' => false],
+        ], ['name'], ['is_admin']);
     }
 }
