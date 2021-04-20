@@ -36,8 +36,8 @@ class LoginController extends Controller
             abort(403);
         }
 
-        $segment->init($user)
-                ->identify();
+        //$segment->init($user)
+                // ->identify();
 
         if (!$user->otp_required) {
             Auth::login($user);
@@ -85,7 +85,7 @@ class LoginController extends Controller
                 'first_login' => (string) User::NO,
             ])->save();
 
-            $segment->event('First login');
+            //$segment->event('First login');
 
             return redirect()->route('user.change.password');
         }
