@@ -76,8 +76,6 @@ class LoginController extends Controller
 
         Auth::loginUsingId($request->user->id);
 
-        $segment->event('OTP confirmed');
-
         session()->forget('otp-email');
 
         if ($request->user->first_login == User::YES) {

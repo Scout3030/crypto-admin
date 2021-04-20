@@ -19,6 +19,9 @@
     @stack('css')
 
 	<title>Cryptomatix - Dashboard</title>
+
+    @livewireStyles
+
 </head>
 <body class="h-100 dashboard">
 
@@ -46,6 +49,9 @@
             }
         });
     </script>
+
+    @livewireScripts
+
     @stack('scripts')
 </body>
 </html>
