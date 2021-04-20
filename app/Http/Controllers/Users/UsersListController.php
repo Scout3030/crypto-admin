@@ -38,7 +38,7 @@ class UsersListController extends Controller
 
         $users = $users->paginate($request->perPage ?? 10);
 
-        //$segment->event('Get Users list');
+        $segment->event('Get Users list');
 
         return view('user.list', compact('users'));
     }
