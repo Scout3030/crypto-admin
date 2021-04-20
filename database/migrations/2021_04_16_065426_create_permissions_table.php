@@ -13,18 +13,23 @@ class CreatePermissionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('permissions', function (Blueprint $table) {
-            $table->id();
-            $table->string('name')->unique();
-            $table->timestamps();
-        });
+        if ( !Schema::hasTable('permissions') ) {
+            Schema::create('permissions', function (Blueprint $table) {
+                $table->id();
+                $table->string('name')->unique();
+                $table->timestamps();
+            });
+        }
 
-        Schema::create('permission_role', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('role_id')->constrained()->onDelete('cascade');
-            $table->foreignId('permission_id')->constrained()->onDelete('cascade');
-            $table->timestamps();
-        });
+        if ( !Schema::hasTable('permission_role') ) {
+            Schema::create('permission_role', function (Blueprint $table) {
+                $table->id();
+                $table->foreignId('role_id')->constrained()->onDelete('cascade');
+                $table->foreignId('permission_id')->constrained()->onDelete('cascade');
+                $table->timestamps();
+            });
+        }
+
     }
 
     /**
@@ -34,7 +39,12 @@ class CreatePermissionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('permission_role');
-        Schema::dropIfExists('permissions');
+        if (Schema::hasTable('permission_role')) {
+            Schema::dropIfExists('permission_role');
+        }
+
+        if (Schema::hasTable('permissions')) {
+            Schema::dropIfExists('permissions');
+        }
     }
 }
