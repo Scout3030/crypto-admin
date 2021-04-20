@@ -26,12 +26,12 @@ class UserSeeder extends Seeder
                 [
                     'first_name' => 'Adrian',
                     'last_name'  => 'William',
-                    'email'      => $rootEmail,
+                    'email'      => $rootEmail
                 ],
                 [
                     'password' => bcrypt($rootPassword),
                     'role' => Roles::ROOT,
-                    'role_id' => Role::whereName(Role::ROLE_NAME_ROOT)->first()->id
+                    'role_id' => Role::whereName(Role::ROLE_NAME_ROOT)->first()->id,
                 ]
             );
         }
@@ -45,7 +45,7 @@ class UserSeeder extends Seeder
                 [
                     'first_name' => 'Adrian',
                     'last_name'  => 'Williams',
-                    'email'      => $managerEmail,
+                    'email'      => $managerEmail
                 ],
                 [
                     'password' => bcrypt($managerPassword),
