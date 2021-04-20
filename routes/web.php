@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Users\PermissionsController;
 use App\Http\Controllers\Users\RolesController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
@@ -57,6 +58,16 @@ Route::group([
         Route::get('edit/{role?}', [RolesController::class, 'edit'])->name('edit');
         Route::get('edit/', [RolesController::class, 'edit'])->name('create');
         Route::post('store/{role?}', [RolesController::class, 'store'])->name('store');
+    });
+
+    //Permissions
+    Route::group([
+        'prefix' => 'permissions',
+        'as' => 'permissions.',
+    ], function () {
+        Route::get('list', [PermissionsController::class, 'index'])->name('index');
+        Route::get('list/{permission?}', [PermissionsController::class, 'edit'])->name('edit');
+        Route::get('list/create', [PermissionsController::class, 'edit'])->name('create');
     });
 
     Route::post('logout', [LoginController::class, 'logout'])->name('logout');
