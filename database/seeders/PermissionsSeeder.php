@@ -70,7 +70,7 @@ class PermissionsSeeder extends Seeder
         try {
             $root = Role::whereName(Role::ROLE_NAME_ROOT)->firstOrFail();
             $permissions = Permission::all();
-            $root->permissions()->attach($permissions);
+            $root->permissions()->sync($permissions);
             User::where('role', Roles::ROOT)->update(['role_id' => $root->id]);
         } catch (ModelNotFoundException $exception) {
         }
