@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Users;
 
 use App\Dto\NewAdminCreatedEmail;
 use App\Helpers\Enums\YesNo;
+use App\Helpers\Roles;
 use App\Helpers\Services\SegmentService;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Users\CreateAdmin;
@@ -76,7 +77,6 @@ class UsersListController extends Controller
             'email'      => $request->email,
             'is_active'  => $inputData['is_active'],
             'role_id'    => $request->role_id,
-            'role'       => Role::ROLE_NAME_MANAGER,
         ]);
 
         $user->password = bcrypt($request->password);
