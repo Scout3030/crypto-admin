@@ -12,7 +12,9 @@
         "guzzlehttp/guzzle": "^7.0.1",
         "laravel/framework": "^8.12",
         "laravel/tinker": "^2.5",
-        "sentry/sentry-laravel": "^2.4"
+        "livewire/livewire": "^2.4",
+        "sentry/sentry-laravel": "^2.4",
+        "yajra/laravel-datatables": "^1.5"
     },
     "require-dev": {
         "doctrine/dbal": "^3.0",
@@ -21,7 +23,8 @@
         "laravel/sail": "^1.0.1",
         "mockery/mockery": "^1.4.2",
         "nunomaduro/collision": "^5.0",
-        "phpunit/phpunit": "^9.3.3"
+        "phpunit/phpunit": "^9.3.3",
+        "roave/security-advisories": "dev-latest"
     },
     "autoload": {
         "psr-4": {
