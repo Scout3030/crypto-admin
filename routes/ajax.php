@@ -19,5 +19,8 @@ Route::group([
     Route::post('permission/delete', [PermissionsController::class, 'delete'])
         ->middleware('can:role-delete')
          ->name('permission.delete');
+    Route::post('merchant/delete', [PermissionsController::class, 'delete'])
+        ->middleware('can:merchant-users-actions-button')
+         ->name('merchant.delete');
     Route::post('users/otp-status', [UsersListController::class, 'changeOtpStatus'])->name('users.otp.status');
 });
