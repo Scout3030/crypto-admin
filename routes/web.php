@@ -71,4 +71,6 @@ Route::group([
     });
 
     Route::post('logout', [LoginController::class, 'logout'])->name('logout');
+
+    Route::get('/profile/edit', [UserController::class, 'profile'])->name('profile.edit');
 });

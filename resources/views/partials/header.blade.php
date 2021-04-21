@@ -40,7 +40,7 @@
         </li>
         <li class="userLi">
             <a href="#">
-                <p>Hello, {{ Auth::user()->first_name ? Auth::user()->first_name : 'FirstName' }}<br><span>Welcome</span></p>
+                <p>Hello, &nbsp; <livewire:get-first-name /></p>
                 <img src="{{ asset('img/avatar.jpg') }}" alt=""></a>
         </li>
     </ul>
