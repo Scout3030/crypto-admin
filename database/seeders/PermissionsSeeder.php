@@ -63,7 +63,6 @@ class PermissionsSeeder extends Seeder
             ['name' => 'report-generate'],
             ['name' => 'report-action'],
             ['name' => 'user-ban-refund'],
-            ['name' => 'user-ban-refund'],
             ['name' => 'transaction-session-data'],
         ], ['name']);
 

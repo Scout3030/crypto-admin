@@ -100,14 +100,18 @@ class SegmentService
 
     private function getUserData(): array
     {
-        return [
-            'email'      => $this->user->email,
-            'first_name' => $this->user->first_name,
-            'last_name'  => $this->user->last_name,
-            'ip'         => $this->request->ip(),
-            'datetime'   => now(),
-            'agent'      => $this->request->server->all()['HTTP_USER_AGENT'] ?? 'n/a',
-        ];
+        if ($this->user) {
+            return [
+                'email'      => $this->user->email,
+                'first_name' => $this->user->first_name,
+                'last_name'  => $this->user->last_name,
+                'ip'         => $this->request->ip(),
+                'datetime'   => now(),
+                'agent'      => $this->request->server->all()['HTTP_USER_AGENT'] ?? 'n/a',
+            ];
+        }
+
+        return [];
     }
 
     private function getProperties(array $properties): array
