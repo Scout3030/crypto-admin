@@ -12,6 +12,7 @@
     @endif
 
     @csrf
+    @method('PUT')
 
     <input type="hidden" wire:model="user_id">
 
