@@ -15,11 +15,20 @@ class NotificationsTable extends Component
         $this->emit('updateCounter');
     }
 
+    public function deleteNotification(Notification $notification){
+        $notification->delete();
+
+        $this->emit('updateCounter');
+    }
+
     public function render()
     {
-        $newNotifications = Notification::whereRead((string) YesNo::NO)->get();
-        $earlierNotifications = Notification::get();
-//        $earlierNotifications = Notification::paginate(4);
+        $newNotifications = Notification::whereDay('created_at', now()->format('d'))
+            ->orderByDesc('created_at')
+            ->get();
+        $earlierNotifications = Notification::where('created_at', '<', now()->format('Y-m-d'))
+            ->orderByDesc('created_at')
+            ->get();
         return view('livewire.notifications-table', [
             'newNotifications' => $newNotifications,
             'earlierNotifications' => $earlierNotifications
