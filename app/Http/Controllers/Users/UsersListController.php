@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Users;
 
+use App\DataTables\UsersMerchantDataTable;
 use App\Dto\NewAdminCreatedEmail;
 use App\Helpers\Enums\YesNo;
 use App\Helpers\Roles;
@@ -142,5 +143,29 @@ class UsersListController extends Controller
     private function getActiveStatus($is_active): int
     {
         return $is_active === 'active' ? YesNo::YES : YesNo::NO;
+    }
+
+    public function merchantList(Request $request, UsersMerchantDataTable $dataTable)
+    {
+        if ($request->user()->cannot('merchant-management')) {
+            abort(403);
+        }
+
+        return $dataTable->render('user.merchant-list');
+    }
+
+    public function editMerchant()
+    {
+
+    }
+
+    public function deleteMerchant(Request $request)
+    {
+        try {
+            User::findOrFail($request->id)->delete();
+        } catch (Throwable $exception) {
+        }
+
+        return [];
     }
 }

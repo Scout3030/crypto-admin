@@ -48,6 +48,10 @@ Route::group([
         Route::get('edit/{user?}', [UsersListController::class, 'editAdmin'])->name('user.edit');
         Route::get('edit', [UsersListController::class, 'editAdmin'])->name('user.create');
         Route::post('store/{user?}', [UsersListController::class, 'storeAdmin'])->name('user.store');
+
+        Route::get('client/list', [UsersListController::class, 'merchantList'])->name('client.list');
+        Route::get('client/edit/{user?}', [UsersListController::class, 'editMerchant'])->name('client.edit');
+        Route::get('client/list/create', [UsersListController::class, 'editMerchant'])->name('client.create');
     });
 
     //Roles
