@@ -2,9 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700;900&display=swap');
 
 // VARIABLES
-$color: #1EAAE7;
-$colorB: #d5f3dd;
-$colorC: #71c07d;
+@import 'variables';
 
 // GENERAL
 body {
@@ -491,3 +489,4 @@ main {
 		}
 	}
 }
+

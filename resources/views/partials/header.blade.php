@@ -33,19 +33,19 @@
             </a>
         </li>
         <li class="userLi dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 Welcome &nbsp; <livewire:get-first-name />
                 <img src="{{ asset('img/avatar.jpg') }}" alt="">
             </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="{{ route('home') }}">Dasboard</a>
-                <a class="dropdown-item" href="{{ route('profile.edit')}}">Edit Profile</a>
-                <a class="dropdown-item" href="/new/password">Change Password</a>
-                <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li><a class="dropdown-item" href="{{ route('home') }}">Dasboard</a></li>
+                <li><a class="dropdown-item" href="{{ route('profile.edit')}}">Edit Profile</a></li>
+                <li><a class="dropdown-item" href="/new/password">Change Password</a></li>
+                <li><a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a></li>
                 <form id="logout-form" action="{{ route('logout') }}" class="d-none" method="POST">
                     @csrf
                 </form>
-            </div>
+            </ul>
         </li>
     </ul>
 </div>
