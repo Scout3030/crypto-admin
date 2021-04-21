@@ -33,14 +33,10 @@ class PermissionsController extends Controller
         return view('permissions.edit', compact('permission'));
     }
 
-    public function delete(Request $request, SegmentService $segment)
+    public function delete(Request $request)
     {
         try {
-            $permission = tap(Permission::findOrFail($request->id), static function ($permission) {
-                $permission->delete();
-            });
-
-            $segment->event('Permission deleted', ['permission' => $permission->toArray()]);
+            Permission::findOrFail($request->id)->delete();
         } catch (Throwable $exception) {
         }
 

@@ -41,15 +41,11 @@ class PermissionEdit extends Component
         }
         $this->validate();
 
-        $segment = app(SegmentService::class)->init(Auth::user());
-
         if (optional($this->permission)->exists) {
             $this->permission->name = $this->name;
             $this->permission->save();
-            $segment->event('Permission updated', ['permission' => $this->permission->toArray()]);
         } else {
             $this->permission = Permission::create(['name' => $this->name]);
-            $segment->event('Permission created', ['permission' => $this->permission->toArray()]);
         }
 
         return redirect()->route('permissions.index');
