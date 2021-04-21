@@ -68,7 +68,7 @@ Route::group([
         'as' => 'permissions.',
     ], function () {
         Route::get('list', [PermissionsController::class, 'index'])->name('index');
-        Route::get('list/{permission?}', [PermissionsController::class, 'edit'])->name('edit');
+        Route::get('edit/{permission?}', [PermissionsController::class, 'edit'])->name('edit');
         Route::get('list/create', [PermissionsController::class, 'edit'])->name('create');
     });
 

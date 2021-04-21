@@ -14,7 +14,7 @@ class PermissionsController extends Controller
         return $dataTable->render('permissions.index');
     }
 
-    public function edit(Request $request, ?Permission $permission)
+    public function edit(Request $request, Permission $permission)
     {
         if (!$permission->exists) {
             $permission = null;
