@@ -2,7 +2,10 @@
 
 namespace App\Http\Livewire;
 
+use App\Helpers\Facades\Permissions;
+use App\Helpers\Services\SegmentService;
 use App\Models\Permission;
+use Auth;
 use Livewire\Component;
 
 class PermissionEdit extends Component
@@ -33,13 +36,22 @@ class PermissionEdit extends Component
 
     public function update()
     {
+        if (auth()->user()->cannot('role-edit')) {
+            abort(403);
+        }
         $this->validate();
 
-        if ($this->permission->exists) {
+        $segment = app(SegmentService::class)->init(Auth::user());
+
+        if (optional($this->permission)->exists) {
             $this->permission->name = $this->name;
             $this->permission->save();
+            $segment->event('Permission updated', ['permission' => $this->permission->toArray()]);
         } else {
             $this->permission = Permission::create(['name' => $this->name]);
+            $segment->event('Permission created', ['permission' => $this->permission->toArray()]);
         }
+
+        return redirect()->route('permissions.index');
     }
 }
