@@ -12,6 +12,14 @@ class ProfileEdit extends Component
 {
     public $user;
     public $first_name, $last_name, $email, $timezone, $date_format, $user_id;
+    public $timezones = Formats::TIMEZONES;
+
+    protected $listeners = ['setTimezone' => 'setTimezone'];
+
+    public function setTimezone($zone)
+    {
+        $this->timezone = $zone;
+    }
 
     protected function rules()
     {
@@ -43,9 +51,8 @@ class ProfileEdit extends Component
     public function render()
     {
         $dates = Formats::DATE;
-        $timezones = Formats::TIMEZONES;
 
-        return view('livewire.profile-edit', compact('dates', 'timezones'));
+        return view('livewire.profile-edit', compact('dates'));
     }
 
     public function update()
