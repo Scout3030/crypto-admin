@@ -16,3 +16,4 @@ yarn-error.log
 docker-compose.yml
 Dockerfile
 phpmyadmin.Dockerfile
+.DS_Store
