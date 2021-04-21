@@ -56,8 +56,6 @@ class LoginController extends Controller
             'token_status' => (string) User::ACTIVED_TOKEN,
         ])->save();
 
-        $segment->event('Sent OTP');
-
         try {
             Mail::to($user->email)->send(new SendOTPToken($token));
         } catch (\Throwable $th) {
@@ -67,7 +65,7 @@ class LoginController extends Controller
         return redirect('/login/verify');
     }
 
-    public function verifyLoginToken(VerifyLoginTokenRequest $request, SegmentService $segment)
+    public function verifyLoginToken(VerifyLoginTokenRequest $request)
     {
         $request->user->fill([
             'otp_token'    => null,
@@ -82,8 +80,6 @@ class LoginController extends Controller
             $request->user->fill([
                 'first_login' => (string) User::NO,
             ])->save();
-
-            $segment->event('First login');
 
             return redirect()->route('user.change.password');
         }
@@ -117,8 +113,6 @@ class LoginController extends Controller
 
     public function logout(Request $request, SegmentService $segment)
     {
-        $segment->event('User Logout');
-
         Auth::logout();
 
         $request->session()->invalidate();
