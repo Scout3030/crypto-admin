@@ -16,6 +16,8 @@
 	<link rel="stylesheet" href="{{ asset('fonts/flaticon.css') }}">
 	<link rel="stylesheet" href="{{ asset('css/main.css') }}">
 
+    @livewireStyles
+
     @stack('css')
 
 	<title>Cryptomatix - Dashboard</title>
@@ -37,6 +39,7 @@
 			</div>
 		</main>
 	</div>
+    @livewireScripts
     <script src="{{ mix('js/app.js') }}"></script>
 
     <script>
