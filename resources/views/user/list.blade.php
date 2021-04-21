@@ -74,6 +74,19 @@
                     @endforeach
                     </tbody>
                 </table>
+                <div class="dataTablesInfo">
+                    <div class="showEntries">
+                        Showing 1 to 10 of 57 entries
+                    </div>
+                    <div class="dataTables_paginate paging_simple_numbers">
+                        <a class="paginate_button previous disabled">Previous</a>
+                        <a class="paginate_button current" >1</a>
+                        <a class="paginate_button" >2</a>
+                        <a class="paginate_button" >3</a>
+                        <a class="paginate_button" >4</a>
+                        <a class="paginate_button next">Next</a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
