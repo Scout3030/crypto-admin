@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 class NotificationController extends Controller
 {
     public function index(){
-        $newNotifications = Notification::whereRead(YesNo::NO)->get();
+        $newNotifications = Notification::whereRead((string) YesNo::NO)->get();
         $earlierNotifications = Notification::paginate(4);
         return view('notifications.index', compact('newNotifications', 'earlierNotifications'));
     }

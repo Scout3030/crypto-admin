@@ -8,7 +8,7 @@
             Today
             <ul class="list-group">
                 @forelse($newNotifications as $notification)
-                <li class="list-group-item">An item</li>
+                <li class="list-group-item">A user {{ $notification->event }} <br> {{ $notification->created_at->format('M d') }}</li>
                 @empty
                     No new notifications
                 @endforelse
@@ -19,7 +19,7 @@
             Earlier
             <ul class="list-group">
                 @forelse($earlierNotifications as $notification)
-                    <li class="list-group-item">A user {{ $notification->event }}</li>
+                    <li class="list-group-item">A user {{ $notification->event }} <br> {{ $notification->created_at->format('M d') }}</li>
                 @empty
                     No notifications
                 @endforelse
