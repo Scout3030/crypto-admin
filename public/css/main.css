@@ -9,11 +9,19 @@ a {
   transition: all ease 0.3s;
 }
 
+.logoLogin {
+  max-width: 100%;
+}
+
 .bglogin {
   background-color: #dad8d8;
   background-image: url(/images/bg.png?f8c26a5727c28256f6ee7464ad427a17);
-  background-size: cover;
-  background-position: center;
+  background-size: contain;
+  background-position: left center;
+  background-repeat: no-repeat;
+}
+.bglogin .logoLogin {
+  width: 350px;
 }
 
 .contLogin {
@@ -23,7 +31,7 @@ a {
   color: #333;
 }
 .contLogin h2 {
-  color: #1EAAE7;
+  color: #376eba;
   font-size: 50px;
   text-align: center;
   font-weight: 600;
@@ -88,6 +96,11 @@ a {
   border-width: 2px;
 }
 
+@media (max-width: 900px) {
+  .bglogin {
+    background-image: none;
+  }
+}
 @media (max-width: 767px) {
   .logoLogin {
     margin-top: 20px;
@@ -95,6 +108,8 @@ a {
     margin-left: auto;
     margin-right: auto;
     display: table;
+    height: 130px;
+    width: initial !important;
   }
 }
 @media (max-width: 500px) {
@@ -133,8 +148,21 @@ a {
 
 .logoMessage {
   margin: 20px 0 40px;
+  width: 350px;
+  max-width: 100%;
 }
 
+@media (max-width: 767px) {
+  .logoMessage {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    display: table;
+    height: 130px;
+    width: initial !important;
+  }
+}
 .card {
   border: 0px solid transparent;
   border-radius: 1.25rem;
@@ -151,7 +179,7 @@ a {
 }
 
 h2.titleNoti {
-  color: #1EAAE7;
+  color: #376eba;
   font-size: 50px;
   font-weight: 600;
   text-align: center;
@@ -186,13 +214,17 @@ body.dashboard {
 #sidebar .logo {
   margin-bottom: 35px;
 }
+#sidebar .logo img {
+  max-width: 100%;
+  width: 200px;
+}
 #sidebar ul.menu {
   padding: 0;
   list-style: none;
   margin: 0 0 35px;
 }
 #sidebar ul.menu li {
-  margin-bottom: 20px;
+  margin-bottom: 5px;
 }
 #sidebar ul.menu li a {
   color: #7e7e7e;
@@ -202,6 +234,7 @@ body.dashboard {
   padding: 10px 0;
   display: flex;
   align-items: center;
+  font-size: 15px;
 }
 #sidebar ul.menu li a.has-arrow:after {
   position: absolute;
@@ -218,7 +251,7 @@ body.dashboard {
   transition: all 0.3s ease-out;
 }
 #sidebar ul.menu li a:hover {
-  color: #1EAAE7;
+  color: #376eba;
 }
 #sidebar ul.menu li a i {
   font-size: 28px;
@@ -235,7 +268,7 @@ body.dashboard {
   color: #000;
 }
 #sidebar ul.menu li.mm-active a i {
-  background-color: #1EAAE7;
+  background-color: #376eba;
   color: #fff;
 }
 #sidebar ul.menu li.mm-active a.has-arrow:after {
@@ -270,7 +303,7 @@ body.dashboard {
   cursor: pointer;
 }
 .hamburger .line {
-  background: #1EAAE7;
+  background: #376eba;
   display: block;
   height: 3px;
   border-radius: 3px;
@@ -289,6 +322,9 @@ body.dashboard {
   width: 22px;
 }
 
+#content {
+  width: 100%;
+}
 #content .nav {
   justify-content: space-between;
   padding: 30px;
@@ -330,7 +366,7 @@ body.dashboard {
   position: absolute;
   width: 28px;
   height: 28px;
-  background-color: #1EAAE7;
+  background-color: #376eba;
   text-align: center;
   color: #fff;
   border-radius: 27px;
@@ -338,6 +374,61 @@ body.dashboard {
   line-height: 28px;
   top: -14px;
   right: -24px;
+}
+#content .nav ul.userNav .weather-detail {
+  background: #F0F4F5;
+  color: #424242;
+  height: 56px;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 56px;
+  padding-right: 15px;
+  border-radius: 4rem;
+}
+#content .nav ul.userNav .weather-detail span {
+  height: 56px;
+  background: #376eba;
+  line-height: 56px;
+  font-size: 22px;
+  padding: 0px 20px;
+  margin-right: 10px;
+  border-radius: 4rem;
+  color: #fff;
+}
+#content .nav ul.userNav .weather-detail span i {
+  padding-right: 12px;
+  font-size: 25px;
+}
+#content .nav .nav-control {
+  display: flex;
+  align-items: center;
+}
+#content .nav .nav-control .dashboard_bar {
+  font-size: 28px;
+  font-weight: 600;
+  color: #000;
+  margin-left: 30px;
+}
+#content .nav .nav-control .search-area {
+  width: 300px;
+}
+#content .nav .nav-control .search-area .input-group-text {
+  background: #EFEFEF;
+  border-width: 0px;
+  padding-right: 0;
+  padding-left: 25px;
+  border-radius: 60px 0 0 60px !important;
+}
+#content .nav .nav-control .search-area .input-group-text i {
+  font-size: 25px;
+  line-height: 42px;
+}
+#content .nav .nav-control .search-area .form-control {
+  background: #EFEFEF !important;
+  border-width: 0px;
+  padding-left: 20px;
+  min-height: 55px;
+  border-radius: 0 60px 60px 0;
 }
 
 main {
@@ -350,12 +441,31 @@ main .titleMain h1 {
   font-size: 30px;
   font-weight: 600;
 }
+main .titleMain a {
+  color: #376eba;
+  text-decoration: none;
+}
+main .card-header h4 a {
+  float: right;
+  background-color: #376eba;
+  border: none !important;
+}
 main .card-body {
   padding: 30px;
 }
+main .bgElipse {
+  background-image: url(/images/elipse.png?8d1c0cb04981770aaf9d60670e929190);
+  background-repeat: no-repeat;
+  background-position: bottom right;
+  padding-bottom: 100px;
+}
 main form label {
   color: #7e7e7e;
-  font-weight: 300;
+  font-weight: 600;
+}
+main form label span {
+  color: red;
+  margin-left: 2px;
 }
 main form .form-control,
 main form .form-select {
@@ -363,17 +473,128 @@ main form .form-select {
   padding: 15px;
   border: 1px solid #f0f1f5;
   font-weight: 300;
+  background-color: #d5f3dd;
+  border-radius: 20px;
 }
 main form input[type=file i] {
   padding-left: 22px !important;
 }
-main button.btn {
-  padding: 15px 25px;
-  border-radius: 20px;
-  min-width: 140px;
+main form .radioCont {
+  padding: 16px 0px;
+}
+main form .radioCont .radio-inline {
+  margin-right: 10px;
+}
+main form button.btn, main form a.btn {
+  margin-left: 10px;
+  font-weight: 500;
+}
+main form h4 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #7e7e7e;
+  text-transform: uppercase;
+}
+main button.btn, main a.btn {
+  padding: 10px 25px;
+  border-radius: 15px;
+  min-width: 175px;
   font-weight: 300;
-  background-color: #1EAAE7;
   border: none;
+}
+main button.btn.btn-primary, main a.btn.btn-primary {
+  background-color: #376eba;
+}
+main button.btn.btn-text, main a.btn.btn-text {
+  color: #aec5e4;
+  font-weight: 600;
+}
+main table .sharp {
+  padding: 3px;
+  width: 26px;
+  height: 26px;
+  min-width: 26px;
+  min-height: 26px;
+  border-radius: 1.25rem;
+  line-height: 18px;
+  margin: 0 2px;
+}
+main table .sharp i {
+  font-size: 14px;
+}
+main .dataTablesInfo {
+  display: flex;
+  float: left;
+  align-items: center;
+  padding: 15px 0;
+  width: 100%;
+  justify-content: space-between;
+}
+main .dataTablesInfo .showSelect {
+  align-items: center;
+  display: flex;
+}
+main .dataTablesInfo .showSelect select {
+  margin: 0 15px;
+  border-radius: 20px;
+}
+main .dataTablesInfo .dataTables_filter input {
+  border: 1px solid #e2e2e2;
+  padding: 0.3rem 0.5rem;
+  color: #715d5d;
+  border-radius: 5px;
+  margin-left: 0.5em;
+}
+main .dataTablesInfo .dataTables_paginate {
+  background: #F4F4F4;
+  border-radius: 1.25rem;
+  padding: 10px 0;
+}
+main .dataTables_paginate {
+  color: #333;
+  text-align: center;
+}
+main .dataTables_paginate .paginate_button {
+  box-sizing: border-box;
+  min-width: 1.5em;
+  text-align: center;
+  text-decoration: none !important;
+  padding: 16px 25px;
+  border: 0px solid #376eba !important;
+  border-radius: 5rem;
+  font-size: 16px;
+  display: inline-block;
+  cursor: pointer;
+}
+main .dataTables_paginate .paginate_button.current, main .dataTables_paginate .paginate_button:hover {
+  color: #fff !important;
+  background: #376eba !important;
+}
+main .dataTables_paginate .paginate_button.previous, main .dataTables_paginate .paginate_button.next {
+  background: #fff !important;
+  color: #376eba !important;
+  margin: 0 10px;
+}
+main .rowAddMore {
+  text-align: right;
+  align-self: flex-end;
+}
+main hr {
+  background-color: #f9f9f9;
+}
+main .verifyCont {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+main .verifyCont h3, main .verifyCont h5 {
+  margin: 0;
+  font-size: 20px;
+}
+main .verifyCont h5 {
+  font-weight: 600;
+  line-height: 1.4;
+  min-width: 115px;
 }
 
 .nav-wizard li {
@@ -388,10 +609,10 @@ main button.btn {
   border-radius: 50px;
   width: 3rem;
   height: 3rem;
-  border: 2px solid #1EAAE7;
+  border: 2px solid #376eba;
   display: block;
   line-height: 3rem;
-  color: #1EAAE7;
+  color: #376eba;
   font-size: 18px;
   margin: auto;
   background-color: #fff;
@@ -418,9 +639,19 @@ main button.btn {
   cursor: pointer;
 }
 .nav-wizard li .nav-link.active span {
-  background-color: #1EAAE7;
+  background-color: #376eba;
   color: #fff !important;
 }
 .nav-wizard li:last-child a:after {
   display: none;
+}
+
+.dtp > .dtp-content > .dtp-date-view > header.dtp-header,
+.dtp div.dtp-date, .dtp div.dtp-time,
+.dtp table.dtp-picker-days tr > td > a.selected {
+  background: #376eba;
+}
+
+.dtp .p10 > a {
+  color: #333;
 }
