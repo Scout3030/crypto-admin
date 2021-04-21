@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Helpers\Consts;
+namespace App\Helpers\Constants;
 
 
 final class NotificationEvents
