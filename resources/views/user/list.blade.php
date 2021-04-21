@@ -1,74 +1,83 @@
 @extends('layouts.main')
 
 @section('content')
-    <div class="row">
-        <h2>Users list</h2>
+    <div class="titleMain">
+        <h1>Admin Users</h1>
+        <p>User Management / Admin Users</p>
     </div>
-    <div class="row">
-        <div class="">
-            <div>
-                <form>
-                    <div class="form-row">
-                        <div class="col-auto">
-                            <input class="form-control mb-2" type="text" placeholder="Search" name="search">
-                        </div>
-                        <div class="col-auto">
-                            <button class="btn btn-info mb-2" type="submit">Find</button>
-                        </div>
+    <div class="content card">
+        <div class="card-header">
+            <h4 class="card-title">Users list
+                <a href="{{route('user.create')}}" class="btn btn-primary float-right"><i class="fa fa-user-plus" aria-hidden="true"></i> Add New</a>
+            </h4>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <div class="dataTablesInfo">
+                    <div class="showSelect">
+                        Show 
+                            <select class="form-control">
+                                <option>10</option>
+                                <option>20</option>
+                                <option>30</option>
+                            </select>
+                        entries
                     </div>
-                </form>
+                    <form class="dataTables_filter">
+                        <label>Search: <input type="text" placeholder="Search" name="search"></label>
+                        <!-- <button class="btn btn-info mb-2" type="submit">Find</button> -->
+                    </form>
+                </div>
+
+                <table id="user" class="table table-responsive-md">
+                    <thead>
+                        <tr>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Email</th>
+                            <th style="text-align: center;">OTP Required</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    @foreach($users as $user)
+                        <tr>
+                            <td>
+                                {{$user->first_name}}
+                            </td>
+                            <td>
+                                {{$user->last_name}}
+                            </td>
+                            <td>
+                                {{$user->email}}
+                            </td>
+                            <td style="text-align: center;">
+                                <div class="align-items-center">
+                                    <input type="checkbox"
+                                        class="otp-required"
+                                        @if($user->otp_required) checked @endif
+                                        data-id="{{$user->id}}">
+                                </div>
+                            </td>
+                            <td>
+                                <div class="d-flex">
+                                    <a href="{{route('user.edit', $user->id)}}" class="btn btn-primary shadow btn-xs sharp">
+                                        <i class="fa fa-pencil"></i></a>
+                                    <button type="button" class="btn btn-danger shadow btn-xs sharp delete"
+                                            data-name="{{$user->first_name}}"
+                                            data-url="{{route('ajax.user.delete', $user->id)}}">
+                                        <i class="fa fa-trash"></i>
+                                </button>
+                                </div>
+                            </td>
+                        </tr>
+                    @endforeach
+                    </tbody>
+                </table>
             </div>
-            <div>
-                <a href="{{route('user.create')}}" class="btn btn-info">Create</a>
-            </div>
-        </div>
-        <div class="table-responsive">
-            <table id="user" class="table table-striped table-bordered">
-                <thead>
-                <tr>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>Email</th>
-                    <th>OTP Required</th>
-                    <th>Actions</th>
-                </tr>
-                </thead>
-                <tbody>
-                @foreach($users as $user)
-                    <tr>
-                        <td>
-                            {{$user->first_name}}
-                        </td>
-                        <td>
-                            {{$user->last_name}}
-                        </td>
-                        <td>
-                            {{$user->email}}
-                        </td>
-                        <td>
-                            <input type="checkbox"
-                                   class="otp-required"
-                                   @if($user->otp_required) checked @endif
-                                   data-id="{{$user->id}}">
-                        </td>
-                        <td>
-
-                            <a href="{{route('user.edit', $user->id)}}" class="btn btn-outline-primary">EDIT</a>
-                            <button type="button" class="btn btn-outline-danger delete"
-                                    data-name="{{$user->first_name}}"
-                                    data-url="{{route('ajax.user.delete', $user->id)}}"
-                            >
-                                DELETE
-                            </button>
-
-                        </td>
-                    </tr>
-                @endforeach
-                </tbody>
-            </table>
-
         </div>
     </div>
+
     <div class="row">
         {{$users->links()}}
     </div>
