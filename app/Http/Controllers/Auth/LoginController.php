@@ -36,13 +36,13 @@ class LoginController extends Controller
             abort(403);
         }
 
-        //$segment->init($user)
-                // ->identify();
+        $segment->init($user)
+                 ->identify();
 
         if (!$user->otp_required) {
             Auth::login($user);
 
-            //$segment->event('Login');
+            $segment->event('Login');
 
             return redirect()->route('home');
         }
@@ -56,7 +56,7 @@ class LoginController extends Controller
             'token_status' => (string) User::ACTIVED_TOKEN,
         ])->save();
 
-        //$segment->event('Sent OTP');
+        $segment->event('Sent OTP');
 
         try {
             Mail::to($user->email)->send(new SendOTPToken($token));
@@ -76,8 +76,6 @@ class LoginController extends Controller
 
         Auth::loginUsingId($request->user->id);
 
-        //$segment->event('OTP confirmed');
-
         session()->forget('otp-email');
 
         if ($request->user->first_login == User::YES) {
@@ -85,7 +83,7 @@ class LoginController extends Controller
                 'first_login' => (string) User::NO,
             ])->save();
 
-            //$segment->event('First login');
+            $segment->event('First login');
 
             return redirect()->route('user.change.password');
         }
@@ -119,7 +117,7 @@ class LoginController extends Controller
 
     public function logout(Request $request, SegmentService $segment)
     {
-        //$segment->event('User Logout');
+        $segment->event('User Logout');
 
         Auth::logout();
 

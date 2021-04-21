@@ -18,7 +18,7 @@ class Segment
      */
     public function handle(Request $request, Closure $next)
     {
-        //app(SegmentService::class)->init(Auth::user());
+        app(SegmentService::class)->init(Auth::user());
         return $next($request);
     }
 }

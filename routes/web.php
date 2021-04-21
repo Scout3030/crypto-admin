@@ -36,6 +36,8 @@ Route::group([
          ->name('user.change.password');
     Route::put('/change/password', [UserController::class, 'updatePassword'])
          ->name('user.update.password');
+    Route::view('/new/password', 'user.new-password')
+        ->name('user.new.password');
 
     //Users
     Route::group([
