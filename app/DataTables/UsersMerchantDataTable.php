@@ -2,14 +2,15 @@
 
 namespace App\DataTables;
 
-use App\Models\Permission;
+use App\Helpers\Roles;
+use App\Models\User;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Html\Editor\Editor;
 use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
 
-class PermissionsDataTable extends DataTable
+class UsersMerchantDataTable extends DataTable
 {
     /**
      * Build DataTable class.
@@ -22,20 +23,21 @@ class PermissionsDataTable extends DataTable
     {
         return datatables()
             ->eloquent($query)
-            ->addColumn('assignedRoles', 'permissions.roles')
-            ->addColumn('action', 'permissions.action');
+            ->addColumn('action', 'user.merchant-action');
     }
 
     /**
      * Get query source of dataTable.
      *
-     * @param \App\Models\Permission $model
+     * @param \App\Models\User $model
      *
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function query(Permission $model)
+    public function query(User $model)
     {
-        return $model->newQuery()->with('roles')->orderBy('name');
+        return $model->newQuery()
+                     ->orderBy('last_name')
+                     ->whereRole(Roles::MERCHANT);
     }
 
     /**
@@ -47,17 +49,19 @@ class PermissionsDataTable extends DataTable
     {
         return $this->builder()
                     ->parameters([
-                        'lengthMenu' => [[10, 20, 50, 100], [10, 20, 50, 100]],
+                        'lengthMenu'  => [[10, 20, 50, 100], [10, 20, 50, 100]],
                         'searchDelay' => 1000,
                     ])
-                    ->setTableId('permissions-table')
+                    ->setTableId('usersmerchant-table')
                     ->columns($this->getColumns())
                     ->minifiedAjax()
                     ->dom('Bfrtip')
-                    ->orderBy(0)
+                    ->orderBy(1)
                     ->buttons(
                         Button::make('pageLength'),
-                        Button::make('create'),
+//                        Button::make('create'),
+//                        Button::make('export'),
+//                        Button::make('print'),
                         Button::make('reset'),
                         Button::make('reload')
                     );
@@ -71,16 +75,16 @@ class PermissionsDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            Column::computed('name', 'Permission'),
-            Column::computed('assignedRoles', 'Roles')
-                  ->exportable(false)
-                  ->printable(false)
-                  ->addClass('text-center'),
+            Column::make('id'),
+            Column::make('first_name'),
+            Column::make('last_name'),
+            Column::make('email'),
             Column::computed('action')
                   ->exportable(false)
                   ->printable(false)
                   ->width(60)
                   ->addClass('text-center'),
+
         ];
     }
 
@@ -91,6 +95,6 @@ class PermissionsDataTable extends DataTable
      */
     protected function filename()
     {
-        return 'Permissions_' . date('YmdHis');
+        return 'UsersMerchant_' . date('YmdHis');
     }
 }

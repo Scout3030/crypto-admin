@@ -36,6 +36,8 @@ Route::group([
          ->name('user.change.password');
     Route::put('/change/password', [UserController::class, 'updatePassword'])
          ->name('user.update.password');
+    Route::view('/new/password', 'user.new-password')
+        ->name('user.new.password');
 
     //Users
     Route::group([
@@ -46,6 +48,10 @@ Route::group([
         Route::get('edit/{user?}', [UsersListController::class, 'editAdmin'])->name('user.edit');
         Route::get('edit', [UsersListController::class, 'editAdmin'])->name('user.create');
         Route::post('store/{user?}', [UsersListController::class, 'storeAdmin'])->name('user.store');
+
+        Route::get('client/list', [UsersListController::class, 'merchantList'])->name('client.list');
+        Route::get('client/edit/{user?}', [UsersListController::class, 'editMerchant'])->name('client.edit');
+        Route::get('client/list/create', [UsersListController::class, 'editMerchant'])->name('client.create');
     });
 
     //Roles
@@ -66,9 +72,11 @@ Route::group([
         'as' => 'permissions.',
     ], function () {
         Route::get('list', [PermissionsController::class, 'index'])->name('index');
-        Route::get('list/{permission?}', [PermissionsController::class, 'edit'])->name('edit');
+        Route::get('edit/{permission?}', [PermissionsController::class, 'edit'])->name('edit');
         Route::get('list/create', [PermissionsController::class, 'edit'])->name('create');
     });
 
     Route::post('logout', [LoginController::class, 'logout'])->name('logout');
+
+    Route::get('/profile/edit', [UserController::class, 'profile'])->name('profile.edit');
 });

@@ -15,12 +15,3 @@
         </div>
     </div>
 @endsection
-
-
-@push('css')
-    @livewireStyles
-@endpush
-@push('scripts')
-    @livewireScripts
-@endpush
-

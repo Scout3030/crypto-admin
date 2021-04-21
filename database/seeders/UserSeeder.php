@@ -36,6 +36,82 @@ class UserSeeder extends Seeder
             );
         }
 
+        $managerEmail = 'admin@cryptomatix.io';
+        $managerPassword = '12345678';
+        $manager = User::whereEmail($managerEmail)->first();
+
+        if (!$manager) {
+            User::updateOrCreate(
+                [
+                    'first_name' => 'Admin',
+                    'last_name'  => 'Cryptomatix',
+                    'email'      => $managerEmail
+                ],
+                [
+                    'password' => bcrypt($managerPassword),
+                    'role' => Roles::ROOT,
+                    'role_id' => Role::whereName(Role::ROLE_NAME_ROOT)->first()->id
+                ]
+            );
+        }
+
+        $managerEmail = 'rishabh@cryptomatix.io';
+        $managerPassword = '12345678';
+        $manager = User::whereEmail($managerEmail)->first();
+
+        if (!$manager) {
+            User::updateOrCreate(
+                [
+                    'first_name' => 'Rishabh',
+                    'last_name'  => 'Kumar',
+                    'email'      => $managerEmail
+                ],
+                [
+                    'password' => bcrypt($managerPassword),
+                    'role' => Roles::ROOT,
+                    'role_id' => Role::whereName(Role::ROLE_NAME_ROOT)->first()->id
+                ]
+            );
+        }
+
+        $managerEmail = 'dhriti@cryptomatix.io';
+        $managerPassword = '12345678';
+        $manager = User::whereEmail($managerEmail)->first();
+
+        if (!$manager) {
+            User::updateOrCreate(
+                [
+                    'first_name' => 'Dhriti',
+                    'last_name'  => 'Pipil',
+                    'email'      => $managerEmail
+                ],
+                [
+                    'password' => bcrypt($managerPassword),
+                    'role' => Roles::ROOT,
+                    'role_id' => Role::whereName(Role::ROLE_NAME_ROOT)->first()->id
+                ]
+            );
+        }
+
+        $managerEmail = 'ruchi@cryptomatix.io';
+        $managerPassword = 'RByA3eHkAPmgLXQc';
+        $manager = User::whereEmail($managerEmail)->first();
+
+        if (!$manager) {
+            User::updateOrCreate(
+                [
+                    'first_name' => 'Ruchi',
+                    'last_name'  => 'Rathor',
+                    'email'      => $managerEmail
+                ],
+                [
+                    'password' => bcrypt($managerPassword),
+                    'role' => Roles::ROOT,
+                    'role_id' => Role::whereName(Role::ROLE_NAME_ROOT)->first()->id
+                ]
+            );
+        }
+
         $managerEmail = 'valenzuela.eduardo@gmail.com';
         $managerPassword = '12345678';
         $manager = User::whereEmail($managerEmail)->first();
@@ -43,8 +119,8 @@ class UserSeeder extends Seeder
         if (!$manager) {
             User::updateOrCreate(
                 [
-                    'first_name' => 'Adrian',
-                    'last_name'  => 'Williams',
+                    'first_name' => 'Eduardo',
+                    'last_name'  => 'Valenzuela',
                     'email'      => $managerEmail
                 ],
                 [

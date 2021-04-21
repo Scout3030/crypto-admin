@@ -32,16 +32,20 @@
                 <span class="numberNoti">15</span>
             </a>
         </li>
-        <li>
-            <a href="#" class="nav-link" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
-            <form id="logout-form" action="{{ route('logout') }}" class="d-none" method="POST">
-                @csrf
-            </form>
-        </li>
-        <li class="userLi">
-            <a href="#">
-                <p>Hello, {{ Auth::user()->first_name ? Auth::user()->first_name : 'FirstName' }}<br><span>Welcome</span></p>
-                <img src="{{ asset('img/avatar.jpg') }}" alt=""></a>
+        <li class="userLi dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Welcome &nbsp; <livewire:get-first-name />
+                <img src="{{ asset('img/avatar.jpg') }}" alt="">
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li><a class="dropdown-item" href="{{ route('home') }}">Dasboard</a></li>
+                <li><a class="dropdown-item" href="{{ route('profile.edit')}}">Edit Profile</a></li>
+                <li><a class="dropdown-item" href="/new/password">Change Password</a></li>
+                <li><a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a></li>
+                <form id="logout-form" action="{{ route('logout') }}" class="d-none" method="POST">
+                    @csrf
+                </form>
+            </ul>
         </li>
     </ul>
 </div>

@@ -35,7 +35,7 @@
 
         function deletePermission() {
             $.ajax({
-                url: '{{route('ajax.permission.delete')}}',
+                url: '{{route('ajax.merchant.delete')}}',
                 data: {
                     id: id
                 },
@@ -57,3 +57,4 @@
         })
     </script>
 @endpush
+
