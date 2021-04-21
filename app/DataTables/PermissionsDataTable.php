@@ -71,8 +71,7 @@ class PermissionsDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            //Column::make('id'),
-            Column::make('name'),
+            Column::computed('name', 'Permission'),
             Column::computed('assignedRoles', 'Roles')
                   ->exportable(false)
                   ->printable(false)

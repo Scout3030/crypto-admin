@@ -29,6 +29,23 @@
             </li>
 
         @endcan
+        @canany(['role-list', 'role-create', 'role-edit', 'role-delete'])
+            <li class="{{ (request()->is('roles*')) ? 'mm-active' : '' }}"><a href="#" class="has-arrow"><i
+                        class="flaticon-381-view"></i> <span class="navText">Roles</span></a>
+                <ul class="subMenu">
+                    <li><a href="{{ route('roles.create') }}">Create</a></li>
+                    <li><a href="{{ route('roles.list') }}">List</a></li>
+                </ul>
+            </li>
+            <li class="{{ (request()->is('permission*')) ? 'mm-active' : '' }}"><a href="#" class="has-arrow"><i
+                        class="flaticon-381-unlocked-4"></i> <span class="navText">Permissions</span></a>
+                <ul class="subMenu">
+                    <li><a href="{{ route('permissions.create') }}">Create</a></li>
+                    <li><a href="{{ route('permissions.index') }}">List</a></li>
+                </ul>
+            </li>
+        @endcanany
+
         <li><a href="#"><i class="flaticon-381-settings-2"></i> <span class="navText">Activity</span></a></li>
     </ul>
     <div class="footerNav">
