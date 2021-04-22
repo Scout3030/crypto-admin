@@ -19,7 +19,7 @@
                         class="flaticon-381-view"></i> <span class="navText">Roles</span></a>
                 <ul class="subMenu">
                     <li><a href="{{ route('roles.create') }}">Create</a></li>
-                    <li><a href="{{ route('roles.list') }}">List</a></li>
+                    <li><a href="{{ route('roles.index') }}">List</a></li>
                 </ul>
             </li>
             <li class="{{ (request()->is('permission*')) ? 'mm-active' : '' }}"><a href="#" class="has-arrow"><i

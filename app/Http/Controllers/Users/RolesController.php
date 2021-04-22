@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Users;
 
+use App\DataTables\RolesDataTable;
 use App\Helpers\Enums\YesNo;
 use App\Http\Controllers\Controller;
 use App\Models\Permission;
@@ -93,5 +94,27 @@ class RolesController extends Controller
         $role->permissions()->sync($inputData['permissions']);
 
         return redirect()->route('roles.list');
+    }
+
+    public function list(Request $request, RolesDataTable $dataTable)
+    {
+        if ($request->user()->cannot('role-list')) {
+            abort(403);
+        }
+
+        return $dataTable->render('roles.index');
+    }
+
+    public function deleteFromDatatable(Request $request){
+        if ($request->user()->cannot('role-delete')) {
+            abort(403);
+        }
+
+        try {
+            Role::findOrFail($request->id)->delete();
+        } catch (Throwable $exception) {
+        }
+
+        return [];
     }
 }
