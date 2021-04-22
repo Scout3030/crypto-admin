@@ -232,4 +232,5 @@ return [
         'Permissions' => App\Helpers\Facades\Permissions::class,
     ],
 
+    'force_https' => env('FORCE_HTTPS', true),
 ];
