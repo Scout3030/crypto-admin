@@ -50,19 +50,13 @@ class RolesController extends Controller
     }
 
 
-    public function edit(Request $request, Role $role)
+    public function edit(Request $request, $id = 0)
     {
         if ($request->user()->cannot('role-edit')) {
             abort(403);
         }
 
-        if ($role->exists) {
-            $role->load('permissions');
-        }
-
-        $permissions = Permission::all();
-
-        return view('roles.edit', compact('role', 'permissions'));
+        return view('roles.edit', compact('id'));
     }
 
     public function show(Request $request, Role $role)
