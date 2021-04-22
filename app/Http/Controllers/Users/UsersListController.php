@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Users;
 
+use App\DataTables\PermissionsDataTable;
+use App\DataTables\UsersDataTable;
 use App\DataTables\UsersMerchantDataTable;
 use App\Dto\NewAdminCreatedEmail;
 use App\Helpers\Enums\YesNo;
@@ -42,6 +44,15 @@ class UsersListController extends Controller
         $segment->event('Get Users list');
 
         return view('user.list', compact('users'));
+    }
+
+    public function index(Request $request, UsersDataTable $dataTable)
+    {
+        if ($request->user()->cannot('role-list')) {
+            abort(403);
+        }
+
+        return $dataTable->render('user.index');
     }
 
     public function editAdmin($id = 0)
@@ -157,6 +168,16 @@ class UsersListController extends Controller
     }
 
     public function deleteMerchant(Request $request)
+    {
+        try {
+            User::findOrFail($request->id)->delete();
+        } catch (Throwable $exception) {
+        }
+
+        return [];
+    }
+
+    public function delete(Request $request)
     {
         try {
             User::findOrFail($request->id)->delete();

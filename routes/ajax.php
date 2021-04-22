@@ -12,7 +12,10 @@ Route::group([
 ], function () {
     Route::delete('users/delete/{user}', [UsersListController::class, 'deleteAdmin'])
         ->middleware('can:user-management-side-menu')
-         ->name('user.delete');
+        ->name('user.delete');
+    Route::delete('users/delete', [UsersListController::class, 'delete'])
+        ->middleware('can:role-delete')
+        ->name('user.delete');
     Route::delete('roles/delete/{role}', [RolesController::class, 'delete'])
         ->middleware('can:role-delete')
          ->name('roles.delete');
