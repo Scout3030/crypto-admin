@@ -1,7 +1,24 @@
 @extends('layouts.main')
 
 @section('content')
-    {!! $dataTable->table() !!}
+    <div class="titleMain">
+        <h1>Permissions</h1>
+        <p>Permission Management / Permission list</p>
+    </div>
+    <div class="content card">
+        <div class="card-header">
+            <h4 class="card-title">Permission list</h4>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                {!! $dataTable->table() !!}
+            </div>
+        </div>
+    </div>
+
+
+
+
     <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModal" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
