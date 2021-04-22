@@ -15,7 +15,7 @@ class AddExirationsUsersTable extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->dateTime('exp_date')->useCurrent();
-            $table->json('properties');
+            $table->json('properties')->nullable();
         });
     }
 

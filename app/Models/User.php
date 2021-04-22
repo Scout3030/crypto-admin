@@ -49,7 +49,7 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'blocked_at'        => 'datetime',
         'exp_date'          => 'date',
-        'properties'        => 'encrypted:array'
+        'properties'        => 'array'
     ];
 
     protected $with = ['roles'];
