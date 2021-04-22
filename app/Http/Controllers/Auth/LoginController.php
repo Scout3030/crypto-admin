@@ -6,6 +6,7 @@ use App\Helpers\Services\SegmentService;
 use App\Http\Requests\VerifyLoginTokenRequest;
 use App\Models\User;
 use App\Mail\SendOTPToken;
+use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -15,6 +16,10 @@ use App\Http\Requests\Auth\LoginRequest;
 
 class LoginController extends Controller
 {
+    use CanResetPassword;
+
+    private string $token;
+
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
