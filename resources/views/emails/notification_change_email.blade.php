@@ -60,8 +60,9 @@
   <tr class="footer">
     <td>
     	<p>Get in touch<br>
-      +99 999999999999<br>
-      xyz@domain.com</p>
+        +44 (0) 20 7660 1528<br>
+        support@cryptomatix.io
+      </p>
     </td>
   </tr>
   <tr>

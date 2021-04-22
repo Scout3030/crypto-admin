@@ -28,24 +28,15 @@
       border-top: 3px solid #cecece;
       color: #6d6d6d;
     }
-    .btn {
-        display: inline-block;
-        font-weight: 400;
-        line-height: 1.5;
-        text-align: center;
-        text-decoration: none;
-        vertical-align: middle;
-        cursor: pointer;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        user-select: none;
-        padding: .375rem .75rem;
-        font-size: 1rem;
-        border-radius: .25rem;
-        transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
-        color: #fff;
-        background-color: #198754;
-        border-color: #198754;
+    a.btn {
+      background-color: #71bf7e;
+      color: #fff;
+      font-weight: 600;
+      padding: 12px 24px;
+      border-radius: 10px;
+      text-decoration: none;
+      min-width: 240px;
+      display: inline-block;
     }
   </style>
 </head>
@@ -54,14 +45,16 @@
     <td><img src="{{ asset('img/logo.png') }}" width="210" height="121" alt="logo" /></td>
   </tr>
   <tr class="oneTime">
-    <td>One Time Password</td>
+    <td>Welcome to Cryptomatix</td>
   </tr>
   <tr class="content">
     <td>
-    	<p>In order to make your login attempt<br>
-      successful, Please use the following OTP:</p>
+      <p style="font-size: 18px;">Following are your login credentials:</p>
+        <p>
+            Dear friend, your password expired at {{$user->exp_date->format('d-m-Y')}}
+        </p>
       <br>
-      <p><b>{{ $otp_token }}</b></p>
+      <p><a class="btn" href="{{ route('login') }}" target="_blank">Click here to Login</a></p>
       <br>
       <br>
       <p>Thanks,<br>
