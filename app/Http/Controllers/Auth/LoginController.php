@@ -6,8 +6,6 @@ use App\Helpers\Services\SegmentService;
 use App\Http\Requests\VerifyLoginTokenRequest;
 use App\Models\User;
 use App\Mail\SendOTPToken;
-use App\Traits\ResetsPasswords;
-use App\Traits\SendsPasswordResetEmails;
 use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\Request;
@@ -15,12 +13,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Providers\RouteServiceProvider;
 use App\Http\Requests\Auth\LoginRequest;
-use Illuminate\Support\Facades\Password;
 
 class LoginController extends Controller
 {
-    use SendsPasswordResetEmails;
-    use ResetsPasswords;
     use CanResetPassword;
 
     private string $token;
