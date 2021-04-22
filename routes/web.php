@@ -45,7 +45,7 @@ Route::group([
         'prefix' => 'users',
     ], function () {
         Route::get('list', UsersListController::class)->name('users.list');
-        Route::get('edit/{user?}', [UsersListController::class, 'editAdmin'])->name('user.edit');
+        Route::get('edit/{id?}', [UsersListController::class, 'editAdmin'])->name('user.edit');
         Route::get('edit', [UsersListController::class, 'editAdmin'])->name('user.create');
         Route::post('store/{user?}', [UsersListController::class, 'storeAdmin'])->name('user.store');
 

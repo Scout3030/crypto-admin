@@ -10,3 +10,19 @@
         </div>
     </div>
 @endsection
+
+@push('scripts')
+    <script type="text/javascript">
+        $(document).ready(function() {
+
+            $('#timezone').select2();
+            $('#timezone').on('change', function (e) {
+                var data = $('#timezone').select2('val');
+                Livewire.emit('setTimezone', data);
+            });
+
+
+        });
+    </script>
+
+@endpush
