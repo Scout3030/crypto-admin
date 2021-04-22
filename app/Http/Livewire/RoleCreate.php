@@ -70,6 +70,8 @@ class RoleCreate extends Component
             abort(403);
         }
 
+        $this->validate();
+
         if ($this->role_id > 0) {
             return $this->updateRole();
         }
@@ -88,6 +90,9 @@ class RoleCreate extends Component
 
     private function updateRole()
     {
+
+        $this->validate();
+
         $role = tap(Role::findOrFail($this->role_id), function ($role) {
             $role->update([
                 'name' => $this->name
