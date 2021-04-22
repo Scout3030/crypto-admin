@@ -8,6 +8,7 @@
     <div class="content card">
         <div class="card-header">
             <h4 class="card-title">Permission list</h4>
+            <a href="{{ route('permissions.create') }}" class="btn btn-sm btn-success">Create</a>
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -26,7 +27,7 @@
                     <h5 class="modal-title" id="exampleModalLabel">Delete User</h5>
                 </div>
                 <div class="modal-body">
-                    Aru you sure want to delete <span class="item-name"></span>?
+                    Are you sure want to delete <span class="item-name"></span>?
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-outline-primary" onclick="closeModal()">Close</button>

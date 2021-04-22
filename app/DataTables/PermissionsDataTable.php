@@ -56,10 +56,7 @@ class PermissionsDataTable extends DataTable
                     ->dom('Bfrtip')
                     ->orderBy(0)
                     ->buttons(
-                        Button::make('pageLength'),
-                        Button::make('create'),
-                        Button::make('reset'),
-                        Button::make('reload')
+                        Button::make('pageLength')
                     );
     }
 
