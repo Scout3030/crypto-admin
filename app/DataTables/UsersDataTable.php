@@ -36,7 +36,8 @@ class UsersDataTable extends DataTable
     public function query(User $model)
     {
         return $model->newQuery()
-                     ->orderBy(request()->columns[request()->order[0]['column']]['data'], request()->order[0]['dir']);
+                     ->orderBy(request()->columns[request()->order[0]['column']]['data'], request()->order[0]['dir'])
+                    ->whereIn('role', [Roles::ROOT, Roles::MANAGER]);
     }
 
     /**
