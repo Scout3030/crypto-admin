@@ -61,7 +61,7 @@ Route::group([
     ], function () {
         Route::get('list', [RolesController::class, 'index'])->name('list');
         Route::get('view/{role}', [RolesController::class, 'show'])->name('view');
-        Route::get('edit/{role?}', [RolesController::class, 'edit'])->name('edit');
+        Route::get('edit/{id?}', [RolesController::class, 'edit'])->name('edit');
         Route::get('edit/', [RolesController::class, 'edit'])->name('create');
         Route::post('store/{role?}', [RolesController::class, 'store'])->name('store');
     });
