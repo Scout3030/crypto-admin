@@ -2,16 +2,14 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Helpers\Services\SegmentService;
 use App\Http\Requests\VerifyLoginTokenRequest;
 use App\Models\User;
 use App\Mail\SendOTPToken;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Str;
 use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
 use App\Providers\RouteServiceProvider;
 use App\Http\Requests\Auth\LoginRequest;
 
@@ -29,17 +27,28 @@ class LoginController extends Controller
         return view('auth.login');
     }
 
-    public function doLogin(LoginRequest $request)
+    public function doLogin(LoginRequest $request, SegmentService $segment)
     {
         $request->authenticate();
         $user = $request->user;
+
+        if ($this->isPasswordExpired($user)) {
+            //TODO redirect to reset form
+            //return redirect()->route('change.to.route.for.set.new.password);
+        }
 
         if (!$user->is_active) {
             abort(403);
         }
 
+        $segment->init($user)
+                ->identify();
+
         if (!$user->otp_required) {
             Auth::login($user);
+
+            $segment->event('Login');
+
             return redirect()->route('home');
         }
 
@@ -69,6 +78,7 @@ class LoginController extends Controller
         ])->save();
 
         Auth::loginUsingId($request->user->id);
+
         session()->forget('otp-email');
 
         if ($request->user->first_login == User::YES) {
@@ -106,7 +116,7 @@ class LoginController extends Controller
         ]);
     }
 
-    public function logout(Request $request)
+    public function logout(Request $request, SegmentService $segment)
     {
         Auth::logout();
 
@@ -115,5 +125,10 @@ class LoginController extends Controller
         $request->session()->regenerateToken();
 
         return redirect()->route('login');
+    }
+
+    public function isPasswordExpired($user): bool
+    {
+        return now() >= $user->exp_date;
     }
 }
