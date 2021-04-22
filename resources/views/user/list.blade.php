@@ -37,7 +37,7 @@
                     </div>
                     <form class="dataTables_filter">
                         <label>Search: <input type="text" placeholder="Search" name="search"></label>
-                        <!-- <button class="btn btn-info mb-2" type="submit">Find</button> -->
+                        <button class="btn btn-info mb-2" type="submit">Find</button>
                     </form>
                 </div>
 
@@ -88,23 +88,14 @@
                 </table>
                 <div class="dataTablesInfo">
                     <div class="showEntries">
-                        Showing 1 to 10 of 57 entries
+                        Showing {{$users->firstItem()}} to {{$users->lastItem()}} of {{$users->total()}} entries
                     </div>
-                    <div class="dataTables_paginate paging_simple_numbers">
-                        <a class="paginate_button previous disabled">Previous</a>
-                        <a class="paginate_button current" >1</a>
-                        <a class="paginate_button" >2</a>
-                        <a class="paginate_button" >3</a>
-                        <a class="paginate_button" >4</a>
-                        <a class="paginate_button next">Next</a>
-                    </div>
+
+                    {{$users->links('user.datatables.pagination')}}
+
                 </div>
             </div>
         </div>
-    </div>
-
-    <div class="row">
-        {{$users->links()}}
     </div>
 
     <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModal" aria-hidden="true">
