@@ -1,69 +1,91 @@
 @extends('layouts.main')
 
 @section('content')
-    <div class="row">
-        <h2>Roles list</h2>
+    <div class="titleMain">
+        <h1>Admin Users</h1>
+        <p>Roles Management / Roles List</p>
     </div>
-    <div class="row">
-        <div class="">
-            <div>
-                <form>
-                    <div class="form-row">
-                        <div class="col-auto">
-                            <input class="form-control mb-2" type="text" placeholder="Search" name="search">
-                        </div>
-                        <div class="col-auto">
-                            <button class="btn btn-info mb-2" type="submit">Find</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-            @can('role-create')
-                <div>
-                    <a href="{{route('roles.create')}}" class="btn btn-info">Add Role</a>
-                </div>
-            @endcan
+    <div class="content card">
+        <div class="card-header">
+            <h4 class="card-title">Roles list
+                @can('role-create')
+                    <a href="{{route('roles.create')}}" class="btn btn-primary float-right"><i class="fa fa-user-plus" aria-hidden="true"></i> Add Role</a>
+                @endcan
+            </h4>
         </div>
-        <div class="table-responsive">
-            <table id="user" class="table table-striped table-bordered">
-                <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Role Name</th>
-                    <th>Actions</th>
-                </tr>
-                </thead>
-                <tbody>
-                @foreach($roles as $role)
-                    <tr>
-                        <td>
-                            {{$role->id}}
-                        </td>
-                        <td>
-                            {{$role->name}}
-                        </td>
-                        <td>
-                            @if($role->name !== 'Root')
-                                <a href="{{route('roles.view', $role->id)}}" class="btn btn-outline-primary">VIEW</a>
-                                @can('role-edit')
-                                    <a href="{{route('roles.edit', $role->id)}}"
-                                       class="btn btn-outline-primary">EDIT</a>
-                                @endcan
-                                @can('role-delete')
-                                    <button type="button" class="btn btn-outline-danger delete"
-                                            data-name="{{$role->name}}"
-                                            data-url="{{route('ajax.roles.delete', $role->id)}}"
-                                    >
-                                        DELETE
-                                    </button>
-                                @endcan
-                            @endif
-                        </td>
-                    </tr>
-                @endforeach
-                </tbody>
-            </table>
+        <div class="card-body">
+            <div class="table-responsive">
+                <div class="dataTablesInfo">
+                    <div class="showSelect">
+                        Show 
+                            <select class="form-control">
+                                <option>10</option>
+                                <option>20</option>
+                                <option>30</option>
+                            </select>
+                        entries
+                    </div>
+                    <form class="dataTables_filter">
+                        <label>Search: <input type="text" placeholder="Search" name="search"></label>
+                        <!-- <button class="btn btn-info mb-2" type="submit">Find</button> -->
+                    </form>
+                </div>
 
+                <table id="user" class="table table-responsive-md">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Role Name</th>
+                            <th style="width: 150px;">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    @foreach($roles as $role)
+                        <tr>
+                            <td>
+                                {{$role->id}}
+                            </td>
+                            <td>
+                                {{$role->name}}
+                            </td>
+                            <td>
+                                <div class="d-flex">
+                                @if($role->name !== 'Root')
+                                    <a href="{{route('roles.view', $role->id)}}" class="btn btn-success shadow btn-xs sharp">
+                                        <i class="fa fa-eye" aria-hidden="true"></i></a>
+                                    @can('role-edit')
+                                        <a href="{{route('roles.edit', $role->id)}}"
+                                           class="btn btn-primary shadow btn-xs sharp">
+                                            <i class="fa fa-pencil"></i></a>
+                                    @endcan
+                                    @can('role-delete')
+                                        <button type="button" class="btn btn-danger shadow btn-xs sharp delete"
+                                                data-name="{{$role->name}}"
+                                                data-url="{{route('ajax.roles.delete', $role->id)}}">
+                                            <i class="fa fa-trash"></i>
+                                        </button>
+                                    @endcan
+                                @endif
+                                </div>
+                            </td>
+                        </tr>
+                    @endforeach
+                    </tbody>
+                </table>
+                <div class="dataTablesInfo">
+                    <div class="showEntries">
+                        Showing 1 to 10 of 57 entries
+                    </div>
+                    <div class="dataTables_paginate paging_simple_numbers">
+                        <a class="paginate_button previous disabled">Previous</a>
+                        <a class="paginate_button current" >1</a>
+                        <a class="paginate_button" >2</a>
+                        <a class="paginate_button" >3</a>
+                        <a class="paginate_button" >4</a>
+                        <a class="paginate_button next">Next</a>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
