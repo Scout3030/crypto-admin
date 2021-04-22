@@ -326,7 +326,7 @@ body.dashboard {
   width: 100%;
 }
 #content .nav {
-  justify-content: space-between;
+  justify-content: flex-end;
   padding: 30px;
 }
 #content .nav ul.userNav {
