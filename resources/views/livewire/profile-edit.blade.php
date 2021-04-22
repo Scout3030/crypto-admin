@@ -52,10 +52,10 @@
         @enderror
     </div>
 
-    <div class="col-md-6 mb-3">
+    <div wire:ignore class="col-md-6 mb-3">
         <label for="form-label">Timezone</label>
-        <select wire:model="timezone" class="form-control @error('timezone') validation @enderror">
-            <option selected disabled>Open this select menu</option>
+        <select id="timezone" wire:model="timezone" class="form-select @error('timezone') validation @enderror">
+            <option selected disabled>Select Option</option>
             @foreach ($timezones as $item)
                 <option value="{{ $item }}">{{ $item }}</option>
             @endforeach

@@ -44,12 +44,9 @@ class UsersListController extends Controller
         return view('user.list', compact('users'));
     }
 
-    public function editAdmin(User $user)
+    public function editAdmin($id = 0)
     {
-        $user = $user->exists ? $user : null;
-        $roles = Role::whereIsAdmin(YesNo::YES)->get(['id', 'name']);
-
-        return view('user.edit', compact('user', 'roles'));
+        return view('user.edit', compact('id'));
     }
 
     public function deleteAdmin(User $user): array
