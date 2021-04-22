@@ -633,42 +633,42 @@ main {
 			    margin-left: 0.5em;
 	    	}
 	    }
-	    .dataTables_paginate {
-		    background: #F4F4F4;
-		    border-radius: 1.25rem;
-		    padding: 10px 0;
-		}
+	 //    .dataTables_paginate {
+		//     background: #F4F4F4;
+		//     border-radius: 1.25rem;
+		//     padding: 10px 0;
+		// }
 	}
 
-    .dataTables_paginate {
-	    color: #333;
-	    text-align: center;
+ //    .dataTables_paginate {
+	//     color: #333;
+	//     text-align: center;
 
-	    .paginate_button {
-		    box-sizing: border-box;
-		    min-width: 1.5em;
-		    text-align: center;
-		    text-decoration: none !important;
-		    padding: 16px 25px;
-		    border: 0px solid $color !important;
-		    border-radius: 5rem;
-		    font-size: 16px;
-		    display: inline-block;
-		    cursor: pointer;
+	//     .paginate_button {
+	// 	    box-sizing: border-box;
+	// 	    min-width: 1.5em;
+	// 	    text-align: center;
+	// 	    text-decoration: none !important;
+	// 	    padding: 16px 25px;
+	// 	    border: 0px solid $color !important;
+	// 	    border-radius: 5rem;
+	// 	    font-size: 16px;
+	// 	    display: inline-block;
+	// 	    cursor: pointer;
 
-		    &.current, 
-		    &:hover {
-			    color: #fff !important;
-			    background: $color !important;
-			}
-		}
+	// 	    &.current, 
+	// 	    &:hover {
+	// 		    color: #fff !important;
+	// 		    background: $color !important;
+	// 		}
+	// 	}
 
-		.paginate_button.previous, .paginate_button.next {
-		    background: #fff !important;
-		    color: $color !important;
-		    margin: 0 10px;
-		}
-	}
+	// 	.paginate_button.previous, .paginate_button.next {
+	// 	    background: #fff !important;
+	// 	    color: $color !important;
+	// 	    margin: 0 10px;
+	// 	}
+	// }
 
 	.rowAddMore {
 	    text-align: right;
@@ -759,4 +759,96 @@ main {
 }
 .dtp .p10 > a {
 	color: #333;
+}
+
+// DATATABLES
+.dataTables_wrapper {
+
+	.dataTables_filter {
+	    float: right;
+	    text-align: right;
+	    margin-bottom: 25px;
+
+	    label {
+		    display: flex;
+		    align-items: center;
+		}
+
+		input {
+			margin-left: 8px;
+		}
+	}
+
+	.dataTables_processing {
+	    padding: 12px 20px;
+	    background-color: $color;
+	    color: #fff;
+	    margin: 20px 0 10px;
+	}
+
+	.dataTables_info {
+	    padding: 10px 0;
+	    clear: both;
+    	float: left;
+	}
+	.dataTables_paginate {
+	    float: right;
+    	text-align: right;
+	}
+}
+
+.dataTables_wrapper .dataTables_paginate{
+	background: #F4F4F4;
+	border-radius: 1.25rem;
+	padding: 10px 0;
+
+	ul {
+		margin: 0;
+	}
+	span{
+		border-radius: 0;
+		display: inline-block;
+		margin: 0 0;
+			
+		a{
+			color: #fff;
+			background: transparent !important;
+		}
+	}
+	.paginate_button {
+		.page-link {
+			border: 0 !important;
+			padding: 16px 25px;
+			border: none !important;
+			background: transparent !important;
+			border-radius: 5rem;
+			color:$color !important;
+			font-size:16px;
+			margin:0;
+			display:inline-block;
+			&:hover{
+				color: #fff !important;
+				background: $color !important;
+			}
+		}
+
+		&.active:hover a,
+		&.active a {
+			color: #fff !important;
+			background: $color !important;
+		}
+
+		&.previous,
+		&.next {
+			.page-link {
+				background: #fff!important;
+				color:$color !important;
+				margin: 0 10px;
+				&:hover{
+					background: $color !important;
+					color: #fff !important;
+				}
+			}
+		}
+	}
 }
