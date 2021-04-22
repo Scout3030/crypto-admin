@@ -19,6 +19,9 @@ Route::group([
     Route::delete('roles/delete/{role}', [RolesController::class, 'delete'])
         ->middleware('can:role-delete')
          ->name('roles.delete');
+    Route::delete('roles/delete/', [RolesController::class, 'deleteFromDatatable'])
+        ->middleware('can:role-delete')
+        ->name('roles.datatable.delete');
     Route::post('permission/delete', [PermissionsController::class, 'delete'])
         ->middleware('can:role-delete')
          ->name('permission.delete');

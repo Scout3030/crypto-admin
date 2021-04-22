@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\Users\PermissionsController;
 use App\Http\Controllers\Users\RolesController;
 use Illuminate\Support\Facades\Route;
@@ -60,6 +61,7 @@ Route::group([
         'prefix' => 'roles',
         'as'     => 'roles.',
     ], function () {
+        Route::get('/', [RolesController::class, 'list'])->name('index');
         Route::get('list', [RolesController::class, 'index'])->name('list');
         Route::get('view/{role}', [RolesController::class, 'show'])->name('view');
         Route::get('edit/{id?}', [RolesController::class, 'edit'])->name('edit');
@@ -75,6 +77,14 @@ Route::group([
         Route::get('list', [PermissionsController::class, 'index'])->name('index');
         Route::get('edit/{permission?}', [PermissionsController::class, 'edit'])->name('edit');
         Route::get('list/create', [PermissionsController::class, 'edit'])->name('create');
+    });
+
+    //Notifications
+    Route::group([
+        'prefix' => 'notifications',
+        'as' => 'notifications.',
+    ], function () {
+        Route::get('/', [NotificationController::class, 'index'])->name('index');
     });
 
     Route::post('logout', [LoginController::class, 'logout'])->name('logout');
