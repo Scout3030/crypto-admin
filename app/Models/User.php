@@ -48,6 +48,8 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
         'blocked_at'        => 'datetime',
+        'exp_date'          => 'date',
+        'properties'        => 'array'
     ];
 
     protected $with = ['roles'];
