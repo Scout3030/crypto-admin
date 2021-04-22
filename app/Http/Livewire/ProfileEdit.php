@@ -12,7 +12,7 @@ class ProfileEdit extends Component
 {
     public $user;
     public $first_name, $last_name, $email, $timezone, $date_format, $user_id;
-    public $timezones = Formats::TIMEZONES;
+    public $timezones = Formats::TIMEZONES, $dates = Formats::DATE;
 
     protected $listeners = ['setTimezone' => 'setTimezone'];
 
@@ -27,6 +27,8 @@ class ProfileEdit extends Component
             'first_name' => 'required|min:3|max:26',
             'last_name' => 'required|min:3|max:26',
             'email' => 'required|email|unique:users,email,' . $this->user_id,
+            'date_format' => 'required',
+            'timezone' => 'required'
         ];
     }
 
@@ -50,9 +52,7 @@ class ProfileEdit extends Component
 
     public function render()
     {
-        $dates = Formats::DATE;
-
-        return view('livewire.profile-edit', compact('dates'));
+        return view('livewire.profile-edit');
     }
 
     public function update()
