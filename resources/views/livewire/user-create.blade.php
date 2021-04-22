@@ -73,7 +73,7 @@
         <div class="mb-3">
             <label for="roles">Role</label>
             <select id="roles"
-                class="form-control"
+                class="form-control @error('role_id') validation @enderror"
                 wire:model="role_id"
                 @if(($user_id ?? 0) === auth()->id()) disabled @endif
                 placeholder="Select Option"
@@ -86,6 +86,9 @@
                 <option value="{{$role->id}}">{{$role->name}}</option>
                 @endforeach
             </select>
+            @error('role_id')
+            <div class="form-text validation pb-1">{{ $message }}</div>
+            @enderror
         </div>
 
         <div class="mb-3">

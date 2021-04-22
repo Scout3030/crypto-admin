@@ -44,11 +44,6 @@ class UserCreate extends Component
             'last_name' => 'required|min:3|max:26',
             'email' => 'required|email|unique:users,email,' . $this->user_id,
             'role_id' => 'required|min:1'
-            /*'password' => [
-                Rule::requiredIf( Str::length($this->password) > 0 | Str::length($this->password_confirmation) > 0 ),
-                'confirmed',
-                new StrengthPassword
-            ]*/
         ];
     }
 
@@ -86,13 +81,13 @@ class UserCreate extends Component
 
     public function store()
     {
-        $this->validate();
-
-        if ( Str::length($this->password) > 0 || Str::length($this->password_confirmation) > 0 ) {
-            $this->validate([
-                'password' => ['required', 'confirmed', new StrengthPassword]
-            ]);
-        }
+        $this->validate([
+            'first_name' => 'required|min:3|max:26',
+            'last_name' => 'required|min:3|max:26',
+            'email' => 'required|email|unique:users,email,' . $this->user_id,
+            'role_id' => 'required|min:1',
+            'password' => ['required', 'confirmed', new StrengthPassword]
+        ]);
 
         $user = User::create([
             'first_name' => $this->first_name,
