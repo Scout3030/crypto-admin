@@ -1,7 +1,22 @@
 @extends('layouts.main')
 
 @section('content')
-    {!! $dataTable->table() !!}
+    <div class="titleMain">
+        <h1>Merchants</h1>
+        <p>Merchant Management / Merchants list</p>
+    </div>
+    <div class="content card">
+        <div class="card-header">
+            <h4 class="card-title">Merchants list</h4>
+            <a href="{{ route('user.create') }}" class="btn btn-sm btn-success">Create</a>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                {!! $dataTable->table() !!}
+            </div>
+        </div>
+    </div>
+
     <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModal" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -9,7 +24,7 @@
                     <h5 class="modal-title" id="exampleModalLabel">Delete User</h5>
                 </div>
                 <div class="modal-body">
-                    Aru you sure want to delete <span class="item-name"></span>?
+                    Are you sure want to delete <span class="item-name"></span>?
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-outline-primary" onclick="closeModal()">Close</button>
