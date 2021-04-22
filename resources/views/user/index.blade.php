@@ -2,12 +2,12 @@
 
 @section('content')
     <div class="titleMain">
-        <h1>Permissions</h1>
-        <p>Permission Management / Permission list</p>
+        <h1>Users</h1>
+        <p>User Management / User list</p>
     </div>
     <div class="content card">
         <div class="card-header">
-            <h4 class="card-title">Permission list</h4>
+            <h4 class="card-title">User list</h4>
         </div>
         <div class="card-body">
             <div class="table-responsive">
