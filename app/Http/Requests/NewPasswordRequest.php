@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\RepeatedPassword;
 use App\Rules\StrengthPassword;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -29,7 +30,8 @@ class NewPasswordRequest extends FormRequest
                 'required',
                 'min:8',
                 'confirmed',
-                new StrengthPassword()
+                new StrengthPassword(),
+                new RepeatedPassword()
             ]
         ];
     }

@@ -4,7 +4,9 @@ namespace App\Http\Livewire;
 
 use App\Models\User;
 use App\Rules\CurrentPassword;
+use App\Rules\RepeatedPassword;
 use App\Rules\StrengthPassword;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Livewire\Component;
 use PHPUnit\Exception;
@@ -20,7 +22,10 @@ class NewPasswordForm extends Component
     {
         return [
             'current_password' => ['required'],
-            'password' => ['required', 'confirmed', new StrengthPassword()]
+            'password' => [
+                'required', 'confirmed',
+                new StrengthPassword(), new RepeatedPassword()
+            ]
         ];
     }
 
@@ -44,13 +49,30 @@ class NewPasswordForm extends Component
 
         /** @var User */
         $user = auth()->user();
-        $user->password = bcrypt($this->password);
-        $user->save();
+
 
         Segment::track(array(
             "userId" => $user->id,
             "event" => "User change password"
         ));
+
+        $hash = Hash::make($this->password);
+
+        $rememberedPasswords = $user->properties['passwords'] ?? [];
+
+        if (count($rememberedPasswords) >= 3) {
+            array_shift($rememberedPasswords);
+        }
+
+        $rememberedPasswords[] = $hash;
+
+        $properties = [
+            'passwords' => $rememberedPasswords,
+        ];
+
+        $user->password = bcrypt($this->password);
+        $user->properties = $properties;
+        $user->save();
 
 //        try{
 //            Mail::to($user->email)->send(new NewPasswordMail());
