@@ -783,6 +783,16 @@ main {
 // DATATABLES
 .dataTables_wrapper {
 
+	button.btn.buttons-collection.dropdown-toggle.buttons-page-length {
+	    background-color: #ffffff;
+	    color: #1eaae7;
+	    border: 1px solid #1eaae7;
+	}
+	.dropdown-toggle::after {
+	    margin-left: 8px;
+	    vertical-align: 2px;
+	}
+
 	.dataTables_filter {
 	    float: right;
 	    text-align: right;
@@ -795,6 +805,12 @@ main {
 
 		input {
 			margin-left: 8px;
+			border: 1px solid #f0f1f5;
+			font-weight: 300;
+			background-color: #d5f3dd;
+			border-radius: 20px;
+			padding: 15px;
+			min-width: 250px;
 		}
 	}
 

@@ -644,6 +644,15 @@ main .verifyCont h5 {
   color: #333;
 }
 
+.dataTables_wrapper button.btn.buttons-collection.dropdown-toggle.buttons-page-length {
+  background-color: #ffffff;
+  color: #1eaae7;
+  border: 1px solid #1eaae7;
+}
+.dataTables_wrapper .dropdown-toggle::after {
+  margin-left: 8px;
+  vertical-align: 2px;
+}
 .dataTables_wrapper .dataTables_filter {
   float: right;
   text-align: right;
@@ -655,6 +664,12 @@ main .verifyCont h5 {
 }
 .dataTables_wrapper .dataTables_filter input {
   margin-left: 8px;
+  border: 1px solid #f0f1f5;
+  font-weight: 300;
+  background-color: #d5f3dd;
+  border-radius: 20px;
+  padding: 15px;
+  min-width: 250px;
 }
 .dataTables_wrapper .dataTables_processing {
   padding: 12px 20px;
