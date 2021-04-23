@@ -46,6 +46,7 @@
                     <div class="mb-3 form-check">
                         <input id="form-check-label" name="remember" type="checkbox" class="form-check-input">
                         <label for="form-check-label" class="form-check-label">{{__('Remember Me')}}</label>
+                        <a class="forgotPass" href="{{ route('auth.showForgotPasswordForm') }}">{{__('Forgot Password?')}}</a>
                     </div>
                     <button type="submit" class="btn btn-primary">{{__('Sign In')}}</button>
                 </form>

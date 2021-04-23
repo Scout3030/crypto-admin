@@ -1,22 +1,25 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace App\Http\Controllers;
 
 use App\Helpers\Services\SegmentService;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Requests\VerifyLoginTokenRequest;
 use App\Models\User;
-use App\Mail\SendOTPToken;
-use Illuminate\Auth\Passwords\CanResetPassword;
-use Illuminate\Support\Facades\Mail;
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
 use App\Providers\RouteServiceProvider;
-use App\Http\Requests\Auth\LoginRequest;
+use App\Mail\SendOTPToken;
+use App\Traits\SendsPasswordResetEmails;
+use App\Traits\ResetsPasswords;
+use Illuminate\Auth\Passwords\CanResetPassword;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Password;
 
-class LoginController extends Controller
+class AuthController extends Controller
 {
-    use CanResetPassword;
+    use CanResetPassword, SendsPasswordResetEmails, ResetsPasswords;
 
     private string $token;
 
@@ -135,5 +138,15 @@ class LoginController extends Controller
     public function isPasswordExpired($user): bool
     {
         return now() >= $user->exp_date;
+    }
+
+    /**
+     * Get the broker to be used during password reset.
+     *
+     * @return \Illuminate\Contracts\Auth\PasswordBroker
+     */
+    public function broker()
+    {
+        return Password::broker();
     }
 }
