@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\Users\PermissionsController;
 use App\Http\Controllers\Users\RolesController;
@@ -87,7 +87,7 @@ Route::group([
         Route::get('/', [NotificationController::class, 'index'])->name('index');
     });
 
-    Route::post('logout', [LoginController::class, 'logout'])->name('logout');
+    Route::post('logout', [AuthController::class, 'logout'])->name('logout');
 
     Route::get('/profile/edit', [UserController::class, 'profile'])->name('profile.edit');
 });
