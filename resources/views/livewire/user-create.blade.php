@@ -1,14 +1,14 @@
 <div>
-    <h2>{{ $title }} User</h2>
+    <h2 class="titleBody">{{ $title }} User</h2>
 
-    <form  wire:submit.prevent="{{ $action }}" class="formLogin">
+    <form  wire:submit.prevent="{{ $action }}" class="row">
 
         @csrf
 
         <input type="hidden" wire:model="user_id">
 
-        <div class="mb-3">
-            <label for="first-name">First Name</label>
+        <div class="col-md-6 mb-3">
+            <label class="form-label" for="first-name">First Name</label>
             <input type="text"
                     class="form-control @error('first_name') validation @enderror"
                     id="first-name"
@@ -20,8 +20,8 @@
         <div class="form-text validation pb-1">{{ $message }}</div>
         @enderror
 
-        <div class="mb-3">
-            <label for="last-name">Last Name</label>
+        <div class="col-md-6 mb-3">
+            <label class="form-label" for="last-name">Last Name</label>
             <input type="text"
                     class="form-control @error('last_name') validation @enderror"
                     id="last-name"
@@ -33,8 +33,8 @@
         <div class="form-text validation pb-1">{{ $message }}</div>
         @enderror
 
-        <div class="mb-3">
-            <label for="email">Email</label>
+        <div class="col-md-6 mb-3">
+            <label class="form-label" for="email">Email</label>
             <input type="email"
                     class="form-control @error('email') validation @enderror"
                     id="email"
@@ -45,8 +45,8 @@
         @error('email')
         <div class="form-text validation pb-1">{{ $message }}</div>
         @enderror
-        <div class="mb-3">
-            <label for="password">Password</label>
+        <div class="col-md-6 mb-3">
+            <label class="form-label" for="password">Password</label>
             <input id="password"
                     type="password"
                     class="form-control @error('password') validation @enderror"
@@ -57,8 +57,8 @@
         <div class="form-text validation pb-1">{{ $message }}</div>
         @enderror
 
-        <div class="mb-3">
-            <label for="password_confirmation">Confirm Password</label>
+        <div class="col-md-6 mb-3">
+            <label class="form-label" for="password_confirmation">Confirm Password</label>
             <input id="password_confirmation"
                     type="password"
                     class="form-control @error('password_confirmation') validation @enderror"
@@ -70,8 +70,8 @@
         <div class="form-text validation pb-1">{{ $message }}</div>
         @enderror
 
-        <div class="mb-3">
-            <label for="roles">Role</label>
+        <div class="col-md-6 mb-3">
+            <label class="form-label" for="roles">Role</label>
             <select id="roles"
                 class="form-control @error('role_id') validation @enderror"
                 wire:model="role_id"
@@ -91,7 +91,7 @@
             @enderror
         </div>
 
-        <div class="mb-3">
+        <div class="col-md-6 mb-3">
             <div class="form-check form-check-inline">
                 <input class="form-check-input"
                     type="radio"
@@ -100,7 +100,7 @@
                     @if(($user_id ?? 0) === auth()->id()) disabled @endif
                     @if($is_active ?? true) checked @endif
                     >
-                <label class="form-check-label" for="status_active">Active</label>
+                <label class="form-label" class="form-check-label" for="status_active">Active</label>
             </div>
             <div class="form-check form-check-inline">
                 <input class="form-check-input"
@@ -110,11 +110,13 @@
                     @if(($user_id ?? 0) === auth()->id()) disabled @endif
                     @if(!$is_active ?? true) checked @endif
                     >
-                <label class="form-check-label" for="status_disable">Disable</label>
+                <label class="form-label" class="form-check-label" for="status_disable">Disable</label>
             </div>
         </div>
 
-        <button type="submit" class="btn btn-primary">Store</button>
+        <div class="col-md-12 d-flex flex-row-reverse">
+            <button type="submit" class="btn btn-primary">Store</button>
+        </div>
     </form>
 </div>
 

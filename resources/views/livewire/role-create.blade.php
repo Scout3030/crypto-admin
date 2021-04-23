@@ -1,6 +1,6 @@
 <div>
-    <h2>{{ $title }} Role</h2>
-    <form class="formLogin" wire:submit.prevent="store" >
+    <h2 class="titleBody">{{ $title }} Role</h2>
+    <form wire:submit.prevent="store" >
         @csrf
 
         <input type="hidden" wire:model="role_id">
@@ -19,12 +19,13 @@
         @enderror
 
         <div class="mb-3">
-            <div><h3>Permissions</h3></div>
+
+            <div><h3 class="titleBody">Permissions</h3></div>
 
             <livewire:search-role-filter/>
 
             <div class="row">
-                <div class="col-sm-4 mb-3">
+                <div class="col-md-6">
                     @php $no = 1; @endphp
                     @foreach($permissions as $permission)
                         <div class="form-group form-check">
@@ -39,13 +40,15 @@
                         </div>
                     @if ($no++%4 == 0)
                 </div>
-                <div class="col-sm-4 mb-3">
+                <div class="col-md-6">
                     @endif
                     @endforeach
                 </div>
             </div>
         </div>
-        <a href="{{route('roles.list')}}" class="btn btn-outline-info">Cancel</a>
-        <button type="submit" class="btn btn-primary">@if($role_id > 0) Update @else Submit @endif</button>
+        <div class="col-md-12 d-flex flex-row-reverse">
+            <button type="submit" class="btn btn-primary">@if($role_id > 0) Update @else Submit @endif</button>
+            <a href="{{route('roles.list')}}" class="btn btn-outline-info">Cancel</a>
+        </div>
     </form>
 </div>

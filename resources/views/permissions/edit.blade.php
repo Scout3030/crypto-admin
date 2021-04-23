@@ -1,17 +1,18 @@
 @extends('layouts.main')
 
 @section('content')
-    <div class="row justify-content-center h-100 align-items-center">
-        <div class="col-12">
-            <div class="contLogin w-100">
-                <h2>@if($permission->name ?? '') Edit @else Create @endif Permission</h2>
+        <div class="titleMain">
+            <h1>Permissions</h1>
+            <p>Permissions / Edit Permissions</p>
+        </div>
+        <div class="content card">
+            <div class="card-body">
+                <h2 class="titleBody">@if($permission->name ?? '') Edit @else Create @endif Permission</h2>
                 @if ($permission)
                     <livewire:permission-edit :permission="$permission"/>
                 @else
                     <livewire:permission-edit/>
                 @endif
             </div>
-
         </div>
-    </div>
 @endsection
