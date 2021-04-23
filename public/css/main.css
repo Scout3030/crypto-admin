@@ -334,7 +334,7 @@ body.dashboard {
   width: 100%;
 }
 #content .nav {
-  justify-content: space-between;
+  justify-content: flex-end;
   padding: 30px;
 }
 #content .nav ul.userNav {
@@ -706,4 +706,54 @@ main .verifyCont h5 {
 .dataTables_wrapper .dataTables_paginate .paginate_button.previous .page-link:hover, .dataTables_wrapper .dataTables_paginate .paginate_button.next .page-link:hover {
   background: #1EAAE7 !important;
   color: #fff !important;
+}
+
+.notificationCard {
+  background-color: #dad8d8;
+  border-radius: 15px;
+  overflow: hidden;
+  margin-bottom: 30px;
+}
+.notificationCard:last-child {
+  margin-bottom: 0;
+}
+.notificationCard h2 {
+  background-color: #1EAAE7;
+  padding: 15px 25px;
+  color: #fff;
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  margin: 0;
+  border-bottom: 2px solid #fff;
+}
+.notificationCard ul.notificationList {
+  padding: 0;
+  margin: 0;
+}
+.notificationCard ul.notificationList li {
+  padding: 25px;
+  border-bottom: 1px solid #8a8989;
+  background-image: url(/images/iso.png?b6fd559ad5a78b9e4bca8f8a91589289);
+  background-repeat: no-repeat;
+  background-position: 25px center;
+  padding-left: 80px;
+  display: flex;
+  justify-content: space-between;
+}
+.notificationCard ul.notificationList li:last-child {
+  border: none;
+}
+.notificationCard ul.notificationList li.noNoti {
+  color: #1EAAE7;
+}
+.notificationCard ul.notificationList .notiAction {
+  min-width: 95px;
+  align-self: center;
+  text-align: center;
+  margin-left: 30px;
+}
+.notificationCard ul.notificationList .notiAction .btn {
+  min-width: initial !important;
+  padding: 10px 15px;
 }
