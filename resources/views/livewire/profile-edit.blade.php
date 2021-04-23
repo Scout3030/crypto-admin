@@ -6,13 +6,12 @@
             <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="mr-2">
                 <polyline points="9 11 12 14 22 4"></polyline>
                 <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
-            </svg> <strong>Sucess!</strong> Registration created successfully!
+            </svg> <strong>Sucess!</strong> Profile edited successfully!
         </div>
     </div>
     @endif
 
     @csrf
-    @method('PUT')
 
     <input type="hidden" wire:model="user_id">
 
@@ -54,8 +53,10 @@
 
     <div wire:ignore class="col-md-6 mb-3">
         <label for="form-label">Timezone</label>
-        <select id="timezone" wire:model="timezone" class="form-select @error('timezone') validation @enderror">
-            <option selected disabled>Select Option</option>
+        <select id="timezone"
+            wire:model="timezone"
+            class="form-select @error('timezone') validation @enderror">
+            <option value=""></option>
             @foreach ($timezones as $item)
                 <option value="{{ $item }}">{{ $item }}</option>
             @endforeach
@@ -65,10 +66,12 @@
         @enderror
     </div>
 
-    <div class="col-md-6 mb-3">
+    <div wire:ignore  class="col-md-6 mb-3">
         <label for="form-label">Date Format</label>
-        <select wire:model="date_format" class="form-control @error('date_format') validation @enderror">
-            <option selected disabled>Open this select menu</option>
+        <select id="date_format"
+            wire:model="date_format"
+            class="form-control @error('date_format') validation @enderror">
+            <option value=""></option>
             @foreach ($dates as $item)
                 <option value="{{ $item['id'] }}">{{ $item['text'] }}</option>
             @endforeach
@@ -79,7 +82,7 @@
     </div>
 
     <div class="col-md-12 d-flex flex-row-reverse">
-        <button type="submit" class="btn-next mt-3">Submit</button>
+        <button type="submit" class="btn-outline-primary mt-3">Update</button>
     </div>
 
 </form>

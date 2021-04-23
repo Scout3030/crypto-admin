@@ -31,7 +31,7 @@ a {
   color: #333;
 }
 .contLogin h2 {
-  color: #376eba;
+  color: #1EAAE7;
   font-size: 50px;
   text-align: center;
   font-weight: 600;
@@ -75,6 +75,14 @@ a {
   color: #71c07d;
   border: 1px solid #71c07d;
   border-radius: 10px;
+}
+.formLogin button.btn-outline-primary {
+  max-width: 240px;
+  padding: 15px;
+  background-color: #fff;
+  color: #1EAAE7;
+  border: 1px solid #1EAAE7;
+  border-radius: 10px 10px 0px 0px;
 }
 .formLogin .form-text {
   margin-top: 20px;
@@ -179,7 +187,7 @@ a {
 }
 
 h2.titleNoti {
-  color: #376eba;
+  color: #1EAAE7;
   font-size: 50px;
   font-weight: 600;
   text-align: center;
@@ -251,7 +259,7 @@ body.dashboard {
   transition: all 0.3s ease-out;
 }
 #sidebar ul.menu li a:hover {
-  color: #376eba;
+  color: #1EAAE7;
 }
 #sidebar ul.menu li a i {
   font-size: 28px;
@@ -268,7 +276,7 @@ body.dashboard {
   color: #000;
 }
 #sidebar ul.menu li.mm-active a i {
-  background-color: #376eba;
+  background-color: #1EAAE7;
   color: #fff;
 }
 #sidebar ul.menu li.mm-active a.has-arrow:after {
@@ -303,7 +311,7 @@ body.dashboard {
   cursor: pointer;
 }
 .hamburger .line {
-  background: #376eba;
+  background: #1EAAE7;
   display: block;
   height: 3px;
   border-radius: 3px;
@@ -326,7 +334,7 @@ body.dashboard {
   width: 100%;
 }
 #content .nav {
-  justify-content: flex-end;
+  justify-content: space-between;
   padding: 30px;
 }
 #content .nav ul.userNav {
@@ -366,7 +374,7 @@ body.dashboard {
   position: absolute;
   width: 28px;
   height: 28px;
-  background-color: #376eba;
+  background-color: #1EAAE7;
   text-align: center;
   color: #fff;
   border-radius: 27px;
@@ -387,7 +395,7 @@ body.dashboard {
 }
 #content .nav ul.userNav .weather-detail span {
   height: 56px;
-  background: #376eba;
+  background: #1EAAE7;
   line-height: 56px;
   font-size: 22px;
   padding: 0px 20px;
@@ -442,12 +450,12 @@ main .titleMain h1 {
   font-weight: 600;
 }
 main .titleMain a {
-  color: #376eba;
+  color: #1EAAE7;
   text-decoration: none;
 }
 main .card-header h4 a {
   float: right;
-  background-color: #376eba;
+  background-color: #1EAAE7;
   border: none !important;
 }
 main .card-body {
@@ -503,7 +511,7 @@ main button.btn, main a.btn {
   border: none;
 }
 main button.btn.btn-primary, main a.btn.btn-primary {
-  background-color: #376eba;
+  background-color: #1EAAE7;
 }
 main button.btn.btn-text, main a.btn.btn-text {
   color: #aec5e4;
@@ -579,10 +587,10 @@ main .verifyCont h5 {
   border-radius: 50px;
   width: 3rem;
   height: 3rem;
-  border: 2px solid #376eba;
+  border: 2px solid #1EAAE7;
   display: block;
   line-height: 3rem;
-  color: #376eba;
+  color: #1EAAE7;
   font-size: 18px;
   margin: auto;
   background-color: #fff;
@@ -609,7 +617,7 @@ main .verifyCont h5 {
   cursor: pointer;
 }
 .nav-wizard li .nav-link.active span {
-  background-color: #376eba;
+  background-color: #1EAAE7;
   color: #fff !important;
 }
 .nav-wizard li:last-child a:after {
@@ -619,7 +627,7 @@ main .verifyCont h5 {
 .dtp > .dtp-content > .dtp-date-view > header.dtp-header,
 .dtp div.dtp-date, .dtp div.dtp-time,
 .dtp table.dtp-picker-days tr > td > a.selected {
-  background: #376eba;
+  background: #1EAAE7;
 }
 
 .dtp .p10 > a {
@@ -640,7 +648,7 @@ main .verifyCont h5 {
 }
 .dataTables_wrapper .dataTables_processing {
   padding: 12px 20px;
-  background-color: #376eba;
+  background-color: #1EAAE7;
   color: #fff;
   margin: 20px 0 10px;
 }
@@ -677,25 +685,25 @@ main .verifyCont h5 {
   border: none !important;
   background: transparent !important;
   border-radius: 5rem;
-  color: #376eba !important;
+  color: #1EAAE7 !important;
   font-size: 16px;
   margin: 0;
   display: inline-block;
 }
 .dataTables_wrapper .dataTables_paginate .paginate_button .page-link:hover {
   color: #fff !important;
-  background: #376eba !important;
+  background: #1EAAE7 !important;
 }
 .dataTables_wrapper .dataTables_paginate .paginate_button.active:hover a, .dataTables_wrapper .dataTables_paginate .paginate_button.active a {
   color: #fff !important;
-  background: #376eba !important;
+  background: #1EAAE7 !important;
 }
 .dataTables_wrapper .dataTables_paginate .paginate_button.previous .page-link, .dataTables_wrapper .dataTables_paginate .paginate_button.next .page-link {
   background: #fff !important;
-  color: #376eba !important;
+  color: #1EAAE7 !important;
   margin: 0 10px;
 }
 .dataTables_wrapper .dataTables_paginate .paginate_button.previous .page-link:hover, .dataTables_wrapper .dataTables_paginate .paginate_button.next .page-link:hover {
-  background: #376eba !important;
+  background: #1EAAE7 !important;
   color: #fff !important;
 }

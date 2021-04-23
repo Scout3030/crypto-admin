@@ -5,6 +5,7 @@ namespace App\Http\Livewire;
 use App\Helpers\Enums\Formats;
 use App\Mail\NotificationChangeEmail;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 use Livewire\Component;
 
@@ -14,11 +15,19 @@ class ProfileEdit extends Component
     public $first_name, $last_name, $email, $timezone, $date_format, $user_id;
     public $timezones = Formats::TIMEZONES, $dates = Formats::DATE;
 
-    protected $listeners = ['setTimezone' => 'setTimezone'];
+    protected $listeners = [
+        'setTimezone' => 'setTimezone',
+        'setDateFormat' => 'setDateFormat',
+    ];
 
     public function setTimezone($zone)
     {
         $this->timezone = $zone;
+    }
+
+    public function setDateFormat($date)
+    {
+        $this->date_format = $date;
     }
 
     protected function rules()
@@ -27,8 +36,6 @@ class ProfileEdit extends Component
             'first_name' => 'required|min:3|max:26',
             'last_name' => 'required|min:3|max:26',
             'email' => 'required|email|unique:users,email,' . $this->user_id,
-            'date_format' => 'required',
-            'timezone' => 'required'
         ];
     }
 
@@ -85,8 +92,8 @@ class ProfileEdit extends Component
 
         }
 
-        session()->flash('success', 'Registration created successfully!');
+        session()->flash('success', true);
 
-        return back()->with('success', 'Hola');
+        return back();
     }
 }
