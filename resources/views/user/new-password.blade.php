@@ -2,8 +2,7 @@
 
 @section('content')
     <div class="titleMain">
-        <h1>User</h1>
-        <p>Change password</p>
+        <h1>Change Password</h1>
     </div>
 
     <div class="content card">

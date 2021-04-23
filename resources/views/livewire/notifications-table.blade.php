@@ -7,13 +7,16 @@
             <h2>Today</h2>
             <ul class="notificationList">
                 @forelse($newNotifications as $newNotification)
-                    <li class="" wire:key="{{ $newNotification->id }}">A user {{ $newNotification->event }} <br> {{ $newNotification->created_at->format('M d') }}
-                        @if($newNotification->read == \App\Helpers\Enums\YesNo::NO)
-                            <button class="btn btn-sm" wire:click="markAsRead({{ $newNotification->id }})">Mark as read</button>
-                        @endif
+                    <li class="" wire:key="{{ $newNotification->id }}">
+                        <div class="notiText">{{ $newNotification->event }} <br> <span style="color: #8a8989">{{ $newNotification->created_at->format('M d') }}</span></div>
+                        <div class="notiAction">
+                            @if($newNotification->read == \App\Helpers\Enums\YesNo::NO)
+                                <button class="btn" wire:click="markAsRead({{ $newNotification->id }})"><i class="fa fa-check-square" aria-hidden="true"></i></button>
+                            @endif
+                        </div>
                     </li>
                 @empty
-                    No new notifications
+                    <li class="noNoti">No new notifications</li>
                 @endforelse
             </ul>
         </div>
@@ -22,14 +25,17 @@
             <h2>Earlier</h2>
             <ul class="notificationList">
                 @forelse($earlierNotifications as $notification)
-                    <li class="" wire:key="{{ $notification->id }}">A user {{ $notification->event }} <br> {{ $notification->created_at->format('M d') }}
-                        @if($notification->read == \App\Helpers\Enums\YesNo::NO)
-                        <button class="btn shadow btn-xs sharp btn-success" wire:click="markAsRead({{ $notification->id }})">Mark as read</button>
-                        @endif
-                        <button class="btn shadow btn-xs sharp btn-danger" wire:click="deleteNotification({{ $notification->id }})"><i class="fa fa-trash"></i></button>
+                    <li class="" wire:key="{{ $notification->id }}">
+                        <div class="notiText">{{ $notification->event }} <br> <span style="color: #8a8989">{{ $notification->created_at->format('M d') }}</span></div>
+                        <div class="notiAction">
+                            @if($notification->read == \App\Helpers\Enums\YesNo::NO)
+                                <button class="btn" wire:click="markAsRead({{ $notification->id }})"><i class="fa fa-check-square" aria-hidden="true"></i></button>
+                            @endif
+                            <button class="btn" wire:click="deleteNotification({{ $notification->id }})"><i class="fa fa-times" aria-hidden="true"></i></button>
+                        </div>
                     </li>
                 @empty
-                    No notifications
+                    <li class="noNoti">No notifications</li>
                 @endforelse
             </ul>
         </div>

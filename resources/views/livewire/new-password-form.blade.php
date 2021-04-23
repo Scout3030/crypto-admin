@@ -9,44 +9,57 @@
         </div>
     @endif
 
-    <div class="mb-3">
-        <label for="current_password" class="form-label">Current Password</label>
-        <input id="current_password"
-               type="password"
-               wire:model="current_password"
-               class="form-control @error('current_password') validation @enderror"
-               placeholder="Enter Your Current Password"
-        >
-        @error('current_password')
-        <div class="form-text validation pb-3">{{ $message }}</div>
-        @enderror
+    <div class="row">
+        <div class="col-md-6">
+            <div class="mb-3">
+                <label for="current_password" class="form-label">Current Password</label>
+                <input id="current_password"
+                       type="password"
+                       wire:model="current_password"
+                       class="form-control @error('current_password') validation @enderror"
+                       placeholder="Enter Your Current Password"
+                >
+                @error('current_password')
+                <div class="form-text validation pb-3">{{ $message }}</div>
+                @enderror
+            </div>
+        </div>
     </div>
 
-    <div class="mb-3">
-        <label for="password" class="form-label">New Password</label>
-        <input id="password"
-               type="password"
-               wire:model="password"
-               class="form-control @error('password') validation @enderror"
-               placeholder="Enter Your New Password"
-               autocomplete="off"
-        >
-        @error('password')
-        <div class="form-text validation pb-3">{{ $message }}</div>
-        @enderror
+    <div class="row">
+        <div class="col-md-6">
+            <div class="mb-3">
+                <label for="password" class="form-label">New Password</label>
+                <input id="password"
+                       type="password"
+                       wire:model="password"
+                       class="form-control @error('password') validation @enderror"
+                       placeholder="Enter Your New Password"
+                       autocomplete="off"
+                >
+                @error('password')
+                <div class="form-text validation pb-3">{{ $message }}</div>
+                @enderror
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="mb-3">
+                <label for="password_confirmation" class="form-label">Confirm Password</label>
+                <input id="password_confirmation"
+                       type="password"
+                       wire:model="password_confirmation"
+                       class="form-control @error('password_confirmation') validation @enderror"
+                       placeholder="Enter Your New Password"
+                       autocomplete="off"
+                >
+                @error('password_confirmation')
+                <div class="form-text validation pb-3">{{ $message }}</div>
+                @enderror
+            </div>
+        </div>
     </div>
-    <div class="mb-3">
-        <label for="password_confirmation" class="form-label">Confirm Password</label>
-        <input id="password_confirmation"
-               type="password"
-               wire:model="password_confirmation"
-               class="form-control @error('password_confirmation') validation @enderror"
-               placeholder="Enter Your New Password"
-               autocomplete="off"
-        >
-        @error('password_confirmation')
-        <div class="form-text validation pb-3">{{ $message }}</div>
-        @enderror
+
+    <div class="text-center mt-5">
+        <button type="submit" class="btn-outline-primary btn-primary">Update</button>
     </div>
-    <button type="submit" class="btn btn-primary">Save</button>
 </form>

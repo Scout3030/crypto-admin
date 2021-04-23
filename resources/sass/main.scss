@@ -375,7 +375,7 @@ body.dashboard {
 	width: 100%;
 
 	.nav {
-	    justify-content: space-between;
+	    justify-content: flex-end;
 	    padding: 30px;
 
 	    ul.userNav {
@@ -865,4 +865,57 @@ main {
 .notificationCard {
     background-color: #dad8d8;
     border-radius: 15px;
+    overflow: hidden;
+    margin-bottom: 30px;
+
+    &:last-child {
+    	margin-bottom: 0;
+    }
+
+    h2 {
+	    background-color: $color;
+	    padding: 15px 25px;
+	    color: #fff;
+	    font-size: 20px;
+	    font-weight: 600;
+	    letter-spacing: 1px;
+	    margin: 0;
+		border-bottom: 2px solid #fff;
+	}
+
+	ul.notificationList {
+	    padding: 0;
+	    margin: 0;
+
+	    li {
+			padding: 25px;
+		    border-bottom: 1px solid #8a8989;
+		    background-image: url('../img/iso.png');
+		    background-repeat: no-repeat;
+		    background-position: 25px center;
+		    padding-left: 80px;
+		    display: flex;
+    		justify-content: space-between;
+
+	    	&:last-child {
+	    		border: none;
+	    	}
+
+	    	&.noNoti {
+	    		color: $color;
+	    	}
+	    }
+
+	    .notiAction {
+		    min-width: 95px;
+		    align-self: center;
+		    text-align: center;
+		    margin-left: 30px;
+
+		    .btn {
+		    	min-width: initial !important;
+		    	padding: 10px 15px;
+		    }
+		}
+	}
 }
