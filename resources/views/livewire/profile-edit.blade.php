@@ -1,4 +1,4 @@
-<form wire:submit.prevent="update" class="formLogin row">
+<form wire:submit.prevent="update" class="row">
 
     @if ( Session::has('success') )
     <div class="col-12">
@@ -16,7 +16,7 @@
     <input type="hidden" wire:model="user_id">
 
     <div class="col-md-6 mb-3">
-        <label for="form-label">First Name</label>
+        <label class="form-label" for="form-label">First Name</label>
         <input id="first_name"
             type="text"
             wire:model="first_name"
@@ -29,7 +29,7 @@
     </div>
 
     <div class="col-md-6 mb-3">
-        <label for="form-label">Last Name</label>
+        <label class="form-label" for="form-label">Last Name</label>
         <input id="last_name"
             type="text"
             wire:model="last_name"
@@ -41,7 +41,7 @@
     </div>
 
     <div class="col-md-6 mb-3">
-        <label for="form-label">Email</label>
+        <label class="form-label" for="form-label">Email</label>
         <input type="text"
             wire:model="email"
             class="form-control @error('email') validation @enderror"
@@ -52,7 +52,7 @@
     </div>
 
     <div wire:ignore class="col-md-6 mb-3">
-        <label for="form-label">Timezone</label>
+        <label class="form-label" for="form-label">Timezone</label>
         <select id="timezone"
             wire:model="timezone"
             class="form-select @error('timezone') validation @enderror">
@@ -67,7 +67,7 @@
     </div>
 
     <div wire:ignore  class="col-md-6 mb-3">
-        <label for="form-label">Date Format</label>
+        <label class="form-label" for="form-label">Date Format</label>
         <select id="date_format"
             wire:model="date_format"
             class="form-control @error('date_format') validation @enderror">

@@ -1,13 +1,15 @@
 @extends('layouts.main')
 
 @section('content')
-    <div class="row justify-content-center h-100 align-items-center">
-        <div class="col-12">
-            <div class="contLogin w-100">
+        <div class="titleMain">
+            <h1>Roles</h1>
+        </div>
+        <div class="content card">
+            <div class="card-body">
 
                 @livewire('role-create', ['id' => $id])
-                {{-- <h2>@if($role->name) Edit @else Create @endif Role</h2>
-                <form class="formLogin" action="{{route('roles.store')}}" method="POST">
+                {{-- <h2 class="titleBody">@if($role->name) Edit @else Create @endif Role</h2>
+                <form action="{{route('roles.store')}}" method="POST">
                     @csrf
                     @if($role)
                         <input type="hidden" value="{{$role->id }}" name="id">
@@ -27,7 +29,7 @@
                     @enderror
 
                     <div class="mb-3">
-                        <div><h3>Permissions</h3></div>
+                        <div><h3 class="titleBody">Permissions</h3></div>
                         <div class="row">
                             @foreach($permissions as $permission)
                                 <div class="col-md-6">
@@ -44,12 +46,14 @@
                             @endforeach
                         </div>
                     </div>
-                    <a href="{{route('roles.list')}}" class="btn btn-outline-info">Cancel</a>
-                    <button type="submit" class="btn btn-primary">@if($role->name) Update @else Submit @endif</button>
+                    <div class="col-md-12 d-flex flex-row-reverse">
+                        <a href="{{route('roles.list')}}" class="btn btn-outline-info">Cancel</a>
+                        <button type="submit" class="btn btn-primary">@if($role->name) Update @else Submit @endif</button>
+                    </div>
                 </form> --}}
             </div>
         </div>
-    </div>
+
 @endsection
 
 @push('scripts')
