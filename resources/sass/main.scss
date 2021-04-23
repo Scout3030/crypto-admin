@@ -4,7 +4,7 @@
 // VARIABLES
 @import 'variables';
 
-// GENERAL 
+// GENERAL
 body {
 	font-family: 'Poppins', sans-serif;
 	background-color: #F9F9F9;
@@ -87,6 +87,14 @@ a {
 	    border: 1px solid $colorC;
 	    border-radius: 10px;
 	}
+    button.btn-outline-primary {
+        max-width: 240px;
+	    padding: 15px;
+	    background-color: #fff;
+	    color: $color;
+	    border: 1px solid $color;
+	    border-radius: 10px 10px 0px 0px;
+    }
 	.form-text {
 	    margin-top: 20px;
 	    color: #333;
@@ -134,7 +142,7 @@ a {
 	}
 }
 
-// ALERTS 
+// ALERTS
 .alert {
     border-radius: 20px;
 }
@@ -159,7 +167,7 @@ a {
     border-color: #461EE7;
 }
 
-// LOGIN MESSAGE 
+// LOGIN MESSAGE
 .logoMessage {
 	margin: 20px 0 40px;
 	width: 350px;
@@ -538,7 +546,7 @@ main {
 			    margin-left: 2px;
 			}
 		}
-		.form-control, 
+		.form-control,
 		.form-select {
 		    border-radius: 0;
 		    padding: 15px;
@@ -656,7 +664,7 @@ main {
 	// 	    display: inline-block;
 	// 	    cursor: pointer;
 
-	// 	    &.current, 
+	// 	    &.current,
 	// 	    &:hover {
 	// 		    color: #fff !important;
 	// 		    background: $color !important;
@@ -752,8 +760,8 @@ main {
 }
 
 // DATEPICKER
-.dtp > .dtp-content > .dtp-date-view > header.dtp-header, 
-.dtp div.dtp-date, .dtp div.dtp-time, 
+.dtp > .dtp-content > .dtp-date-view > header.dtp-header,
+.dtp div.dtp-date, .dtp div.dtp-time,
 .dtp table.dtp-picker-days tr > td > a.selected {
 	background: $color;
 }
@@ -809,7 +817,7 @@ main {
 		border-radius: 0;
 		display: inline-block;
 		margin: 0 0;
-			
+
 		a{
 			color: #fff;
 			background: transparent !important;
@@ -851,4 +859,10 @@ main {
 			}
 		}
 	}
+}
+
+// NOTIFICATION
+.notificationCard {
+    background-color: #dad8d8;
+    border-radius: 15px;
 }
