@@ -20,6 +20,9 @@
 
         <div class="mb-3">
             <div><h3>Permissions</h3></div>
+
+            <livewire:search-role-filter/>
+
             <div class="row">
                 <div class="col-sm-4 mb-3">
                     @php $no = 1; @endphp

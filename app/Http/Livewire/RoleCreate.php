@@ -15,6 +15,7 @@ class RoleCreate extends Component
 
     protected $listeners = [
         'setPermission' => 'setPermission',
+        'filterPermission' => 'filterPermission'
     ];
 
     public function setPermission($item)
@@ -104,5 +105,9 @@ class RoleCreate extends Component
         session()->flash('success', 'Registration updated successfully!');
 
         return redirect()->route('roles.list');
+    }
+
+    public function filterPermission($word){
+        $this->permissions = Permission::where('name', 'like', '%'.$word.'%')->get();
     }
 }
