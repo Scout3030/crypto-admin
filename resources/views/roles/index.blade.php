@@ -7,8 +7,9 @@
     </div>
     <div class="content card">
         <div class="card-header">
-            <h4 class="card-title">Role list</h4>
-            <a href="{{ route('roles.create') }}" class="btn btn-sm btn-success">Create</a>
+            <h4 class="card-title">Role list
+                <a href="{{ route('roles.create') }}" class="btn btn-sm btn-success">Create</a>
+            </h4>
         </div>
         <div class="card-body">
             <div class="table-responsive">

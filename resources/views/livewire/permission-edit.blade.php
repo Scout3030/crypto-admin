@@ -1,7 +1,7 @@
 <div>
-    <form class="formLogin" wire:submit.prevent="update">
+    <form wire:submit.prevent="update">
         <div class="mb-3">
-            <label for="first-name">Permission Name</label>
+            <label class="form-label" for="first-name">Permission Name</label>
             <input type="text"
                    class="form-control @error('name') validation @enderror"
                    id="name"
@@ -13,7 +13,9 @@
         <div class="form-text validation pb-1">{{ $message }}</div>
         @enderror
 
-        <a href="{{route('permissions.index')}}" class="btn btn-outline-info">Cancel</a>
-        <button type="submit" class="btn btn-primary">@if($permission) Update @else Submit @endif</button>
+        <div class="col-md-12 d-flex flex-row-reverse">
+          <button type="submit" class="btn btn-primary">@if($permission) Update @else Submit @endif</button>
+          <a href="{{route('permissions.index')}}" class="btn btn-outline-info">Cancel</a>
+        </div>
     </form>
 </div>
