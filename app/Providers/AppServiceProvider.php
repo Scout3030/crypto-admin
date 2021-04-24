@@ -34,7 +34,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         if (config('app.force_https')) {
-            // URL::forceScheme('https');
+            URL::forceScheme('https');
         }
 
         Paginator::defaultView('vendor.pagination.bootstrap-4');

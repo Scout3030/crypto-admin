@@ -19,7 +19,11 @@
         @enderror
 
         <div class="mb-3">
+
             <div><h3 class="titleBody">Permissions</h3></div>
+
+            <livewire:search-role-filter/>
+
             <div class="row">
                 <div class="col-md-6">
                     @php $no = 1; @endphp
