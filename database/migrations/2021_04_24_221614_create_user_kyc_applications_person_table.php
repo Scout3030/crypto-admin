@@ -16,9 +16,9 @@ class CreateUserKycApplicationsPersonTable extends Migration
         if (!Schema::hasTable('user_kyc_applications_person')) {
             Schema::create('user_kyc_applications_person', function (Blueprint $table) {
                 $table->id();
+                $table->foreignId('user_id')->constrained('users');
                 $table->string('person_name');
                 $table->string('person_address');
-                $table->foreignId('user_id')->constrained('users');
                 $table->string('country', 5);
                 $table->string('state', 5);
                 $table->string('state_other')->nullable();
