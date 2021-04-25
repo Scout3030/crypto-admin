@@ -25,6 +25,11 @@ class AddColumnsKycProcessTable extends Migration
             $table->string('company_state_other')->nullable();
             $table->string('company_city', 5)->nullable();
             $table->string('company_city_other')->nullable();
+
+            $table->dropColumn('identification_document');
+            $table->dropColumn('other_document');
+            $table->dropColumn('upload_document');
+            $table->dropColumn('document_number');
         });
     }
 
@@ -47,11 +52,6 @@ class AddColumnsKycProcessTable extends Migration
             $table->dropColumn('company_state_other');
             $table->dropColumn('company_city');
             $table->dropColumn('company_city_other');
-
-            $table->dropColumn('identification_document');
-            $table->dropColumn('other_document');
-            $table->dropColumn('upload_document');
-            $table->dropColumn('document_number');
         });
     }
 }

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateUserKycApplicationsPersonTable extends Migration
+class CreateUserKycApplicationsPersonsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class CreateUserKycApplicationsPersonTable extends Migration
      */
     public function up()
     {
-        if (!Schema::hasTable('user_kyc_applications_person')) {
-            Schema::create('user_kyc_applications_person', function (Blueprint $table) {
+        if (!Schema::hasTable('user_kyc_applications_persons')) {
+            Schema::create('user_kyc_applications_persons', function (Blueprint $table) {
                 $table->id();
                 $table->foreignId('user_id')->constrained('users');
                 $table->string('person_name');
@@ -38,8 +38,8 @@ class CreateUserKycApplicationsPersonTable extends Migration
      */
     public function down()
     {
-        if (Schema::hasTable('user_kyc_applications_person')) {
-            Schema::dropIfExists('user_kyc_applications_person');
+        if (Schema::hasTable('user_kyc_applications_persons')) {
+            Schema::dropIfExists('user_kyc_applications_persons');
         }
     }
 }
