@@ -23,28 +23,6 @@ use Throwable;
 
 class UsersListController extends Controller
 {
-    public function __invoke(Request $request, SegmentService $segment)
-    {
-        $users = User::query()->whereHas('roles', function ($query) {
-            $query->whereIsAdmin(YesNo::YES);
-        });
-
-        if ($request->search) {
-            $search = $request->search;
-            $users = $users->where(function ($query) use ($search) {
-                $query->where('first_name', 'LIKE', "%{$search}%")
-                      ->orWhere('last_name', 'LIKE', "%{$search}%")
-                      ->orWhere('email', 'LIKE', "%{$search}%");
-            });
-
-        }
-
-        $users = $users->paginate($request->perPage ?? 10);
-
-        $segment->event('Get Users list');
-
-        return view('user.list', compact('users'));
-    }
 
     public function index(Request $request, UsersDataTable $dataTable)
     {

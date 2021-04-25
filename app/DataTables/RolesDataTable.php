@@ -70,7 +70,6 @@ class RolesDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            Column::computed('id', 'ID'),
             Column::computed('name', 'Role')
                   ->exportable(false)
                   ->printable(false),

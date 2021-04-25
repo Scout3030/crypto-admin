@@ -2,12 +2,12 @@
 
 @section('content')
     <div class="titleMain">
-        <h1>Users</h1>
-        <p>User Management / Admin list</p>
+        <h1>Admins</h1>
+        <p>Admins Management</p>
     </div>
     <div class="content card">
         <div class="card-header">
-            <h4 class="card-title">Admin list 
+            <h4 class="card-title">Admins list 
                 <a href="{{ route('user.create') }}" class="btn btn-sm btn-success">Create</a>
             </h4>
         </div>

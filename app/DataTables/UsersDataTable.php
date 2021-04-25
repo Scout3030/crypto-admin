@@ -70,7 +70,6 @@ class UsersDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            Column::make('id'),
             Column::make('first_name'),
             Column::make('last_name'),
             Column::make('email'),

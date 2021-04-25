@@ -10,6 +10,10 @@ class NotificationSeeder extends Seeder
 
     public function run()
     {
-        Notification::factory()->count(120)->create();
+        $notifications = Notification::count();
+
+        if ($notifications === 0) {
+            Notification::factory()->count(120)->create();
+        }
     }
 }
