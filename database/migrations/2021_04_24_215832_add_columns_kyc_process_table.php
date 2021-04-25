@@ -47,6 +47,10 @@ class AddColumnsKycProcessTable extends Migration
             $table->dropColumn('company_state_other');
             $table->dropColumn('company_city');
             $table->dropColumn('company_city_other');
+
+            $table->dropColumn('identification_document');
+            $table->dropColumn('other_document');
+            $table->dropColumn('upload_document');
         });
     }
 }
