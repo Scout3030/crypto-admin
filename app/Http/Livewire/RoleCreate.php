@@ -11,7 +11,8 @@ use Livewire\Component;
 class RoleCreate extends Component
 {
     public $title, $action, $role, $permissions;
-    public $role_id, $name, $permissions_selected = [];
+    public $role_id, $name;
+    public array $permissions_selected = [];
 
     protected $listeners = [
         'setPermission' => 'setPermission',
@@ -30,12 +31,14 @@ class RoleCreate extends Component
 
     }
 
-    protected function rules()
-    {
-        return [
+    protected array $rules = [
             'name' => 'required|min:3|max:26',
-        ];
-    }
+            'permissions_selected' => 'required'
+    ];
+
+    protected array $messages = [
+        'permissions_selected.required' => 'Select at least one permission.',
+    ];
 
     public function updated($propertyName)
     {
