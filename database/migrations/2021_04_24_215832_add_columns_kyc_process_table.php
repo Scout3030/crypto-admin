@@ -51,6 +51,7 @@ class AddColumnsKycProcessTable extends Migration
             $table->dropColumn('identification_document');
             $table->dropColumn('other_document');
             $table->dropColumn('upload_document');
+            $table->dropColumn('document_number');
         });
     }
 }
