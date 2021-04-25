@@ -24,6 +24,10 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(SegmentService::class, function () {
             return new SegmentService();
         });
+
+        if (config('app.force_https')) {
+            $this->app['request']->server->set('HTTPS', true);
+        }
     }
 
     /**

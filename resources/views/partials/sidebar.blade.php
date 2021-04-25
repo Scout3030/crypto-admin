@@ -9,7 +9,7 @@
             <li class="{{ (request()->is('users/list')) ? 'mm-active' : '' }}">
                 <a href="{{ route('users.list') }}" class="has-arrow">
                     <i class="flaticon-381-notepad"></i>
-                    <span class="navText">Users</span>
+                    <span class="navText">Admins</span>
                 </a>
 {{--                <ul class="subMenu">--}}
 {{--                    <li><a href="{{ route('users.list') }}">List</a></li>--}}

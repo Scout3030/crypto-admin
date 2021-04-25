@@ -3,11 +3,11 @@
 @section('content')
     <div class="titleMain">
         <h1>Permissions</h1>
-        <p>Permission Management / Permission list</p>
+        <p>Permissions Management</p>
     </div>
     <div class="content card">
         <div class="card-header">
-            <h4 class="card-title">Permission list
+            <h4 class="card-title">Permissions list
                 <a href="{{ route('permissions.create') }}" class="btn btn-sm btn-success">Create</a>
             </h4>
         </div>

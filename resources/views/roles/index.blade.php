@@ -3,11 +3,11 @@
 @section('content')
     <div class="titleMain">
         <h1>Roles</h1>
-        <p>Role Management / Role list</p>
+        <p>Roles Management</p>
     </div>
     <div class="content card">
         <div class="card-header">
-            <h4 class="card-title">Role list
+            <h4 class="card-title">Roles list
                 <a href="{{ route('roles.create') }}" class="btn btn-sm btn-success">Create</a>
             </h4>
         </div>
