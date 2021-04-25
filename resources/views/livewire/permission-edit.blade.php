@@ -1,5 +1,5 @@
 <div>
-    <form wire:submit.prevent="update">
+    <form wire:submit.prevent="update" class="formLogin">
         <div class="mb-3">
             <label class="form-label" for="first-name">Permission Name</label>
             <input type="text"
