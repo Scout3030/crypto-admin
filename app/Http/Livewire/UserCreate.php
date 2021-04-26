@@ -116,12 +116,11 @@ class UserCreate extends Component
         $this->validate();
 
         try {
+            /** @var User */
             $user = User::findOrFail($this->user_id);
         } catch (ModelNotFoundException $exception) {
             return back(404);
         }
-
-        $fields = [];
 
         $user->forceFill([
             'first_name' => $this->first_name,
@@ -131,20 +130,21 @@ class UserCreate extends Component
             'role_id'    => $this->role_id,
         ]);
 
-        if (Str::length($this->email)) {
-            $fields[] = 'email';
-        }
-
         if (Str::length($this->password) > 0 || Str::length($this->password_confirmation) > 0) {
             $this->validate([
                 'password' => ['required', 'confirmed', new StrengthPassword]
             ]);
 
             $user->password = bcrypt($this->password);
-            $fields[] = 'password';
         }
 
         if ($user->isDirty()) {
+            $allowedFields = ['email', 'is_active', 'password'];
+            $dirtyFields = array_keys($user->getDirty());
+            $fields = array_filter($dirtyFields, function ($dirtyField) use ($allowedFields) {
+                return in_array($dirtyField, $allowedFields);
+            });
+
             if ($user->save()) {
                 $notificationService = $this->notificationService;
 

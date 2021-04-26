@@ -40,6 +40,7 @@ class NotificationService
             $messages = [
                 'email' => NotificationEvents::EMAIL_CHANGED,
                 'password' => NotificationEvents::PASSWORD_CHANGED,
+                'is_active' => $user->is_active === YesNo::YES ? NotificationEvents::ACCOUNT_ENABLED :  NotificationEvents::ACCOUNT_DISABLED,
             ];
 
             if (isset($data['field']) && isset($messages[$data['field']])) {
