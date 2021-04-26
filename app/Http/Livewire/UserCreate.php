@@ -161,7 +161,7 @@ class UserCreate extends Component
 
     private function getActiveStatus($is_active): int
     {
-        return $is_active === 'active' ? YesNo::YES : YesNo::NO;
+        return in_array($is_active, ['active', '1', 1]) ? YesNo::YES : YesNo::NO;
     }
 
     private function sendMailToNewUser(NewAdminCreatedEmail $obj): void
