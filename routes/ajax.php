@@ -29,4 +29,7 @@ Route::group([
         ->middleware('can:merchant-users-actions-button')
          ->name('merchant.delete');
     Route::post('users/otp-status', [UsersListController::class, 'changeOtpStatus'])->name('users.otp.status');
+
+    Route::get('datatable', [UsersListController::class, 'datatable'])->name('user.datatable');
+
 });

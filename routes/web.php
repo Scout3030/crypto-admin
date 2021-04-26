@@ -45,8 +45,7 @@ Route::group([
         'middleware' => 'can:user-management-side-menu',
         'prefix' => 'users',
     ], function () {
-        Route::get('list', [UsersListController::class, 'index'])->name('users.list');
-//        Route::get('list', UsersListController::class)->name('users.list');
+        Route::view('list', 'user.list')->name('user.list');
         Route::get('edit/{id?}', [UsersListController::class, 'editAdmin'])->name('user.edit');
         Route::get('edit', [UsersListController::class, 'editAdmin'])->name('user.create');
         Route::post('store/{user?}', [UsersListController::class, 'storeAdmin'])->name('user.store');
