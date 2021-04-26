@@ -3,7 +3,7 @@
 @section('content')
         <div class="titleMain">
             <h1>Permissions</h1>
-            <p>Permissions / Edit Permissions</p>
+            <p>Permissions / @if($permission) Edit @else Create @endif Permission</p>
         </div>
         <div class="content card">
             <div class="card-body">
