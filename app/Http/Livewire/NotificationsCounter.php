@@ -12,14 +12,15 @@ class NotificationsCounter extends Component
     protected bool $updated = false;
     protected $listeners = ['updateCounter' => 'updateCounter'];
 
-    public function updateCounter() {
+    public function updateCounter()
+    {
         $user = auth()->user();
         $this->counter = Notification::whereUserId($user->id)->whereRead((string) YesNo::NO)->get()->count();
     }
 
     public function render()
     {
-        if(!$this->updated) {
+        if (!$this->updated) {
             $user = auth()->user();
             $this->counter = Notification::whereUserId($user->id)->whereRead((string) YesNo::NO)->get()->count();
         }
