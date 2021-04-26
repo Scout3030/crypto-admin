@@ -3,19 +3,17 @@
 namespace App\Http\Livewire;
 
 use App\Dto\NewAdminCreatedEmail;
-use Livewire\Component;
-
-use Illuminate\Validation\Rule;
-use Illuminate\Support\Str;
-
+use App\Enums\NotificationTypes;
 use App\Helpers\Enums\YesNo;
 use App\Mail\AccountActivatedMail;
-use App\Rules\StrengthPassword;
-
 use App\Models\User;
 use App\Models\Role;
+use App\Rules\StrengthPassword;
+use App\Services\NotificationService;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
+use Livewire\Component;
 
 class UserCreate extends Component
 {
@@ -26,6 +24,8 @@ class UserCreate extends Component
         'setRole' => 'setRole',
         'setStatus' => 'setStatus'
     ];
+
+    protected $notificationService;
 
     public function setRole($role)
     {
@@ -54,7 +54,7 @@ class UserCreate extends Component
 
     public function mount($id)
     {
-        if ( $id != 0 ) {
+        if ($id != 0) {
             $user = User::find($id);
 
             $this->title = 'Edit';
@@ -109,11 +109,14 @@ class UserCreate extends Component
 
     }
 
-    public function update()
+    public function update(NotificationService $notificationService)
     {
+        $this->notificationService = $notificationService;
+
         $this->validate();
 
         try {
+            /** @var User */
             $user = User::findOrFail($this->user_id);
         } catch (ModelNotFoundException $exception) {
             return back(404);
@@ -127,8 +130,7 @@ class UserCreate extends Component
             'role_id'    => $this->role_id,
         ]);
 
-        if ( Str::length($this->password) > 0 || Str::length($this->password_confirmation) > 0 ) {
-
+        if (Str::length($this->password) > 0 || Str::length($this->password_confirmation) > 0) {
             $this->validate([
                 'password' => ['required', 'confirmed', new StrengthPassword]
             ]);
@@ -137,7 +139,19 @@ class UserCreate extends Component
         }
 
         if ($user->isDirty()) {
-            $user->save();
+            $allowedFields = ['email', 'is_active', 'password'];
+            $dirtyFields = array_keys($user->getDirty());
+            $fields = array_filter($dirtyFields, function ($dirtyField) use ($allowedFields) {
+                return in_array($dirtyField, $allowedFields);
+            });
+
+            if ($user->save()) {
+                $notificationService = $this->notificationService;
+
+                array_map(function ($field) use ($notificationService, $user) {
+                    $notificationService->send($user, ['field' => $field], NotificationTypes::USER_FIELD_CHANGE);
+                }, $fields);
+            }
         }
 
         session()->flash('success', 'Registration updated successfully!');
@@ -147,7 +161,7 @@ class UserCreate extends Component
 
     private function getActiveStatus($is_active): int
     {
-        return $is_active === 'active' ? YesNo::YES : YesNo::NO;
+        return in_array($is_active, ['active', '1', 1]) ? YesNo::YES : YesNo::NO;
     }
 
     private function sendMailToNewUser(NewAdminCreatedEmail $obj): void

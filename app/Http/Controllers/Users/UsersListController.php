@@ -2,17 +2,14 @@
 
 namespace App\Http\Controllers\Users;
 
-use App\DataTables\PermissionsDataTable;
 use App\DataTables\UsersDataTable;
 use App\DataTables\UsersMerchantDataTable;
 use App\Dto\NewAdminCreatedEmail;
 use App\Helpers\Enums\YesNo;
-use App\Helpers\Roles;
 use App\Helpers\Services\SegmentService;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Users\CreateAdmin;
 use App\Mail\AccountActivatedMail;
-use App\Models\Role;
 use App\Models\User;
 use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -84,7 +81,6 @@ class UsersListController extends Controller
         } catch (ModelNotFoundException $exception) {
             return back(404);
         }
-
 
         $user->forceFill([
             'first_name' => $input['first_name'],

@@ -5,7 +5,6 @@ namespace Database\Seeders;
 use App\Helpers\Roles;
 use App\Models\Role;
 use App\Models\User;
-use App\Models\UserRole;
 use Illuminate\Database\Seeder;
 
 class UserSeeder extends Seeder
@@ -25,7 +24,7 @@ class UserSeeder extends Seeder
             User::updateOrCreate(
                 [
                     'first_name' => 'Adrian',
-                    'last_name'  => 'William',
+                    'last_name'  => 'Williams',
                     'email'      => $rootEmail
                 ],
                 [
@@ -44,7 +43,7 @@ class UserSeeder extends Seeder
             User::updateOrCreate(
                 [
                     'first_name' => 'Admin',
-                    'last_name'  => 'Cryptomatix',
+                    'last_name'  => 'CryptoMatix',
                     'email'      => $managerEmail
                 ],
                 [

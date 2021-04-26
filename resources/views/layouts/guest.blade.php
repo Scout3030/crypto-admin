@@ -12,7 +12,7 @@
 	<!-- Styles -->
 	<link rel="stylesheet" href="{{ mix('css/main.css') }}">
 
-	<title>Cryptomatix</title>
+	<title>CryptoMatix</title>
 </head>
 <body class="h-100 bglogin">
 	<div class="container h-100">

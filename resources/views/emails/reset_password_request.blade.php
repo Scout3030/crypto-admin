@@ -65,7 +65,7 @@
             <p>
                 Thanks,
                 <br>
-                The Cryptomatix Team
+                The CryptoMatix Team
             </p>
         </td>
     </tr>

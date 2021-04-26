@@ -13,6 +13,7 @@
         "laravel/framework": "^8.12",
         "laravel/tinker": "^2.5",
         "livewire/livewire": "^2.4",
+        "pusher/pusher-php-server": "^6.1",
         "sentry/sentry-laravel": "^2.4",
         "yajra/laravel-datatables": "^1.5"
     },

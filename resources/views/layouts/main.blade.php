@@ -21,7 +21,7 @@
 
     @stack('css')
 
-	<title>Cryptomatix - Dashboard</title>
+	<title>CryptoMatix - Dashboard</title>
 
     @livewireStyles
 
@@ -30,7 +30,6 @@
 <body class="h-100 dashboard">
 
     @include('partials.sidebar')
-
 
 	<div id="content">
 
@@ -45,6 +44,11 @@
 		</main>
 	</div>
 
+    <script>
+        window.Laravel = {!! json_encode([
+            'userId' => auth()->check() ? auth()->user()->id : 0,
+        ]) !!};
+    </script>
     <script src="{{ mix('js/app.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
 
