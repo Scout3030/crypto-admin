@@ -54,7 +54,7 @@
       <p>Your email has been changed</p>
       <br>
       <p>Thanks,<br>
-      The Cryptomatix Team</p>
+      The CryptoMatix Team</p>
     </td>
   </tr>
   <tr class="footer">

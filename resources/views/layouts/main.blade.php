@@ -21,7 +21,7 @@
 
     @stack('css')
 
-	<title>Cryptomatix - Dashboard</title>
+	<title>CryptoMatix - Dashboard</title>
 
     @livewireStyles
 

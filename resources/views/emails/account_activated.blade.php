@@ -45,7 +45,7 @@
     <td><img src="{{ asset('img/logo.png') }}" width="210" height="121" alt="logo" /></td>
   </tr>
   <tr class="oneTime">
-    <td>Welcome to Cryptomatix</td>
+    <td>Welcome to CryptoMatix</td>
   </tr>
   <tr class="content">
     <td>
@@ -59,7 +59,7 @@
       <br>
       <br>
       <p>Thanks,<br>
-      The Cryptomatix Team</p>
+      The CryptoMatix Team</p>
     </td>
   </tr>
   <tr class="footer">
