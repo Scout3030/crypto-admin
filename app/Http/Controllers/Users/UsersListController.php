@@ -170,7 +170,9 @@ class UsersListController extends Controller
     public function datatable(Request $request){
         if ($request->ajax()) {
             $actions = 'user.action';
-            $users = DB::table('users')->select(['id', 'first_name', 'last_name', 'email', 'is_active', 'created_at', 'updated_at']);
+            $users = DB::table('users')
+                ->whereIn('role', [Roles::ROOT, Roles::MANAGER])
+                ->select(['id', 'first_name', 'last_name', 'email', 'is_active', 'created_at', 'updated_at']);
             return Datatables::of($users)
                 ->addIndexColumn()
                 ->addColumn('actions', $actions)
