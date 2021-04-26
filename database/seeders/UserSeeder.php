@@ -25,7 +25,7 @@ class UserSeeder extends Seeder
             User::updateOrCreate(
                 [
                     'first_name' => 'Adrian',
-                    'last_name'  => 'William',
+                    'last_name'  => 'Williams',
                     'email'      => $rootEmail
                 ],
                 [
@@ -44,7 +44,7 @@ class UserSeeder extends Seeder
             User::updateOrCreate(
                 [
                     'first_name' => 'Admin',
-                    'last_name'  => 'Cryptomatix',
+                    'last_name'  => 'CryptoMatix',
                     'email'      => $managerEmail
                 ],
                 [

@@ -3,19 +3,17 @@
 namespace App\Http\Livewire;
 
 use App\Dto\NewAdminCreatedEmail;
-use Livewire\Component;
-
-use Illuminate\Validation\Rule;
-use Illuminate\Support\Str;
-
+use App\Enums\NotificationTypes;
 use App\Helpers\Enums\YesNo;
 use App\Mail\AccountActivatedMail;
-use App\Rules\StrengthPassword;
-
 use App\Models\User;
 use App\Models\Role;
+use App\Rules\StrengthPassword;
+use App\Services\NotificationService;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
+use Livewire\Component;
 
 class UserCreate extends Component
 {
@@ -26,6 +24,8 @@ class UserCreate extends Component
         'setRole' => 'setRole',
         'setStatus' => 'setStatus'
     ];
+
+    protected $notificationService;
 
     public function setRole($role)
     {
@@ -109,8 +109,10 @@ class UserCreate extends Component
 
     }
 
-    public function update()
+    public function update(NotificationService $notificationService)
     {
+        $this->notificationService = $notificationService;
+
         $this->validate();
 
         try {
@@ -118,6 +120,8 @@ class UserCreate extends Component
         } catch (ModelNotFoundException $exception) {
             return back(404);
         }
+
+        $fields = [];
 
         $user->forceFill([
             'first_name' => $this->first_name,
@@ -128,16 +132,22 @@ class UserCreate extends Component
         ]);
 
         if ( Str::length($this->password) > 0 || Str::length($this->password_confirmation) > 0 ) {
-
             $this->validate([
                 'password' => ['required', 'confirmed', new StrengthPassword]
             ]);
 
             $user->password = bcrypt($this->password);
+            $fields[] = 'password';
         }
 
         if ($user->isDirty()) {
-            $user->save();
+            if ($user->save()) {
+                $notificationService = $this->notificationService;
+
+                array_map(function ($field) use ($notificationService, $user) {
+                    $notificationService->send($user, ['field' => $field], NotificationTypes::USER_FIELD_CHANGE);
+                }, $fields);
+            }
         }
 
         session()->flash('success', 'Registration updated successfully!');

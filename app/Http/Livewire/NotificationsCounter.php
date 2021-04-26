@@ -12,14 +12,16 @@ class NotificationsCounter extends Component
     protected bool $updated = false;
     protected $listeners = ['updateCounter' => 'updateCounter'];
 
-    public function updateCounter(){
-        $this->counter = Notification::whereRead((string) YesNo::NO)->get()->count();
+    public function updateCounter() {
+        $user = auth()->user();
+        $this->counter = Notification::whereUserId($user->id)->whereRead((string) YesNo::NO)->get()->count();
     }
 
     public function render()
     {
-        if(!$this->updated){
-            $this->counter = Notification::whereRead((string) YesNo::NO)->get()->count();
+        if(!$this->updated) {
+            $user = auth()->user();
+            $this->counter = Notification::whereUserId($user->id)->whereRead((string) YesNo::NO)->get()->count();
         }
 
         return view('livewire.notifications-counter', [

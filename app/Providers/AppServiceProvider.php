@@ -4,8 +4,11 @@ namespace App\Providers;
 
 use App\Helpers\Services\PermissionsHelper;
 use App\Helpers\Services\SegmentService;
+use App\Services\NotificationService;
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -20,7 +23,6 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(PermissionsHelper::class, function () {
             return new PermissionsHelper();
         });
-
         $this->app->singleton(SegmentService::class, function () {
             return new SegmentService();
         });
@@ -35,12 +37,17 @@ class AppServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot()
+    public function boot(NotificationService $notificationService)
     {
         if (config('app.force_https')) {
             URL::forceScheme('https');
         }
 
         Paginator::defaultView('vendor.pagination.bootstrap-4');
+        View::composer('layouts.main', function ($view) use ($notificationService) {
+            $user = Auth::user();
+
+            $view->with('notifications', $notificationService->getLatest($user));
+        });
     }
 }
