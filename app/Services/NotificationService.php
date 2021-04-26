@@ -38,6 +38,7 @@ class NotificationService
 
         if ($type === NotificationTypes::USER_FIELD_CHANGE) {
             $messages = [
+                'email' => NotificationEvents::EMAIL_CHANGED,
                 'password' => NotificationEvents::PASSWORD_CHANGED,
             ];
 

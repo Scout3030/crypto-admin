@@ -54,7 +54,7 @@ class UserCreate extends Component
 
     public function mount($id)
     {
-        if ( $id != 0 ) {
+        if ($id != 0) {
             $user = User::find($id);
 
             $this->title = 'Edit';
@@ -131,7 +131,11 @@ class UserCreate extends Component
             'role_id'    => $this->role_id,
         ]);
 
-        if ( Str::length($this->password) > 0 || Str::length($this->password_confirmation) > 0 ) {
+        if (Str::length($this->email)) {
+            $fields[] = 'email';
+        }
+
+        if (Str::length($this->password) > 0 || Str::length($this->password_confirmation) > 0) {
             $this->validate([
                 'password' => ['required', 'confirmed', new StrengthPassword]
             ]);
