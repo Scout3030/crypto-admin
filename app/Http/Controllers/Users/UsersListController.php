@@ -18,8 +18,10 @@ use Exception;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Throwable;
+use Yajra\DataTables\DataTables;
 
 class UsersListController extends Controller
 {
@@ -163,5 +165,31 @@ class UsersListController extends Controller
         }
 
         return [];
+    }
+
+    public function datatable(Request $request){
+        if ($request->ajax()) {
+            $actions = 'user.action';
+            $users = DB::table('users')
+                ->whereIn('role', [Roles::ROOT, Roles::MANAGER])
+                ->select(['id', 'first_name', 'last_name', 'email', 'is_active', 'created_at', 'updated_at']);
+            return Datatables::of($users)
+                ->addIndexColumn()
+                ->addColumn('actions', $actions)
+                ->filter(function ($query) use ($request) {
+                    if ($request->has('otp_required') && $request->otp_required != null) {
+                        $query->whereOtpRequired((int) $request->get('otp_required'));
+                    }
+                    if ($request->has('blocked') && $request->blocked != null) {
+                        if($request->blocked == YesNo::YES){
+                            $query->whereNotNull('blocked_at');
+                        }else{
+                            $query->whereNull('blocked_at');
+                        }
+                    }
+                })
+                ->rawColumns(['actions'])
+                ->make(true);
+        }
     }
 }

@@ -6,8 +6,8 @@
         <li class="{{ (request()->is('/')) ? 'mm-active' : '' }}"><a href="{{ route('home') }}" class="has-arrow"><i
                     class="flaticon-381-networking"></i> <span class="navText">Dashboard</span></a></li>
         @can('user-management-side-menu')
-            <li class="{{ (request()->is('users/list')) ? 'mm-active' : '' }}">
-                <a href="{{ route('users.list') }}" class="has-arrow">
+            <li class="{{ (request()->is('user/list')) ? 'mm-active' : '' }}">
+                <a href="{{ route('user.list') }}" class="has-arrow">
                     <i class="flaticon-381-notepad"></i>
                     <span class="navText">Admins</span>
                 </a>

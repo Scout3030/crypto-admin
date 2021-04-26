@@ -11,89 +11,53 @@
                 <a href="{{route('user.create')}}" class="btn btn-primary float-right"><i class="fa fa-user-plus" aria-hidden="true"></i> Add New</a>
             </h4>
         </div>
-        <div class="card-body">
-
-            @if ( Session::has('success') )
-            <div class="col-12">
-                <div class="alert alert-success mb-4" role="alert">
-                    <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="mr-2">
-                        <polyline points="9 11 12 14 22 4"></polyline>
-                        <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
-                    </svg> <strong>Sucess!</strong> Registration created successfully!
+        <div class="accordion accordion-flush" id="accordionFlushExample">
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="flush-headingOne">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                        More filters
+                    </button>
+                </h2>
+                <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                    <div class="accordion-body">
+                        <form method="POST" id="search-form" class="formLogin" role="form" >
+                            <div class="form-group">
+                                <label for="otp_required">Required OTP</label>
+                                <select name="otp_required" id="otp_required" class="form-control">
+                                    <option value="" selected>Select</option>
+                                    <option value="1">Si</option>
+                                    <option value="0">No</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="blocked">Blocked</label>
+                                <select name="blocked" id="blocked" class="form-control">
+                                    <option value="" selected>Select</option>
+                                    <option value="1">Si</option>
+                                    <option value="0">No</option>
+                                </select>
+                            </div>
+                            <div class="text-center mt-5">
+                                <button type="submit" class="btn-outline-primary btn-primary">Search</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
-            @endif
-
+        </div>
+        <div class="card-body">
             <div class="table-responsive">
-                <div class="dataTablesInfo">
-                    <div class="showSelect">
-                        Show
-                            <select class="form-control">
-                                <option>10</option>
-                                <option>20</option>
-                                <option>30</option>
-                            </select>
-                        entries
-                    </div>
-                    <form class="dataTables_filter">
-                        <label>Search: <input type="text" placeholder="Search" name="search"></label>
-                        <button class="btn btn-info mb-2" type="submit">Find</button>
-                    </form>
-                </div>
-
-                <table id="user" class="table table-responsive-md">
+                <table id="users-table" class="table table-condensed">
                     <thead>
-                        <tr>
-                            <th>First Name</th>
-                            <th>Last Name</th>
-                            <th>Email</th>
-                            <th style="text-align: center;">OTP Required</th>
-                            <th>Actions</th>
-                        </tr>
+                    <tr>
+                        <th>Id</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Email</th>
+                        <th>Action</th>
+                    </tr>
                     </thead>
-                    <tbody>
-                    @foreach($users as $user)
-                        <tr>
-                            <td>
-                                {{$user->first_name}}
-                            </td>
-                            <td>
-                                {{$user->last_name}}
-                            </td>
-                            <td>
-                                {{$user->email}}
-                            </td>
-                            <td style="text-align: center;">
-                                <div class="align-items-center">
-                                    <input type="checkbox"
-                                        class="otp-required"
-                                        @if($user->otp_required) checked @endif
-                                        data-id="{{$user->id}}">
-                                </div>
-                            </td>
-                            <td>
-                                <div class="d-flex">
-                                    <a href="{{route('user.edit', $user->id)}}" class="btn btn-primary shadow btn-xs sharp">
-                                        <i class="fa fa-pencil"></i></a>
-                                    <button type="button" class="btn btn-danger shadow btn-xs sharp delete"
-                                            data-name="{{$user->first_name}}"
-                                            data-url="{{route('ajax.user.delete', $user->id)}}">
-                                        <i class="fa fa-trash"></i>
-                                </button>
-                                </div>
-                            </td>
-                        </tr>
-                    @endforeach
-                    </tbody>
                 </table>
-                <div class="dataTablesInfo">
-                    <div class="showEntries">
-                        Showing {{$users->firstItem()}} to {{$users->lastItem()}} of {{$users->total()}} entries
-                    </div>
-
-                    {{$users->links('user.datatables.pagination')}}
-
-                </div>
             </div>
         </div>
     </div>
@@ -118,6 +82,34 @@
 @endsection
 
 @push('scripts')
+
+    <script type="text/javascript">
+        $(function () {
+            let table = $('#users-table').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: {
+                    url: "{{ route('ajax.user.datatable') }}",
+                    data: function (d) {
+                        d.otp_required = $('select[name=otp_required]').val();
+                        d.blocked = $('select[name=blocked]').val();
+                    }
+                },
+                columns: [
+                    {data: 'id', name: 'id'},
+                    {data: 'first_name', name: 'name'},
+                    {data: 'last_name', name: 'last name'},
+                    {data: 'email', name: 'email'},
+                    {data: 'actions', name: 'actions'},
+                ]
+            });
+            $('#search-form').on('submit', function(e) {
+                table.draw();
+                e.preventDefault();
+            });
+        });
+    </script>
+
     <script>
         let userName;
         let deleteUrl;
@@ -128,20 +120,6 @@
                 method: 'delete',
                 success: function (res) {
                     window.location.reload(true);
-                }
-            })
-        }
-
-        function changeOTPStatus(id, status) {
-            $.ajax({
-                url: '{{route('ajax.users.otp.status')}}',
-                data: {
-                    id,
-                    status,
-                },
-                method: 'post',
-                error: function (err) {
-                    console.log(err);
                 }
             })
         }
